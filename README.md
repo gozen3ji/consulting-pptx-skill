@@ -5,7 +5,7 @@
 
 A Claude Code skill for generating boardroom-quality PowerPoint decks: a catalog of 38 consulting slide archetypes, a JSON SlideSpec format, a render pipeline (HTML preview → natively editable PPTX), a slide-design rulebook, and an automated rule checker.
 
-私たちが実際に毎週の提案書・報告書づくりで使っている仕組みの公開版です。解説記事はこちら → [note（【公式】Jinba）](https://note.com/jinbaflow)
+私たちが実際に毎週の提案書・報告書づくりで使っている仕組みの公開版です。解説記事はこちら → [AIにまじなスライド作らせる（note）](https://note.com/jinbaflow/n/nc8372b84e572)
 
 ## 本質は `references/slide-rules.md`（約80項目のスライド規約）
 
