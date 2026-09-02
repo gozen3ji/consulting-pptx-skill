@@ -60,6 +60,9 @@ th.ax{border-right:1.8px solid #241a10}
 .chev .t{font-size:10.5pt;font-weight:700;margin:1mm 0 1.5mm 0;color:#241a10}
 .chev .x{font-size:9pt;line-height:1.55;color:#4a3d30}
 .two{display:grid;grid-template-columns:1.5fr auto 1fr;gap:6mm;flex:1;min-height:0;align-items:stretch}
+.two>div:first-child,.two>div:last-child{display:flex;flex-direction:column;min-height:0}
+.two>div:first-child table{flex:1}
+.two>div:last-child ul{flex:1;display:flex;flex-direction:column;justify-content:center}
 .two .colh{font-family:"Yu Mincho",serif;font-size:11.5pt;font-weight:700;color:#6b4a2b;border-bottom:1.8px solid #241a10;padding:2.5mm 0 1.5mm 0;margin-bottom:3mm}
 .two ul{margin:0;padding-left:4.5mm;font-size:10pt;line-height:1.8;color:#4a3d30}
 .two li{margin-bottom:2.5mm}
@@ -171,19 +174,29 @@ th.ax{border-right:1.8px solid #241a10}
   <div class="foot"><b>◯◯資料</b><span>6</span></div>
 </section>
 
-<!-- ═══ パーツ07: 大型数値（スタット）＋補足行 ═══ -->
+<!-- ═══ パーツ07: 大型数値（左=軸つき数値表・右=「だから、こう読める」。スタット羅列＋補足行の縦積みは読みにくいので使わない） ═══ -->
 <section class="s">
   <div class="bar"><div class="logo">◯◯</div><div class="date">◯◯</div></div>
   <h1>◯◯は、◯◯を掲げ◯◯を続けている（数値の意味を結論に）</h1>
   <div class="c">
-    <div class="grid g3 fix">
-      <div class="stat"><div class="lb">◯◯◯◯</div><div class="v">◯◯◯</div><div class="cp">注：◯◯◯◯◯◯</div></div>
-      <div class="stat l"><div class="lb">◯◯◯◯</div><div class="v">◯◯◯</div><div class="cp">注：◯◯◯◯◯◯</div></div>
-      <div class="stat l"><div class="lb">◯◯◯◯</div><div class="v">◯◯◯</div><div class="cp">注：◯◯◯◯◯◯</div></div>
-    </div>
-    <div class="rows">
-      <div class="r"><div class="l">◯◯</div><div>◯◯◯◯◯◯◯◯</div></div>
-      <div class="r"><div class="l">◯◯</div><div>◯◯◯◯◯◯◯◯</div></div>
+    <div class="two">
+      <div>
+        <div class="colh">数値で見る◯◯の現状</div>
+        <table>
+          <tr><td class="ax" style="width:44mm">◯◯◯◯</td><td class="b" style="width:34mm;font-size:14pt">◯◯◯</td><td>◯◯◯◯◯◯</td></tr>
+          <tr><td class="ax">◯◯◯◯</td><td class="b" style="font-size:14pt">◯◯◯</td><td>◯◯◯◯◯◯</td></tr>
+          <tr><td class="ax">◯◯◯◯</td><td class="b" style="font-size:14pt">◯◯◯</td><td>◯◯◯◯◯◯</td></tr>
+        </table>
+      </div>
+      <div class="tri"></div>
+      <div>
+        <div class="colh">だから、こう読める</div>
+        <ul>
+          <li>◯◯◯◯◯◯</li>
+          <li>◯◯◯◯◯◯</li>
+          <li>◯◯◯◯◯◯</li>
+        </ul>
+      </div>
     </div>
     <div class="src">出典：◯◯◯◯より作成</div>
   </div>

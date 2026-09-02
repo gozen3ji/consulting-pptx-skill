@@ -29,7 +29,7 @@ description: コンサル型スライド38型の「型システム」から経�
 | SlideSpecスキーマ | `pipeline/slide-spec/schema.json` |
 | スライド設計規約（正典） | `references/slide-rules.md` |
 | 自由記述パーツテンプレ（本線Aレーン用） | `templates/freeform_parts_16x9.html`（表紙・全体マップ・矢羽・前提→帰結2カラム・スタット・軸のある表など10パーツ。ニュートラル配色） |
-| 機械チェックスクリプト | `scripts/check_deck.py`（要 `pip3 install python-pptx`） |
+| 機械チェックスクリプト | `scripts/check_deck.py`（PPTXを検査するときのみ `pip3 install python-pptx` が必要。HTML検査は標準ライブラリのみ） |
 | おまけ: テンプレPPTX見本帳 | `assets/SuperTemplate_38type.pptx`（全38型を1枚ずつ収録。手動利用・一覧確認用） |
 
 ## 38型カタログ（型ID / 使いどころ）
@@ -80,7 +80,19 @@ description: コンサル型スライド38型の「型システム」から経�
 
 ## デッキ作成の手順（実運用フロー）
 
+共通の手順1のあと、**Aレーン（自由記述）は手順A、Bレーン（パイプライン）は手順2〜4**に進む。
+
 1. **作る前に定義する（Define-before-Produce）**: 目的・成果物の定義・スコープIN/OUTを3〜5行で先に合意する。前提が薄いまま豪華な体裁で出すのが最悪の失敗。
+
+**手順A（自由記述レーン — 本線）**
+- `templates/freeform_parts_16x9.html` をコピーし、不要な section を消して差し替える。38型カタログはレイアウトの発想帳として眺めるだけでよい。
+- 出力後は `python3 scripts/check_deck.py mydeck.html` で FAIL 0 にする（表紙・裏表紙の「タイトル空」WARNは許容）。
+- PDF化して全ページ目視する。例:
+  ```bash
+  "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --disable-gpu \
+    --no-pdf-header-footer --print-to-pdf=mydeck.pdf mydeck.html   # @page 設定済み・ページ数=スライド数
+  ```
+- 以降の手順2〜4はBレーン専用なので読み飛ばしてよい。
 2. ストーリーに合わせてカタログから型を選ぶ。**枠組み → 証拠 → 比較 → 構造 → 計画** の順が基本形。
 3. `pipeline/slide-spec/super_template.json` から該当する型のスライド定義をコピーして新しいSlideSpec（JSON）を作り、文言・データを実物に差し替える。
    - `title` は12字以上・主張文（体言止め）。`source` 行は必須。プレースホルダー（Text N / ラベルN）を1つも残さない。
