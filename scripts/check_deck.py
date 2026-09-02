@@ -46,6 +46,30 @@ TERM_VARIANTS = [
 ]
 
 
+# AI臭ワード（slide-rules §7.9 / references/ai-smell-lexicon.md）。高確度語のみ WARN。
+AI_SMELL_WORDS = [
+    "まさに", "非常に", "極めて", "圧倒的", "画期的", "革新的", "次世代の",
+    "過言ではありません", "に他なりません", "シームレス", "シナジー", "ソリューション",
+    "エンドツーエンド", "ブラッシュアップ", "付加価値",
+    "寄り添い", "伴走し", "二人三脚", "さらなる高みへ", "邁進",
+    "昨今", "変化の激しい", "という点において", "の観点から",
+    "させていただきます", "いただけますと幸いです",
+    "と言えるでしょう", "と考えられます", "することが可能です",
+]
+
+
+def check_ai_smell(pages):
+    """slide-rules §7.9: AI臭の高確度語を検出（WARN。文脈上正当なら目視で無視してよい）"""
+    hits = {}
+    for i, txt in pages:
+        found = [w for w in AI_SMELL_WORDS if w in txt]
+        if found:
+            hits[i] = found
+    if hits:
+        detail = "、".join(f"p{i}:「{'/'.join(ws[:3])}」" for i, ws in sorted(hits.items())[:6])
+        warn(f"AI臭ワード検出: {detail}（§7.9 / ai-smell-lexicon.md — 素の動詞・直球の言い方に置き換え）")
+
+
 def check_terms(pages):
     """pages: [(idx, text), ...] 資料全体で両方の表記が出たら WARN（意味が別なら目視で無視してよい）"""
     for la, pa, lb, pb in TERM_VARIANTS:
@@ -157,6 +181,7 @@ def check_pptx(path):
                     if szs and max(szs) <= 12 and not any(r.font.bold for p in sh.text_frame.paragraphs for r in p.runs):
                         warn(f"p{i}: タイトル直下にサブタイトルらしき行: 「{txt}」")
     check_terms(term_pages)
+    check_ai_smell(term_pages)
     return titles
 
 
@@ -227,8 +252,10 @@ def check_html(path):
         warn("`.slide` 要素が見つからない（タイトル検査スキップ）")
     if slides:
         check_terms([(i, re.sub(r"<[^>]+>", " ", s)) for i, s in enumerate(slides, 1)])
+        check_ai_smell([(i, re.sub(r"<[^>]+>", " ", s)) for i, s in enumerate(slides, 1)])
     else:
         check_terms([(1, re.sub(r"<[^>]+>", " ", html))])
+        check_ai_smell([(1, re.sub(r"<[^>]+>", " ", html))])
     return titles
 
 
