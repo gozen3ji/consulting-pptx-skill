@@ -78,12 +78,20 @@
         },
         "headers": {
           "type": "object",
-          "description": "comparison_table only — localizable column labels (defaults: Criterion/Company/Competitors/Implication).",
+          "description": "Localizable table/label headers. comparison_table: criterion/company/competitor/implication. scenario_table: case/outcome/assumptions/implication. risk_table: risk/signal/mitigation/owner. cause_effect: effect. English defaults keep old specs working; Japanese decks should set these.",
           "properties": {
             "criterion": { "type": "string" },
             "company": { "type": "string" },
             "competitor": { "type": "string" },
-            "implication": { "type": "string" }
+            "implication": { "type": "string" },
+            "case": { "type": "string" },
+            "outcome": { "type": "string" },
+            "assumptions": { "type": "string" },
+            "risk": { "type": "string" },
+            "signal": { "type": "string" },
+            "mitigation": { "type": "string" },
+            "owner": { "type": "string" },
+            "effect": { "type": "string" }
           }
         },
         "items": {

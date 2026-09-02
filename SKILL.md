@@ -5,11 +5,20 @@ description: コンサル型スライド38型の「型システム」から経�
 
 # コンサル型スライド作成スキル（38型・SlideSpec生成パイプライン）
 
-戦略系コンサルティングファームの公開資料を大量に実測して抽出したスライドの「型」38種類を、
-**SlideSpec（JSONによるスライド定義）→ HTMLプレビュー → 編集可能PPTX** の自動生成パイプラインで組み立てる。
+戦略系コンサルティングファームの公開資料を大量に実測して抽出したスライドの「型」38種類と、規約約80項目・機械チェック・自由記述テンプレートのセット。
 
 **本質は `references/slide-rules.md`（約80項目の規約）。作成前に必ず読み、出力後は `scripts/check_deck.py` で機械チェックする。**
-型とパイプラインは、たたき台を数十秒で出すための道具にすぎない。良いスライドは、たたき台を出した後に**型に囚われず規約の範囲で自由に考えて調整する**工程で決まる。型に引っ張られすぎないこと。調整で受けた指摘は slide-rules.md に1行ずつ追記して蓄積する。
+
+## 2つの作り方（本線は自由記述）
+
+| レーン | 使いどころ | 道具 |
+| --- | --- | --- |
+| **A. 自由記述（本線）** | 納品物・こだわるデッキ全般。1枚ごとに構成を考えて組む | `templates/freeform_parts_16x9.html` をコピーし、不要パーツを消して差し替える。38型カタログは「レイアウトの発想帳」として眺めるだけ |
+| B. SlideSpecパイプライン | 数十秒でたたき台が欲しいとき・定型レポートの量産・編集可能PPTXが要るとき | SlideSpec（JSON）→ HTML → QA → PPTX の自動生成 |
+
+**型に引っ張られない**ことが品質の分かれ目。パイプラインは型のスロットに文言を流し込むことしかできないので、
+「この型のままでよいか」を1枚ごとに疑い、収まらないと感じたらAレーンでそのスライドだけ自由に組み直す。
+調整で受けた指摘は slide-rules.md に1行ずつ追記して蓄積する。
 
 ## 同梱物
 
@@ -19,6 +28,7 @@ description: コンサル型スライド38型の「型システム」から経�
 | 38型のSlideSpec正本 | `pipeline/slide-spec/super_template.json` |
 | SlideSpecスキーマ | `pipeline/slide-spec/schema.json` |
 | スライド設計規約（正典） | `references/slide-rules.md` |
+| 自由記述パーツテンプレ（本線Aレーン用） | `templates/freeform_parts_16x9.html`（表紙・全体マップ・矢羽・前提→帰結2カラム・スタット・軸のある表など10パーツ。ニュートラル配色） |
 | 機械チェックスクリプト | `scripts/check_deck.py`（要 `pip3 install python-pptx`） |
 | おまけ: テンプレPPTX見本帳 | `assets/SuperTemplate_38type.pptx`（全38型を1枚ずつ収録。手動利用・一覧確認用） |
 
@@ -74,6 +84,7 @@ description: コンサル型スライド38型の「型システム」から経�
 2. ストーリーに合わせてカタログから型を選ぶ。**枠組み → 証拠 → 比較 → 構造 → 計画** の順が基本形。
 3. `pipeline/slide-spec/super_template.json` から該当する型のスライド定義をコピーして新しいSlideSpec（JSON）を作り、文言・データを実物に差し替える。
    - `title` は12字以上・主張文（体言止め）。`source` 行は必須。プレースホルダー（Text N / ラベルN）を1つも残さない。
+   - **日本語デッキでは表ヘッダーを必ず日本語化する**: `comparison_table` / `scenario_table` / `risk_table` / `cause_effect` はスライドに `"headers": {...}` を付けて列名を差し替える（例: `{"case": "シナリオ", "outcome": "想定される展開", "assumptions": "前提", "implication": "含意"}`。キーは `schema.json` の headers 定義を参照）。英語デフォルトのまま納品しない。
 4. **パイプラインでビルド**（初回のみ `cd pipeline && npm run setup`）:
    ```bash
    cd pipeline

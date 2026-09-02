@@ -208,21 +208,31 @@ function renderComparison(slide, n) {
 }
 
 function renderScenario(slide, n) {
+  // Column headers are localizable via slide.headers (English defaults keep old specs working).
+  const h = slide.headers || {};
+  const heads = [h.case || "Case", h.outcome || "Revenue outcome", h.assumptions || "Key assumptions", h.implication || "Management implication"]
+    .map((label) => `<th>${esc(label)}</th>`)
+    .join("");
   const rows = (slide.table || [])
     .map(
       (r) => `<tr><td><span class="lead">${esc(r.case)}</span></td><td><span class="num">${esc(r.outcome)}</span></td><td>${esc(r.assumptions)}</td><td>${esc(r.implication)}</td></tr>`,
     )
     .join("");
-  return shell(slide, n, `<table class="scenario-table"><thead><tr><th>Case</th><th>Revenue outcome</th><th>Key assumptions</th><th>Management implication</th></tr></thead><tbody>${rows}</tbody></table>`);
+  return shell(slide, n, `<table class="scenario-table"><thead><tr>${heads}</tr></thead><tbody>${rows}</tbody></table>`);
 }
 
 function renderRisk(slide, n) {
+  // Column headers are localizable via slide.headers (English defaults keep old specs working).
+  const h = slide.headers || {};
+  const heads = [h.risk || "Risk", h.signal || "Signal to track", h.mitigation || "Mitigation", h.owner || "Owner"]
+    .map((label) => `<th>${esc(label)}</th>`)
+    .join("");
   const rows = (slide.table || [])
     .map(
       (r) => `<tr class="${r.severity === "high" ? "risk-high" : "risk-med"}"><td><span class="lead">${esc(r.risk)}</span></td><td>${esc(r.signal)}</td><td>${esc(r.mitigation)}</td><td>${esc(r.owner)}</td></tr>`,
     )
     .join("");
-  return shell(slide, n, `<table class="risk-table"><thead><tr><th>Risk</th><th>Signal to track</th><th>Mitigation</th><th>Owner</th></tr></thead><tbody>${rows}</tbody></table>`);
+  return shell(slide, n, `<table class="risk-table"><thead><tr>${heads}</tr></thead><tbody>${rows}</tbody></table>`);
 }
 
 function renderRoadmap(slide, n) {
@@ -545,7 +555,7 @@ function renderCauseEffect(slide, n) {
   return shell(
     slide,
     n,
-    `<div class="ce"><div class="ce-causes">${causes}</div><div class="ce-arrow" aria-hidden="true">&#8594;</div><div class="ce-effect"><div class="ce-effect-label">Effect</div><div class="ce-effect-text">${esc(ce.effect)}</div></div></div>`,
+    `<div class="ce"><div class="ce-causes">${causes}</div><div class="ce-arrow" aria-hidden="true">&#8594;</div><div class="ce-effect"><div class="ce-effect-label">${esc((slide.headers || {}).effect || "Effect")}</div><div class="ce-effect-text">${esc(ce.effect)}</div></div></div>`,
     { noTitleRule: true },
   );
 }

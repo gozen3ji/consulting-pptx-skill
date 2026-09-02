@@ -369,21 +369,24 @@ function addWaterfall(item, pageNum) {
 
 function addComparison(item, pageNum) {
   const slide = addShell(item, pageNum);
-  const headers = ["Criterion", "Company", "Competitors", "Implication"];
+  const h = item.headers || {};
+  const headers = [h.criterion || "Criterion", h.company || "Company", h.competitor || "Competitors", h.implication || "Implication"];
   const rows = (item.table || []).map((r) => [r.criterion, r.company, r.competitor, r.implication]);
   addTableLike(slide, headers, rows, [2.4, 2.4, 2.4, 4.93], 2.22, {});
 }
 
 function addScenario(item, pageNum) {
   const slide = addShell(item, pageNum);
-  const headers = ["Case", "Revenue outcome", "Key assumptions", "Management implication"];
+  const h = item.headers || {};
+  const headers = [h.case || "Case", h.outcome || "Revenue outcome", h.assumptions || "Key assumptions", h.implication || "Management implication"];
   const rows = (item.table || []).map((r) => [r.case, r.outcome, r.assumptions, r.implication]);
   addTableLike(slide, headers, rows, [1.7, 1.9, 4.3, 4.23], 2.22, { numericCol: 1 });
 }
 
 function addRisk(item, pageNum) {
   const slide = addShell(item, pageNum);
-  const headers = ["Risk", "Signal to track", "Mitigation", "Owner"];
+  const h = item.headers || {};
+  const headers = [h.risk || "Risk", h.signal || "Signal to track", h.mitigation || "Mitigation", h.owner || "Owner"];
   const rows = (item.table || []).map((r) => [r.risk, r.signal, r.mitigation, r.owner]);
   addTableLike(slide, headers, rows, [3.1, 2.8, 5.0, 1.23], 2.22, {});
 }
@@ -942,7 +945,7 @@ function addCauseEffect(item, pageNum) {
   const effW = W - M - effX;
   const effH = (causes.length - 1) * (cH + gap) + cH;
   slide.addShape(pptx.ShapeType.rect, { x: effX, y: topY, w: effW, h: effH, fill: { color: WHITE }, line: { color: BLUE, width: 1.6 } });
-  addBodyText(slide, "EFFECT", effX + 0.3, topY + 0.3, effW - 0.6, 0.26, { fontSize: 11, bold: true, color: BLUE });
+  addBodyText(slide, ((item.headers || {}).effect || "EFFECT"), effX + 0.3, topY + 0.3, effW - 0.6, 0.26, { fontSize: 11, bold: true, color: BLUE });
   addBodyText(slide, ce.effect || "", effX + 0.3, topY + 0.7, effW - 0.6, effH - 1.0, { fontSize: 17, bold: true });
 }
 

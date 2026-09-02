@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8">
+<title>自由記述デッキ パーツテンプレート 16:9</title>
+<!--
+  ============================================================
+  自由記述（freeform）デッキのパーツ集（16:9・1パーツ=1スライド）
+  38型パイプラインの「型」に収まらないデッキは、このファイルをコピーして
+  不要な section を消し、「◯◯」を差し替えて自由に組む。
+  規約の正典: references/slide-rules.md（作成前に必読）
+  納品前: check_deck.py で FAIL 0 → PDF化して全ページ目視。
+  配色はニュートラルな暖色系プレースホルダー — 自ブランドの色に差し替えて使う。
+  ============================================================
+-->
+<style>
+@page{size:338.67mm 190.5mm;margin:0}
+html,body{margin:0;background:#e9e6df;font-family:"Yu Gothic","YuGothic","Hiragino Sans",sans-serif;color:#241a10}
+.s{width:338.67mm;height:190.5mm;background:#FFFFFF;position:relative;margin:8mm auto;box-sizing:border-box;padding:9mm 16mm 0 16mm;overflow:hidden;page-break-after:always;display:flex;flex-direction:column;align-items:stretch}
+.bar{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:1.5px solid #241a10;padding-bottom:2.2mm;margin-top:3mm;flex:0 0 auto}
+.logo{font-family:"Yu Mincho","Hiragino Mincho ProN",serif;font-weight:700;font-size:18pt;color:#241a10}
+.date{font-size:7.5pt;letter-spacing:.15em;color:#8a7c6c}
+h1{margin:4.5mm 0 0 0;font-family:"Yu Mincho","Hiragino Mincho ProN",serif;font-size:22pt;line-height:1.3;color:#241a10;font-weight:700;flex:0 0 auto;white-space:nowrap}
+.c{margin-top:6mm;flex:1;min-height:0;display:flex;flex-direction:column;gap:5mm;margin-bottom:19mm}
+.c>.grid{flex:1;grid-auto-rows:1fr;min-height:0}
+.c>.grid.fix{flex:0 0 auto}
+.foot{position:absolute;left:16mm;right:16mm;bottom:5mm;padding-top:2.5mm;border-top:1px solid #c7b69e;display:flex;justify-content:space-between;font-size:7.5pt;color:#8a7c6c}
+.foot b{color:#241a10;font-size:8.5pt}
+.src{font-size:7.5pt;color:#8a7c6c;flex:0 0 auto}
+.grid{display:grid;gap:4mm}
+.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+.card{background:#f1ebe0;border:0;display:flex;flex-direction:column;box-sizing:border-box}
+.hd{display:flex;align-items:baseline;gap:2.5mm;padding:3.5mm 4mm 2.5mm 4mm;border-bottom:1px solid #e3dccf}
+.no{font-size:14pt;font-weight:700;color:#6b4a2b;line-height:1}
+.h{font-size:11pt;font-weight:700;color:#241a10;line-height:1.3}
+.bd{padding:3.5mm 4.5mm;font-size:10pt;line-height:1.7;color:#4a3d30;flex:1}
+.ref{font-size:8pt;color:#6b4a2b;font-weight:700;margin-left:auto;white-space:nowrap}
+.rows .r{display:grid;grid-template-columns:44mm 1fr;gap:6mm;padding:4mm 0;border-top:1px solid #c7b69e;font-size:10.5pt;line-height:1.6}
+.rows .r:first-child{border-top:0}
+.rows .l{font-family:"Yu Mincho",serif;font-weight:700;font-size:11.5pt;color:#6b4a2b}
+.c>.rows{flex:1;display:flex;flex-direction:column}
+.c>.rows .r{flex:1;align-items:center}
+.stat{background:#241a10;color:#fff;padding:4mm 5mm}
+.stat.l{background:#f1ebe0;color:#241a10}
+.stat .lb{font-size:7.5pt;letter-spacing:.1em;font-weight:700;color:#d8c8ab}
+.stat.l .lb{color:#8a7c6c}
+.stat .v{font-size:22pt;font-weight:700;margin:1mm 0}
+.stat .cp{font-size:7.5pt;color:#d8c8ab;line-height:1.6}
+.stat.l .cp{color:#8a7c6c}
+table{border-collapse:collapse;width:100%;font-size:10pt;flex:0 0 auto}
+th{background:none;text-align:left;padding:2.5mm;font-size:11.5pt;font-weight:700;color:#241a10;border-bottom:1.8px solid #241a10}
+td{padding:4mm 2.5mm;border-bottom:1px solid #c7b69e;vertical-align:middle;line-height:1.65;color:#4a3d30}
+td.b{font-weight:700;color:#241a10}
+tr:last-child td{border-bottom:0}
+td.ax{font-size:11pt;font-weight:700;color:#6b4a2b;font-family:"Yu Mincho",serif;border-right:1.8px solid #241a10}
+th.ax{border-right:1.8px solid #241a10}
+.c>table{flex:1}
+.chev{display:flex;gap:0;flex:0 0 auto}
+.chev .cv{flex:1;position:relative;background:#efe8da;border:0;padding:5mm 4mm 5mm 9mm;clip-path:polygon(0 0,calc(100% - 6mm) 0,100% 50%,calc(100% - 6mm) 100%,0 100%,6mm 50%);display:flex;flex-direction:column}
+.chev .cv:first-child{clip-path:polygon(0 0,calc(100% - 6mm) 0,100% 50%,calc(100% - 6mm) 100%,0 100%);padding-left:5mm}
+.chev .n{font-size:12pt;font-weight:700;color:#6b4a2b}
+.chev .t{font-size:10.5pt;font-weight:700;margin:1mm 0 1.5mm 0;color:#241a10}
+.chev .x{font-size:9pt;line-height:1.55;color:#4a3d30}
+.two{display:grid;grid-template-columns:1.5fr auto 1fr;gap:6mm;flex:1;min-height:0;align-items:stretch}
+.two .colh{font-family:"Yu Mincho",serif;font-size:11.5pt;font-weight:700;color:#6b4a2b;border-bottom:1.8px solid #241a10;padding:2.5mm 0 1.5mm 0;margin-bottom:3mm}
+.two ul{margin:0;padding-left:4.5mm;font-size:10pt;line-height:1.8;color:#4a3d30}
+.two li{margin-bottom:2.5mm}
+.tri{align-self:center;width:0;height:0;border-top:5mm solid transparent;border-bottom:5mm solid transparent;border-left:6mm solid #c9a97e}
+.cover .big{font-family:"Yu Mincho",serif;font-size:34pt;font-weight:700;color:#241a10;margin-top:38mm;line-height:1.25}
+.cover .sub{font-family:"Yu Mincho",serif;font-size:15pt;font-weight:700;color:#6b4a2b;margin-top:3mm}
+.cover .rule{width:32mm;height:1mm;background:#6b4a2b;margin:8mm 0 4mm 0}
+.chap .cno{font-family:"Yu Mincho",serif;font-size:15pt;font-weight:700;color:#6b4a2b;margin-top:55mm;letter-spacing:.2em}
+.chap .cbig{font-family:"Yu Mincho",serif;font-size:30pt;font-weight:700;color:#241a10;margin-top:4mm}
+.toc{margin-top:4mm}
+.toc .ti{display:grid;grid-template-columns:14mm 1fr 14mm;gap:4mm;padding:3.6mm 0;border-bottom:1px solid #c7b69e;font-size:11.5pt;align-items:baseline}
+.toc .ti .tn{font-family:"Yu Mincho",serif;font-weight:700;color:#6b4a2b}
+.toc .ti .tp{text-align:right;color:#8a7c6c;font-size:9pt}
+.legend{display:flex;gap:6mm;justify-content:flex-end;font-size:8pt;color:#4a3d30;flex:0 0 auto}
+.legend span{display:flex;align-items:center;gap:1.5mm}
+.legend i{width:4mm;height:4mm;display:inline-block}
+.legend .li-a{background:#efe8da}
+.legend .li-b{background:#241a10}
+@media print{html,body{background:#fff}.s{margin:0!important;transform:none!important}.fitwrap{width:auto!important;height:auto!important;margin:0!important}}
+</style></head><body>
+
+<!-- ═══ パーツ01: 表紙 ═══ -->
+<section class="s cover">
+  <div class="bar"><div class="logo">◯◯</div><div class="date">◯◯向け ｜ YYYY-MM-DD</div></div>
+  <div class="big">◯◯◯◯◯◯</div>
+  <div class="rule"></div>
+  <div class="sub">◯◯◯◯ — ◯◯◯◯に基づく整理</div>
+  <div class="foot"><b>◯◯資料</b><span></span></div>
+</section>
+
+<!-- ═══ パーツ02: 全体マップ（P.2 必須 — 各行に → P.n 参照） ═══ -->
+<section class="s">
+  <div class="bar"><div class="logo">◯◯</div><div class="date">全体マップ</div></div>
+  <h1>◯◯は、◯◯と◯◯が併存する（結論を1行で）</h1>
+  <div class="c">
+    <div class="rows">
+      <div class="r"><div class="l">◯◯</div><div>◯◯◯◯◯◯◯◯<span class="ref">→ P.3</span></div></div>
+      <div class="r"><div class="l">◯◯</div><div>◯◯◯◯◯◯◯◯<span class="ref">→ P.4</span></div></div>
+      <div class="r"><div class="l">◯◯</div><div>◯◯◯◯◯◯◯◯<span class="ref">→ P.5</span></div></div>
+      <div class="r"><div class="l">◯◯</div><div>◯◯◯◯◯◯◯◯<span class="ref">→ P.6</span></div></div>
+    </div>
+    <div class="src">出典：◯◯◯◯より作成</div>
+  </div>
+  <div class="foot"><b>◯◯資料</b><span>2</span></div>
+</section>
+
+<!-- ═══ パーツ03: 目次（1列） ═══ -->
+<section class="s">
+  <div class="bar"><div class="logo">◯◯</div><div class="date">目次</div></div>
+  <h1>本日の内容</h1>
+  <div class="c"><div class="toc">
+    <div class="ti"><span class="tn">01</span><span>◯◯◯◯</span><span class="tp">P.4</span></div>
+    <div class="ti"><span class="tn">02</span><span>◯◯◯◯</span><span class="tp">P.6</span></div>
+    <div class="ti"><span class="tn">03</span><span>◯◯◯◯</span><span class="tp">P.8</span></div>
+  </div></div>
+  <div class="foot"><b>◯◯資料</b><span>3</span></div>
+</section>
+
+<!-- ═══ パーツ04: 章扉 ═══ -->
+<section class="s chap">
+  <div class="bar"><div class="logo">◯◯</div><div class="date">◯◯</div></div>
+  <div class="cno">01</div>
+  <div class="cbig">◯◯◯◯</div>
+  <div class="foot"><b>◯◯資料</b><span>4</span></div>
+</section>
+
+<!-- ═══ パーツ05: 矢羽（プロセス・変遷。色分けするなら凡例必須） ═══ -->
+<section class="s">
+  <div class="bar"><div class="logo">◯◯</div><div class="date">◯◯ 1/2</div></div>
+  <h1>◯◯は、◯◯を挟み◯回変わった（経緯の結論）</h1>
+  <div class="c" style="justify-content:center">
+    <div class="chev">
+      <div class="cv"><span class="n">YYYY年M月</span><span class="t">◯◯◯◯</span><span class="x">◯◯◯◯◯◯</span></div>
+      <div class="cv"><span class="n">YYYY年M月</span><span class="t">◯◯◯◯</span><span class="x">◯◯◯◯◯◯</span></div>
+      <div class="cv"><span class="n">YYYY年M月</span><span class="t">◯◯◯◯</span><span class="x">◯◯◯◯◯◯</span></div>
+      <div class="cv"><span class="n">現在</span><span class="t">◯◯◯◯</span><span class="x">◯◯◯◯◯◯</span></div>
+    </div>
+    <div class="src">出典：◯◯◯◯より作成</div>
+  </div>
+  <div class="foot"><b>◯◯資料</b><span>5</span></div>
+</section>
+
+<!-- ═══ パーツ06: 前提→帰結の2カラム（左=事実の表・中央三角・右=「だから、◯◯」） ═══ -->
+<section class="s">
+  <div class="bar"><div class="logo">◯◯</div><div class="date">◯◯ 2/2</div></div>
+  <h1>◯◯は、◯◯が崩れ、◯◯に移った（因果の結論）</h1>
+  <div class="c">
+    <div class="two">
+      <div>
+        <div class="colh">◯◯の推移（事実）</div>
+        <table>
+          <tr><td class="ax" style="width:34mm">YYYY年M月</td><td>◯◯◯◯◯◯</td></tr>
+          <tr><td class="ax">YYYY年M月</td><td>◯◯◯◯◯◯</td></tr>
+          <tr><td class="ax">YYYY年M月〜</td><td>◯◯◯◯◯◯</td></tr>
+        </table>
+      </div>
+      <div class="tri"></div>
+      <div>
+        <div class="colh">だから、◯◯はこう変わる</div>
+        <ul>
+          <li>◯◯◯◯◯◯（語尾は階層内で統一）</li>
+          <li>◯◯◯◯◯◯</li>
+          <li>◯◯◯◯◯◯</li>
+        </ul>
+      </div>
+    </div>
+    <div class="src">出典：◯◯◯◯より作成</div>
+  </div>
+  <div class="foot"><b>◯◯資料</b><span>6</span></div>
+</section>
+
+<!-- ═══ パーツ07: 大型数値（スタット）＋補足行 ═══ -->
+<section class="s">
+  <div class="bar"><div class="logo">◯◯</div><div class="date">◯◯</div></div>
+  <h1>◯◯は、◯◯を掲げ◯◯を続けている（数値の意味を結論に）</h1>
+  <div class="c">
+    <div class="grid g3 fix">
+      <div class="stat"><div class="lb">◯◯◯◯</div><div class="v">◯◯◯</div><div class="cp">注：◯◯◯◯◯◯</div></div>
+      <div class="stat l"><div class="lb">◯◯◯◯</div><div class="v">◯◯◯</div><div class="cp">注：◯◯◯◯◯◯</div></div>
+      <div class="stat l"><div class="lb">◯◯◯◯</div><div class="v">◯◯◯</div><div class="cp">注：◯◯◯◯◯◯</div></div>
+    </div>
+    <div class="rows">
+      <div class="r"><div class="l">◯◯</div><div>◯◯◯◯◯◯◯◯</div></div>
+      <div class="r"><div class="l">◯◯</div><div>◯◯◯◯◯◯◯◯</div></div>
+    </div>
+    <div class="src">出典：◯◯◯◯より作成</div>
+  </div>
+  <div class="foot"><b>◯◯資料</b><span>7</span></div>
+</section>
+
+<!-- ═══ パーツ08: 並列カード 2×2（粒度・縦幅・語尾を統一） ═══ -->
+<section class="s">
+  <div class="bar"><div class="logo">◯◯</div><div class="date">◯◯</div></div>
+  <h1>◯◯は、◯◯と◯◯で成果を挙げ、◯◯に注力する</h1>
+  <div class="c">
+    <div class="grid g2">
+      <div class="card"><div class="hd"><span class="h">◯◯ — ◯◯◯◯（主語＋何をする で統一）</span></div>
+        <div class="bd">• ◯◯◯◯◯◯<br>• ◯◯◯◯◯◯</div></div>
+      <div class="card"><div class="hd"><span class="h">◯◯ — ◯◯◯◯</span></div>
+        <div class="bd">• ◯◯◯◯◯◯<br>• ◯◯◯◯◯◯</div></div>
+      <div class="card"><div class="hd"><span class="h">◯◯ — ◯◯◯◯</span></div>
+        <div class="bd">• ◯◯◯◯◯◯<br>• ◯◯◯◯◯◯</div></div>
+      <div class="card"><div class="hd"><span class="h">◯◯ — ◯◯◯◯</span></div>
+        <div class="bd">• ◯◯◯◯◯◯<br>• ◯◯◯◯◯◯</div></div>
+    </div>
+    <div class="src">出典：◯◯◯◯より作成</div>
+  </div>
+  <div class="foot"><b>◯◯資料</b><span>8</span></div>
+</section>
+
+<!-- ═══ パーツ09: 軸のある表（行=軸・列=観点。最終行の下は罫線なし） ═══ -->
+<section class="s">
+  <div class="bar"><div class="logo">◯◯</div><div class="date">◯◯</div></div>
+  <h1>◯◯は、◯◯が◯◯を左右する（表で示す結論）</h1>
+  <div class="c">
+    <table>
+      <tr><th class="ax" style="width:52mm">◯◯（軸）</th><th>◯◯◯◯</th><th style="width:70mm">◯◯◯◯</th><th style="width:78mm">◯◯◯◯</th></tr>
+      <tr><td class="ax">◯◯◯◯</td><td>◯◯◯◯◯◯</td><td>◯◯◯◯</td><td>◯◯◯◯</td></tr>
+      <tr><td class="ax">◯◯◯◯</td><td>◯◯◯◯◯◯</td><td>◯◯◯◯</td><td>◯◯◯◯</td></tr>
+      <tr><td class="ax">◯◯◯◯</td><td>◯◯◯◯◯◯</td><td>◯◯◯◯</td><td>◯◯◯◯</td></tr>
+    </table>
+    <div class="src">出典：◯◯◯◯より作成</div>
+  </div>
+  <div class="foot"><b>◯◯資料</b><span>9</span></div>
+</section>
+
+<!-- ═══ パーツ10: 裏表紙（メッセージなし。CTAは手前の通常スライドへ） ═══ -->
+<section class="s cover">
+  <div class="bar"><div class="logo">◯◯</div><div class="date">◯◯</div></div>
+  <div class="big" style="margin-top:60mm;font-size:22pt">◯◯株式会社</div>
+  <div class="sub">◯◯◯◯（連絡先）</div>
+  <div class="foot"><b>◯◯資料</b><span>10</span></div>
+</section>
+
+<script>
+/* ビューポート幅への等比スケール（印刷時は @media print で無効化） */
+(function () {
+  function fit() {
+    var slides = document.querySelectorAll(".s");
+    if (!slides.length) return;
+    var base = null;
+    slides.forEach(function (el) {
+      el.style.transform = "";
+      var w = el.offsetWidth;
+      if (!base) base = w;
+      var avail = Math.max(320, window.innerWidth - 24);
+      var s = Math.min(1, avail / base);
+      var wrap = el.parentElement;
+      if (!wrap || !wrap.classList.contains("fitwrap")) {
+        wrap = document.createElement("div");
+        wrap.className = "fitwrap";
+        wrap.style.overflow = "hidden";
+        wrap.style.margin = "8mm auto";
+        el.parentNode.insertBefore(wrap, el);
+        wrap.appendChild(el);
+        el.style.margin = "0";
+      }
+      el.style.transformOrigin = "top left";
+      el.style.transform = "scale(" + s + ")";
+      wrap.style.width = base * s + "px";
+      wrap.style.height = el.offsetHeight * s + "px";
+    });
+  }
+  window.addEventListener("resize", fit);
+  window.addEventListener("load", fit);
+  fit();
+})();
+</script>
+</body></html>
