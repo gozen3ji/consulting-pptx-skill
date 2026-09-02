@@ -1,0 +1,1533 @@
+{
+  "deckTitle": "スーパーテンプレ",
+  "deckSubtitle": "38型のレイアウトテンプレート集（プレースホルダー版）",
+  "slides": [
+    {
+      "template": "cover",
+      "kicker": "Super Template",
+      "title": "スーパーテンプレ 38型",
+      "subtitle": "実測38のスライド型 | コピーして文言を差し替えて使う",
+      "source": "資料：スライド型ライブラリより"
+    },
+    {
+      "template": "executive_summary",
+      "kicker": "01  executive_summary",
+      "title": "冒頭で結論と論点を一望させる場合",
+      "sections": [
+        {
+          "title": "タイトル 2",
+          "copy": "Text 1"
+        },
+        {
+          "title": "タイトル 3",
+          "copy": "Text 2"
+        },
+        {
+          "title": "タイトル 4",
+          "copy": "Text 3"
+        }
+      ],
+      "source": "資料：出典を記載"
+    },
+    {
+      "template": "evidence_basis",
+      "kicker": "02  evidence_basis",
+      "title": "この資料が何に基づくかを冒頭で示す場合",
+      "subtitle": "補足（何を・どの範囲で・いつ時点か）",
+      "sections": [
+        {
+          "title": "タイトル 2",
+          "value": "180+",
+          "copy": "Text 1"
+        },
+        {
+          "title": "タイトル 3",
+          "value": "2.4M",
+          "copy": "Text 2"
+        },
+        {
+          "title": "タイトル 4",
+          "value": "640",
+          "copy": "Text 3"
+        },
+        {
+          "title": "タイトル 5",
+          "value": "12",
+          "copy": "Text 4"
+        }
+      ],
+      "source": "資料：出典を記載"
+    },
+    {
+      "template": "big_stat_pair",
+      "kicker": "03  big_stat_pair",
+      "title": "大型数値2つで規模やインパクトを対比する場合",
+      "subtitle": "補足（何を・どの範囲で・いつ時点か）",
+      "kpis": [
+        {
+          "label": "ラベル1",
+          "value": "18%",
+          "note": "注：前提や注記を記載"
+        },
+        {
+          "label": "ラベル2",
+          "value": "7",
+          "note": "注：前提や注記を記載"
+        }
+      ],
+      "source": "資料：出典を記載"
+    },
+    {
+      "template": "kpi_dashboard",
+      "kicker": "04  kpi_dashboard",
+      "title": "主要KPIを一覧で示す場合",
+      "kpis": [
+        {
+          "label": "ラベル1",
+          "value": "-18%",
+          "delta": "Text 1",
+          "note": "注：前提や注記を記載"
+        },
+        {
+          "label": "ラベル2",
+          "value": "0 days",
+          "delta": "Text 2",
+          "note": "注：前提や注記を記載"
+        },
+        {
+          "label": "ラベル3",
+          "value": "2 / 4",
+          "delta": "Text 3",
+          "note": "注：前提や注記を記載"
+        },
+        {
+          "label": "ラベル4",
+          "value": "$6M",
+          "delta": "Text 4",
+          "note": "注：前提や注記を記載"
+        }
+      ],
+      "source": "資料：出典を記載"
+    },
+    {
+      "template": "chart_insight",
+      "kicker": "05  chart_insight",
+      "title": "1つのチャートで主張を証明し、含意を添える場合",
+      "chart": {
+        "unit": "指標名、単位",
+        "series": [
+          {
+            "label": "ラベル1",
+            "value": 32
+          },
+          {
+            "label": "ラベル2",
+            "value": 41
+          },
+          {
+            "label": "ラベル3",
+            "value": 49
+          },
+          {
+            "label": "ラベル4",
+            "value": 58
+          }
+        ]
+      },
+      "sections": [
+        {
+          "title": "タイトル 2",
+          "copy": "Text 1"
+        }
+      ],
+      "note": "注：前提や注記を記載",
+      "source": "資料：出典を記載"
+    },
+    {
+      "template": "stacked_bar",
+      "kicker": "06  stacked_bar",
+      "title": "構成の変化を積み上げ棒で示す場合",
+      "stacks": {
+        "unit": "指標名、単位",
+        "legend": [
+          "ラベル1",
+          "ラベル2",
+          "ラベル3"
+        ],
+        "categories": [
+          {
+            "label": "ラベル4",
+            "segments": [
+              {
+                "value": 40
+              },
+              {
+                "value": 30
+              },
+              {
+                "value": 20
+              }
+            ]
+          },
+          {
+            "label": "ラベル5",
+            "segments": [
+              {
+                "value": 55
+              },
+              {
+                "value": 32
+              },
+              {
+                "value": 22
+              }
+            ]
+          },
+          {
+            "label": "ラベル6",
+            "segments": [
+              {
+                "value": 72
+              },
+              {
+                "value": 33
+              },
+              {
+                "value": 24
+              }
+            ]
+          }
+        ]
+      },
+      "source": "資料：出典を記載"
+    },
+    {
+      "template": "waterfall",
+      "kicker": "07  waterfall",
+      "title": "増減の寄与をブリッジで示す場合",
+      "chart": {
+        "unit": "指標名、単位",
+        "series": [
+          {
+            "label": "ラベル1",
+            "value": 100,
+            "kind": "base"
+          },
+          {
+            "label": "ラベル2",
+            "value": 18,
+            "kind": "up"
+          },
+          {
+            "label": "ラベル3",
+            "value": 24,
+            "kind": "up"
+          },
+          {
+            "label": "ラベル4",
+            "value": -9,
+            "kind": "down"
+          },
+          {
+            "label": "ラベル5",
+            "value": 7,
+            "kind": "up"
+          },
+          {
+            "label": "ラベル6",
+            "value": 140,
+            "kind": "total"
+          }
+        ]
+      },
+      "sections": [
+        {
+          "title": "タイトル 2",
+          "copy": "Text 1"
+        }
+      ],
+      "note": "注：前提や注記を記載",
+      "source": "資料：出典を記載"
+    },
+    {
+      "template": "true_waterfall",
+      "kicker": "08  true_waterfall",
+      "title": "起点から着地までの増減を厳密なブリッジで示す場合",
+      "chart": {
+        "unit": "指標名、単位",
+        "series": [
+          {
+            "label": "ラベル1",
+            "value": 11,
+            "kind": "base"
+          },
+          {
+            "label": "ラベル2",
+            "value": 3,
+            "kind": "down"
+          },
+          {
+            "label": "ラベル3",
+            "value": 4,
+            "kind": "up"
+          },
+          {
+            "label": "ラベル4",
+            "value": 3,
+            "kind": "up"
+          },
+          {
+            "label": "ラベル5",
+            "value": 15,
+            "kind": "total"
+          }
+        ]
+      },
+      "source": "資料：出典を記載"
+    },
+    {
+      "template": "small_multiples",
+      "kicker": "09  small_multiples",
+      "title": "同じ図法を並べて切り口違いで比較する場合",
+      "multiples": [
+        {
+          "label": "ラベル1",
+          "series": [
+            {
+              "label": "ラベル2",
+              "value": 20
+            },
+            {
+              "label": "ラベル3",
+              "value": 35
+            },
+            {
+              "label": "ラベル4",
+              "value": 58
+            }
+          ]
+        },
+        {
+          "label": "ラベル5",
+          "series": [
+            {
+              "label": "ラベル6",
+              "value": 15
+            },
+            {
+              "label": "ラベル7",
+              "value": 28
+            },
+            {
+              "label": "ラベル8",
+              "value": 44
+            }
+          ]
+        },
+        {
+          "label": "ラベル9",
+          "series": [
+            {
+              "label": "ラベル10",
+              "value": 8
+            },
+            {
+              "label": "ラベル11",
+              "value": 14
+            },
+            {
+              "label": "ラベル12",
+              "value": 23
+            }
+          ]
+        },
+        {
+          "label": "ラベル13",
+          "series": [
+            {
+              "label": "ラベル14",
+              "value": 12
+            },
+            {
+              "label": "ラベル15",
+              "value": 22
+            },
+            {
+              "label": "ラベル16",
+              "value": 37
+            }
+          ]
+        }
+      ],
+      "source": "資料：出典を記載"
+    },
+    {
+      "template": "comparison_table",
+      "kicker": "10  comparison_table",
+      "title": "複数の選択肢を評価軸で比較する場合",
+      "table": [
+        {
+          "criterion": "ラベル1",
+          "company": "ラベル2",
+          "competitor": "ラベル3",
+          "implication": "Text 1"
+        },
+        {
+          "criterion": "ラベル4",
+          "company": "ラベル5",
+          "competitor": "ラベル6",
+          "implication": "Text 2"
+        },
+        {
+          "criterion": "ラベル7",
+          "company": "ラベル8",
+          "competitor": "ラベル9",
+          "implication": "Text 3"
+        }
+      ],
+      "source": "資料：出典を記載"
+    },
+    {
+      "template": "scenario_table",
+      "kicker": "11  scenario_table",
+      "title": "シナリオ別の前提と結果を並べる場合",
+      "table": [
+        {
+          "case": "ラベル1",
+          "outcome": "Text 1",
+          "assumptions": "Text 2",
+          "implication": "Text 3"
+        },
+        {
+          "case": "ラベル2",
+          "outcome": "Text 4",
+          "assumptions": "Text 5",
+          "implication": "Text 6"
+        },
+        {
+          "case": "ラベル3",
+          "outcome": "Text 7",
+          "assumptions": "Text 8",
+          "implication": "Text 9"
+        }
+      ],
+      "note": "注：前提や注記を記載",
+      "source": "資料：出典を記載"
+    },
+    {
+      "template": "risk_table",
+      "kicker": "12  risk_table",
+      "title": "リスク・兆候・打ち手を整理する場合",
+      "table": [
+        {
+          "risk": "Text 1",
+          "severity": "high",
+          "signal": "Text 2",
+          "mitigation": "Text 3",
+          "owner": "ラベル1"
+        },
+        {
+          "risk": "Text 4",
+          "severity": "medium",
+          "signal": "Text 5",
+          "mitigation": "Text 6",
+          "owner": "ラベル2"
+        },
+        {
+          "risk": "Text 7",
+          "severity": "medium",
+          "signal": "Text 8",
+          "mitigation": "Text 9",
+          "owner": "ラベル3"
+        }
+      ],
+      "source": "資料：出典を記載"
+    },
+    {
+      "template": "horizontal_axis_table",
+      "kicker": "13  horizontal_axis_table",
+      "title": "横軸に項目を並べて評価する場合",
+      "axis": {
+        "callout": "コールアウト：色付き行の意味を1行で",
+        "headers": [
+          "列見出し1",
+          "列見出し2",
+          "列見出し3",
+          "列見出し4",
+          "列見出し5"
+        ],
+        "weights": [
+          1,
+          2.1,
+          2.3,
+          1.2,
+          1.3
+        ],
+        "rows": [
+          {
+            "highlight": true,
+            "cells": [
+              "値",
+              "値",
+              "値",
+              "値",
+              "値"
+            ]
+          },
+          {
+            "cells": [
+              "値",
+              "値",
+              "値",
+              "値",
+              "値"
+            ]
+          },
+          {
+            "cells": [
+              "値",
+              "値",
+              "値",
+              "値",
+              "値"
+            ]
+          }
+        ]
+      },
+      "source": "資料：出典を記載"
+    },
+    {
+      "template": "heatmap_table",
+      "kicker": "14  heatmap_table",
+      "title": "濃淡で強弱を一覧表示する場合",
+      "heatmap": {
+        "rowLabel": "行の軸名",
+        "colHeaders": [
+          "列見出し1",
+          "列見出し2",
+          "列見出し3",
+          "列見出し4"
+        ],
+        "legend": [
+          "なし",
+          "低",
+          "中",
+          "高"
+        ],
+        "rows": [
+          {
+            "label": "行見出し1",
+            "cells": [
+              {
+                "text": "高",
+                "level": 3
+              },
+              {
+                "text": "中",
+                "level": 2
+              },
+              {
+                "text": "低",
+                "level": 1
+              },
+              {
+                "text": "中",
+                "level": 2
+              }
+            ]
+          },
+          {
+            "label": "行見出し2",
+            "cells": [
+              {
+                "text": "中",
+                "level": 2
+              },
+              {
+                "text": "低",
+                "level": 1
+              },
+              {
+                "text": "なし",
+                "level": 0
+              },
+              {
+                "text": "低",
+                "level": 1
+              }
+            ]
+          },
+          {
+            "label": "行見出し3",
+            "cells": [
+              {
+                "text": "高",
+                "level": 3
+              },
+              {
+                "text": "高",
+                "level": 3
+              },
+              {
+                "text": "中",
+                "level": 2
+              },
+              {
+                "text": "高",
+                "level": 3
+              }
+            ]
+          },
+          {
+            "label": "行見出し4",
+            "cells": [
+              {
+                "text": "中",
+                "level": 2
+              },
+              {
+                "text": "低",
+                "level": 1
+              },
+              {
+                "text": "なし",
+                "level": 0
+              },
+              {
+                "text": "低",
+                "level": 1
+              }
+            ]
+          }
+        ]
+      },
+      "source": "資料：出典を記載"
+    },
+    {
+      "template": "matrix_2x2",
+      "kicker": "15  matrix_2x2",
+      "title": "2つの軸で位置づけを整理する場合",
+      "items": [
+        {
+          "label": "施策1",
+          "x": 72,
+          "y": 24,
+          "priority": true
+        },
+        {
+          "label": "施策2",
+          "x": 68,
+          "y": 42,
+          "priority": true
+        },
+        {
+          "label": "施策3",
+          "x": 35,
+          "y": 31
+        },
+        {
+          "label": "施策4",
+          "x": 46,
+          "y": 62
+        },
+        {
+          "label": "施策5",
+          "x": 23,
+          "y": 74
+        }
+      ],
+      "sections": [
+        {
+          "title": "タイトル 2",
+          "bullets": [
+            "Text 1",
+            "Text 2"
+          ]
+        }
+      ],
+      "source": "資料：出典を記載",
+      "matrix": {
+        "yAxis": "縦軸名（上ほど高い）",
+        "xAxis": "横軸名（右ほど高い）"
+      }
+    },
+    {
+      "template": "process_matrix",
+      "kicker": "16  process_matrix",
+      "title": "プロセスと観点の掛け合わせで整理する場合",
+      "grid": {
+        "rowLabel": "行の軸名",
+        "colHeaders": [
+          "列見出し1",
+          "列見出し2",
+          "列見出し3"
+        ],
+        "rows": [
+          {
+            "label": "行見出し1",
+            "cells": [
+              "値",
+              "値",
+              ""
+            ]
+          },
+          {
+            "label": "行見出し2",
+            "cells": [
+              "値",
+              "値",
+              ""
+            ]
+          },
+          {
+            "label": "行見出し3",
+            "cells": [
+              "値",
+              "値",
+              "値"
+            ]
+          }
+        ]
+      },
+      "source": "資料：出典を記載"
+    },
+    {
+      "template": "nested_row_matrix",
+      "kicker": "17  nested_row_matrix",
+      "title": "入れ子の行構造で階層を示す場合",
+      "nested": {
+        "groups": [
+          {
+            "label": "ラベル1",
+            "rows": [
+              {
+                "label": "ラベル2",
+                "bullets": [
+                  "Text 1",
+                  "Text 2"
+                ]
+              },
+              {
+                "label": "ラベル3",
+                "bullets": [
+                  "Text 3",
+                  "Text 4"
+                ]
+              },
+              {
+                "label": "ラベル4",
+                "bullets": [
+                  "Text 5",
+                  "Text 6"
+                ]
+              }
+            ]
+          },
+          {
+            "label": "ラベル5",
+            "rows": [
+              {
+                "label": "ラベル6",
+                "bullets": [
+                  "Text 7"
+                ]
+              },
+              {
+                "label": "ラベル7",
+                "bullets": [
+                  "Text 8"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "source": "資料：出典を記載"
+    },
+    {
+      "template": "timeline_matrix",
+      "kicker": "18  timeline_matrix",
+      "title": "時系列と項目のマトリクスで示す場合",
+      "lanes": {
+        "columns": [
+          "列見出し1",
+          "列見出し2",
+          "列見出し3"
+        ],
+        "rows": [
+          {
+            "period": "期間1",
+            "cells": [
+              "値",
+              "値",
+              "値"
+            ]
+          },
+          {
+            "period": "期間2",
+            "cells": [
+              "値",
+              "値",
+              "値"
+            ]
+          },
+          {
+            "period": "期間3",
+            "cells": [
+              "値",
+              "値",
+              "値"
+            ]
+          }
+        ]
+      },
+      "source": "資料：出典を記載"
+    },
+    {
+      "template": "theme_card_grid",
+      "kicker": "19  theme_card_grid",
+      "title": "複数のテーマをカードで並べる場合",
+      "subtitle": "補足（何を・どの範囲で・いつ時点か）",
+      "sections": [
+        {
+          "label": "ラベル1",
+          "title": "タイトル 2",
+          "copy": "Text 1",
+          "value": "3.4x"
+        },
+        {
+          "label": "ラベル2",
+          "title": "タイトル 3",
+          "copy": "Text 2",
+          "value": "+22%"
+        },
+        {
+          "label": "ラベル3",
+          "title": "タイトル 4",
+          "copy": "Text 3",
+          "value": "-41%"
+        },
+        {
+          "label": "ラベル4",
+          "title": "タイトル 5",
+          "copy": "Text 4",
+          "value": "92%"
+        }
+      ],
+      "source": "資料：出典を記載"
+    },
+    {
+      "template": "recommendation_pillars",
+      "kicker": "20  recommendation_pillars",
+      "title": "複数の提言を柱立てで示す場合",
+      "sections": [
+        {
+          "title": "タイトル 2",
+          "copy": "Text 1",
+          "bullets": [
+            "Text 2",
+            "Text 3"
+          ]
+        },
+        {
+          "title": "タイトル 3",
+          "copy": "Text 4",
+          "bullets": [
+            "Text 5",
+            "Text 6"
+          ]
+        },
+        {
+          "title": "タイトル 4",
+          "copy": "Text 7",
+          "bullets": [
+            "Text 8",
+            "Text 9"
+          ]
+        }
+      ],
+      "source": "資料：出典を記載"
+    },
+    {
+      "template": "numbered_imperatives",
+      "kicker": "21  numbered_imperatives",
+      "title": "やるべきことを番号付きで示す場合",
+      "subtitle": "補足（何を・どの範囲で・いつ時点か）",
+      "sections": [
+        {
+          "title": "タイトル 2",
+          "copy": "Text 1"
+        },
+        {
+          "title": "タイトル 3",
+          "copy": "Text 2"
+        },
+        {
+          "title": "タイトル 4",
+          "copy": "Text 3"
+        },
+        {
+          "title": "タイトル 5",
+          "copy": "Text 4"
+        },
+        {
+          "title": "タイトル 6",
+          "copy": "Text 5"
+        }
+      ],
+      "source": "資料：出典を記載"
+    },
+    {
+      "template": "question_framework",
+      "kicker": "22  question_framework",
+      "title": "検討すべき問いを構造化する場合",
+      "subtitle": "補足（何を・どの範囲で・いつ時点か）",
+      "sections": [
+        {
+          "label": "ラベル1",
+          "title": "タイトル 2",
+          "copy": "Text 1"
+        },
+        {
+          "label": "ラベル2",
+          "title": "タイトル 3",
+          "copy": "Text 2"
+        },
+        {
+          "label": "ラベル3",
+          "title": "タイトル 4",
+          "copy": "Text 3"
+        },
+        {
+          "label": "ラベル4",
+          "title": "タイトル 5",
+          "copy": "Text 4"
+        },
+        {
+          "label": "ラベル5",
+          "title": "タイトル 6",
+          "copy": "Text 5"
+        },
+        {
+          "label": "ラベル6",
+          "title": "タイトル 7",
+          "copy": "Text 6"
+        }
+      ],
+      "source": "資料：出典を記載"
+    },
+    {
+      "template": "scr",
+      "kicker": "23  scr",
+      "title": "状況・複雑化・解決の3段で語る場合",
+      "scr": [
+        {
+          "label": "ラベル1",
+          "heading": "Text 1",
+          "copy": "Text 2",
+          "note": "注：前提や注記を記載"
+        },
+        {
+          "label": "ラベル2",
+          "heading": "Text 3",
+          "copy": "Text 4",
+          "note": "注：前提や注記を記載"
+        },
+        {
+          "label": "ラベル3",
+          "heading": "Text 5",
+          "copy": "Text 6",
+          "note": "注：前提や注記を記載"
+        }
+      ],
+      "source": "資料：出典を記載"
+    },
+    {
+      "template": "issue_to_solution_map",
+      "kicker": "24  issue_to_solution_map",
+      "title": "課題と解決策を対応付ける場合",
+      "mappings": [
+        {
+          "issue": "Text 1",
+          "solution": "Text 2",
+          "impact": "Text 3"
+        },
+        {
+          "issue": "Text 4",
+          "solution": "Text 5",
+          "impact": "Text 6"
+        },
+        {
+          "issue": "Text 7",
+          "solution": "Text 8",
+          "impact": "Text 9"
+        }
+      ],
+      "source": "資料：出典を記載"
+    },
+    {
+      "template": "issue_cause_solution",
+      "kicker": "25  issue_cause_solution",
+      "title": "課題から原因、解決策へ流れで示す場合",
+      "stages": [
+        {
+          "label": "ラベル1",
+          "heading": "Text 1",
+          "copy": "Text 2"
+        },
+        {
+          "label": "ラベル2",
+          "heading": "Text 3",
+          "copy": "Text 4"
+        },
+        {
+          "label": "ラベル3",
+          "heading": "Text 5",
+          "copy": "Text 6"
+        }
+      ],
+      "source": "資料：出典を記載"
+    },
+    {
+      "template": "issue_tree",
+      "kicker": "26  issue_tree",
+      "title": "課題をツリーで分解する場合",
+      "tree": {
+        "root": "分解したいイシュー",
+        "branches": [
+          {
+            "label": "サブイシュー1",
+            "children": [
+              "論点1-1",
+              "論点1-2"
+            ]
+          },
+          {
+            "label": "サブイシュー2",
+            "children": [
+              "論点2-1",
+              "論点2-2"
+            ]
+          },
+          {
+            "label": "サブイシュー3",
+            "children": [
+              "論点3-1",
+              "論点3-2"
+            ]
+          }
+        ]
+      },
+      "source": "資料：出典を記載"
+    },
+    {
+      "template": "cause_effect",
+      "kicker": "27  cause_effect",
+      "title": "原因と結果の連鎖を示す場合",
+      "causeEffect": {
+        "effect": "Text 1",
+        "causes": [
+          {
+            "label": "ラベル1",
+            "detail": "Text 2"
+          },
+          {
+            "label": "ラベル2",
+            "detail": "Text 3"
+          },
+          {
+            "label": "ラベル3",
+            "detail": "Text 4"
+          }
+        ]
+      },
+      "source": "資料：出典を記載"
+    },
+    {
+      "template": "current_target_state",
+      "kicker": "28  current_target_state",
+      "title": "現状と目指す姿を対比する場合",
+      "panels": [
+        {
+          "label": "ラベル1",
+          "tone": "current",
+          "heading": "Text 1",
+          "bullets": [
+            "Text 2",
+            "Text 3",
+            "Text 4"
+          ]
+        },
+        {
+          "label": "ラベル2",
+          "tone": "target",
+          "heading": "Text 5",
+          "bullets": [
+            "Text 6",
+            "Text 7",
+            "Text 8"
+          ]
+        }
+      ],
+      "source": "資料：出典を記載"
+    },
+    {
+      "template": "calc_flow",
+      "kicker": "29  calc_flow",
+      "title": "計算ロジックを式の流れで示す場合",
+      "calc": {
+        "unit": "指標名、単位",
+        "legend": [
+          "ラベル1",
+          "ラベル2"
+        ],
+        "panels": [
+          {
+            "label": "ラベル3",
+            "categories": [
+              {
+                "label": "ラベル4",
+                "segments": [
+                  {
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "label": "ラベル5",
+                "segments": [
+                  {
+                    "value": 3
+                  }
+                ]
+              },
+              {
+                "label": "ラベル6",
+                "segments": [
+                  {
+                    "value": 6
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "label": "ラベル7",
+            "op": "x",
+            "categories": [
+              {
+                "label": "ラベル8",
+                "segments": [
+                  {
+                    "value": 2
+                  }
+                ]
+              },
+              {
+                "label": "ラベル9",
+                "segments": [
+                  {
+                    "value": 2
+                  }
+                ]
+              },
+              {
+                "label": "ラベル10",
+                "segments": [
+                  {
+                    "value": 2
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "label": "ラベル11",
+            "op": "eq",
+            "categories": [
+              {
+                "label": "ラベル12",
+                "segments": [
+                  {
+                    "label": "ラベル13",
+                    "value": 1.5
+                  },
+                  {
+                    "label": "ラベル14",
+                    "value": 0.5
+                  }
+                ]
+              },
+              {
+                "label": "ラベル15",
+                "segments": [
+                  {
+                    "label": "ラベル16",
+                    "value": 3.8
+                  },
+                  {
+                    "label": "ラベル17",
+                    "value": 0.5
+                  }
+                ]
+              },
+              {
+                "label": "ラベル18",
+                "segments": [
+                  {
+                    "label": "ラベル19",
+                    "value": 9
+                  },
+                  {
+                    "label": "ラベル20",
+                    "value": 0.5
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "source": "資料：出典を記載"
+    },
+    {
+      "template": "process_flow",
+      "kicker": "30  process_flow",
+      "title": "プロセスの流れを段階で示す場合",
+      "steps": [
+        {
+          "title": "タイトル 2",
+          "copy": "Text 1"
+        },
+        {
+          "title": "タイトル 3",
+          "copy": "Text 2"
+        },
+        {
+          "title": "タイトル 4",
+          "copy": "Text 3"
+        },
+        {
+          "title": "タイトル 5",
+          "copy": "Text 4"
+        }
+      ],
+      "source": "資料：出典を記載"
+    },
+    {
+      "template": "cycle",
+      "kicker": "31  cycle",
+      "title": "循環するサイクル構造を示す場合",
+      "steps": [
+        {
+          "title": "タイトル 2",
+          "copy": "Text 1"
+        },
+        {
+          "title": "タイトル 3",
+          "copy": "Text 2"
+        },
+        {
+          "title": "タイトル 4",
+          "copy": "Text 3"
+        },
+        {
+          "title": "タイトル 5",
+          "copy": "Text 4"
+        },
+        {
+          "title": "タイトル 6",
+          "copy": "Text 5"
+        }
+      ],
+      "source": "資料：出典を記載"
+    },
+    {
+      "template": "chevron_rail",
+      "kicker": "32  chevron_rail",
+      "title": "段階の進行をシェブロンで示す場合",
+      "steps": [
+        {
+          "title": "タイトル 2",
+          "copy": "Text 1"
+        },
+        {
+          "title": "タイトル 3",
+          "copy": "Text 2"
+        },
+        {
+          "title": "タイトル 4",
+          "copy": "Text 3"
+        },
+        {
+          "title": "タイトル 5",
+          "copy": "Text 4"
+        },
+        {
+          "title": "タイトル 6",
+          "copy": "Text 5"
+        }
+      ],
+      "source": "資料：出典を記載"
+    },
+    {
+      "template": "chevron_value_chain",
+      "kicker": "33  chevron_value_chain",
+      "title": "バリューチェーン全体を示す場合",
+      "valueChain": {
+        "rails": [
+          {
+            "label": "ラベル1",
+            "tone": "primary",
+            "steps": [
+              {
+                "label": "ラベル2",
+                "description": "Text 1"
+              },
+              {
+                "label": "ラベル3",
+                "description": "Text 2"
+              },
+              {
+                "label": "ラベル4",
+                "description": "Text 3"
+              },
+              {
+                "label": "ラベル5",
+                "description": "Text 4"
+              },
+              {
+                "label": "ラベル6",
+                "description": "Text 5"
+              },
+              {
+                "label": "ラベル7",
+                "description": "Text 6"
+              },
+              {
+                "label": "ラベル8",
+                "description": "Text 7"
+              }
+            ]
+          },
+          {
+            "label": "ラベル9",
+            "tone": "alt",
+            "steps": [
+              {
+                "label": "ラベル10",
+                "description": "Text 8"
+              },
+              {
+                "label": "ラベル11",
+                "description": "Text 9"
+              },
+              {
+                "label": "ラベル12",
+                "description": "Text 10"
+              },
+              {
+                "label": "ラベル13",
+                "description": "Text 11"
+              },
+              {
+                "label": "ラベル14",
+                "description": "Text 12"
+              },
+              {
+                "label": "ラベル15",
+                "description": "Text 13"
+              },
+              {
+                "label": "ラベル16",
+                "description": "Text 14"
+              }
+            ]
+          }
+        ]
+      },
+      "source": "資料：出典を記載"
+    },
+    {
+      "template": "decision_fork",
+      "kicker": "34  decision_fork",
+      "title": "分岐する選択肢と判断を示す場合",
+      "fork": {
+        "question": "問い 1：検討すべき問いを記載",
+        "branches": [
+          {
+            "label": "ラベル1",
+            "copy": "Text 1",
+            "outcome": "Text 2"
+          },
+          {
+            "label": "ラベル2",
+            "copy": "Text 3",
+            "outcome": "Text 4",
+            "recommended": true
+          },
+          {
+            "label": "ラベル3",
+            "copy": "Text 5",
+            "outcome": "Text 6"
+          }
+        ]
+      },
+      "source": "資料：出典を記載"
+    },
+    {
+      "template": "roadmap",
+      "kicker": "35  roadmap",
+      "title": "実行ロードマップを示す場合",
+      "sections": [
+        {
+          "title": "タイトル 2",
+          "copy": "Text 1"
+        },
+        {
+          "title": "タイトル 3",
+          "copy": "Text 2"
+        },
+        {
+          "title": "タイトル 4",
+          "copy": "Text 3"
+        },
+        {
+          "title": "タイトル 5",
+          "copy": "Text 4"
+        }
+      ],
+      "source": "資料：出典を記載"
+    },
+    {
+      "template": "gantt",
+      "kicker": "36  gantt",
+      "title": "スケジュールをガントチャートで示す場合",
+      "gantt": {
+        "periods": [
+          "ラベル1",
+          "ラベル2",
+          "ラベル3",
+          "ラベル4",
+          "ラベル5",
+          "ラベル6",
+          "ラベル7",
+          "ラベル8",
+          "ラベル9",
+          "ラベル10",
+          "ラベル11",
+          "ラベル12"
+        ],
+        "periodBands": [
+          {
+            "label": "ラベル13",
+            "span": 9
+          },
+          {
+            "label": "ラベル14",
+            "span": 3
+          }
+        ],
+        "milestones": [
+          {
+            "at": 0,
+            "label": "ラベル15"
+          },
+          {
+            "at": 2,
+            "label": "ラベル16"
+          },
+          {
+            "at": 5,
+            "label": "ラベル17"
+          },
+          {
+            "at": 8,
+            "label": "ラベル18"
+          },
+          {
+            "at": 11,
+            "label": "ラベル19"
+          }
+        ],
+        "rows": [
+          {
+            "group": "ラベル20",
+            "label": "ラベル21",
+            "start": 0,
+            "span": 1,
+            "phase": "plan"
+          },
+          {
+            "group": "ラベル22",
+            "label": "ラベル23",
+            "start": 1,
+            "span": 2,
+            "phase": "plan"
+          },
+          {
+            "group": "ラベル24",
+            "label": "ラベル25",
+            "start": 2,
+            "span": 1,
+            "phase": "build"
+          },
+          {
+            "group": "ラベル26",
+            "label": "ラベル27",
+            "start": 3,
+            "span": 2,
+            "phase": "build"
+          },
+          {
+            "group": "ラベル28",
+            "label": "ラベル29",
+            "start": 4,
+            "span": 2,
+            "phase": "build"
+          },
+          {
+            "group": "ラベル30",
+            "label": "ラベル31",
+            "start": 8,
+            "span": 2,
+            "phase": "scale"
+          },
+          {
+            "group": "ラベル32",
+            "label": "ラベル33",
+            "start": 10,
+            "span": 2,
+            "phase": "scale",
+            "ongoing": true
+          }
+        ]
+      },
+      "source": "資料：出典を記載"
+    },
+    {
+      "template": "decision_page",
+      "kicker": "37  decision_page",
+      "title": "意思決定を求める場合（決めること・前提・依頼）",
+      "ask": "Text 1",
+      "decisions": [
+        "Text 2",
+        "Text 3",
+        "Text 4"
+      ],
+      "source": "資料：出典を記載"
+    }
+  ],
+  "palette": {
+    "ink": "322014",
+    "navy": "322014",
+    "blue": "5A3921",
+    "cyan": "C5A681",
+    "muted": "8A7B6B",
+    "hair": "E2DCD2",
+    "rose": "A22727",
+    "softBlue": "EFEEE8",
+    "green": "5A3921",
+    "warning": "C5A681"
+  }
+}
