@@ -49,6 +49,7 @@ description: スライド設計規約 slide-rules.md（実務レビュー由来�
 **手順A（自由記述レーン — 本線）**
 - `templates/freeform_parts_16x9.html` をコピーし、不要な section を消して差し替える。38型カタログはレイアウトの発想帳として眺めるだけでよい。
 - 出力後は `python3 scripts/check_deck.py mydeck.html` で FAIL 0 にする（表紙・裏表紙の「タイトル空」WARNは許容）。
+- `node scripts/check_layout.mjs mydeck.html` でフッター重なり・はみ出しの実レンダリング検査も FAIL 0 にする（要 playwright）。
 - PDF化して全ページ目視する。例:
   ```bash
   "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --disable-gpu \
