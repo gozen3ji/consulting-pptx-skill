@@ -2725,7 +2725,7 @@ body {
   display: none;
 }
 
-/* Single mapping marker centered in the gutter (measured consulting grammar). */
+/* Single mapping marker centered in the gutter (the measured reference grammar). */
 .ism-mark {
   position: absolute;
   left: 50%;
@@ -2734,4 +2734,37 @@ body {
   font-size: 26px;
   color: var(--navy);
   line-height: 1;
+}
+
+/* =====================================================================
+   Skin: warm — cream ground / espresso ink / brown accent / serif titles.
+   Activated by {"skin": "warm"} at the SlideSpec root (class .skin-warm).
+   Neutral placeholder palette: swap the tokens below for your own brand.
+   ===================================================================== */
+.skin-warm {
+  --page-bg: #efece5;
+  --slide-bg: #fffdf9;
+  --ink: #241a10;
+  --navy: #241a10;
+  --muted: #8a7c6c;
+  --rule: #c7b69e;
+  --hairline: #e3dccf;
+  --blue: #6b4a2b;
+  --cyan: #c9a97e;
+  --rose: #a22727;
+  --green: #5d5137;
+  --warning: #c9a97e;
+  --soft-blue: #f1ebe0;
+  --soft-yellow: #f6efdf;
+  --font-serif: "Hiragino Mincho ProN", "Yu Mincho", "Songti SC", Georgia, "Times New Roman", serif;
+}
+
+.skin-warm .title,
+.skin-warm .cover-title {
+  font-family: var(--font-serif);
+  letter-spacing: 0.01em;
+}
+
+.skin-warm .kicker {
+  color: var(--blue);
 }

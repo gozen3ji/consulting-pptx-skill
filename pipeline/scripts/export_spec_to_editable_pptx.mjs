@@ -35,7 +35,7 @@ const TOP = 0.48;
 const CONTENT_TOP = 1.95;
 const FOOTER_Y = 6.83;
 // Base palette. A spec may override any key via a root-level "palette" object
-// (e.g. {"palette": {"navy": "322014"}}) — used for brand-recolored decks.
+// (e.g. {"palette": {"navy": "1F3A5F"}}) — used for brand-recolored decks.
 const PALETTE = deck.palette || {};
 const INK = PALETTE.ink || "050505";
 const NAVY = PALETTE.navy || "071B2C";
@@ -580,7 +580,7 @@ function addIssueToSolution(item, pageNum) {
   const slide = addShell(item, pageNum, { titleRule: false });
   const mappings = item.mappings || [];
   // Equal-width columns with a clear gutter; a single triangle sits in the
-  // gutter, vertically centered on the whole mapping block (measured consulting grammar).
+  // gutter, vertically centered on the whole mapping block (the measured reference grammar).
   const gapW = 0.9;
   const colW = (W - M * 2 - gapW) / 2;
   const issueX = M;

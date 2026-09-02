@@ -25,7 +25,7 @@ const outputPath = path.resolve(root, output);
 const allowedFontFamilies = [
   // cool skin (sans)
   "Arial", "Helvetica", "Helvetica Neue", "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo",
-  // warm skin (serif) — Aflac-style editorial
+  // warm skin (serif) — editorial style
   "Hiragino Mincho ProN", "Toppan Bunkyu Mincho", "Yu Mincho", "YuMincho", "Songti SC", "Songti", "Georgia", "Times New Roman", "Times",
 ];
 const maxFontFamilies = 6;
@@ -156,7 +156,7 @@ const report = await page.evaluate(
       // tables, matrices, KPIs, calculations. Cover, section, and conceptual/argument slides
       // (SCR, issue→solution, issue-cause-solution, chevron value chain) and your-own-plan
       // objects (gantt, roadmap) do NOT need a source. This matches the canonical decks
-      // (CoreBridge/Aflac/出張POC), which cite data slides but leave concept slides sourceless.
+      // (the measured reference decks), which cite data slides but leave concept slides sourceless.
       // Previously every slide was forced to carry a source, which read as busywork.
       const needsSource = !!slide.querySelector(
         ".axis-table, .bar-chart, .stack-chart, .waterfall, .wf-item, .twf, .heat, .heatmap, .sm-chart, .pmx, .tlm, .kpi-grid, .cf, .comparison, .scenario-table, .risk-table, .chart-unit",
@@ -474,7 +474,7 @@ await browser.close();
 //
 // checks   = universal quality lines. A failure here is a real defect (text spills its box,
 //            type too small to read, undefined CSS var, uncited data) and fails the build.
-// advisories = top-tier-consulting-style *grammar* preferences (header underlines, SCR labels, arrow
+// advisories = consulting-style *grammar* preferences (header underlines, SCR labels, arrow
 //            counts, callout/bar density caps). These are surfaced as hints but DO NOT fail
 //            the build. Demoting them from hard-fail is the whole point of this rework: the
 //            old all-checks-must-pass gate pushed the generator to satisfy the template

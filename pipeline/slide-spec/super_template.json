@@ -1517,17 +1517,5 @@
       ],
       "source": "資料：出典を記載"
     }
-  ],
-  "palette": {
-    "ink": "322014",
-    "navy": "322014",
-    "blue": "5A3921",
-    "cyan": "C5A681",
-    "muted": "8A7B6B",
-    "hair": "E2DCD2",
-    "rose": "A22727",
-    "softBlue": "EFEEE8",
-    "green": "5A3921",
-    "warning": "C5A681"
-  }
+  ]
 }

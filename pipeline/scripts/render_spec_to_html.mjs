@@ -956,8 +956,8 @@ const viewer = spec.viewer === true ? `<style>
   </script>` : "";
 
 // Deck color/typography skin. Two equal, canonical options distilled from the reference decks:
-//   cool (default) — white / near-black ink / navy+cyan accents / sans-serif (CoreBridge, 出張POC)
-//   warm           — cream / espresso ink / brown accent / serif, editorial-premium (Aflac)
+//   cool (default) — white / near-black ink / navy+cyan accents / sans-serif
+//   warm           — cream / espresso ink / brown accent / serif, editorial-premium
 // Set at the top of the spec: { "skin": "warm" }. Anything else falls back to cool.
 const skin = spec.skin === "warm" ? "warm" : "cool";
 

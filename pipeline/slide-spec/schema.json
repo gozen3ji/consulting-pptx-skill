@@ -6,7 +6,7 @@
   "properties": {
     "deckTitle": { "type": "string" },
     "deckSubtitle": { "type": "string" },
-    "skin": { "enum": ["cool", "warm"], "description": "Deck color/type skin. cool (default) = white/near-black/navy+cyan/sans (CoreBridge, 出張POC). warm = cream/espresso/brown/serif, editorial (Aflac)." },
+    "skin": { "enum": ["cool", "warm"], "description": "Deck color/type skin. cool (default) = white/near-black/navy+cyan/sans. warm = cream/espresso/brown/serif, editorial." },
     "viewer": { "type": "boolean", "description": "Emit the scale-to-fit on-screen viewer wrapper." },
     "slides": {
       "type": "array",
