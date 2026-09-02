@@ -8,8 +8,8 @@ description: コンサル型スライド38型の「型システム」から経�
 戦略系コンサルティングファームの公開資料を大量に実測して抽出したスライドの「型」38種類を、
 **SlideSpec（JSONによるスライド定義）→ HTMLプレビュー → 編集可能PPTX** の自動生成パイプラインで組み立てる。
 
-テンプレPPTXを手でコピーするのではなく、**型のデータ定義（SlideSpec）を書いて機械に組ませる**のが本来の使い方。
-スライドの設計規約は `references/slide-rules.md` が正典。**作成前に必ず読み、出力後は `scripts/check_deck.py` で機械チェックする。**
+**本質は `references/slide-rules.md`（約80項目の規約）。作成前に必ず読み、出力後は `scripts/check_deck.py` で機械チェックする。**
+型とパイプラインは、たたき台を数十秒で出すための道具にすぎない。良いスライドは、たたき台を出した後に**型に囚われず規約の範囲で自由に考えて調整する**工程で決まる。型に引っ張られすぎないこと。調整で受けた指摘は slide-rules.md に1行ずつ追記して蓄積する。
 
 ## 同梱物
 
@@ -82,8 +82,9 @@ description: コンサル型スライド38型の「型システム」から経�
    node scripts/qa_html_deck.mjs generated/mydeck.html            # 構造QA
    node scripts/export_spec_to_editable_pptx.mjs slide-spec/mydeck.json generated/mydeck.pptx  # 編集可能PPTX
    ```
-5. **機械チェック**: `python3 scripts/check_deck.py generated/mydeck.pptx` を実行し、FAIL 0 にする。出力されるタイトル一覧を上から通し読みして、1本のストーリーになっているか確認する。
-6. **目視QA**: PDF化して全ページを確認する。文字だけでなく余白・版面バランス・孤立折返し・はみ出し・左右カラムの下端揃いも見る。
+5. **調整（ここが本番）**: HTMLプレビューを見ながら、型に囚われず考えて直す。表を2枚に割る、右カラムを帰結形に書き直す、粒度の揃わない並列を書き直す。1枚ごとに「この型のままでよいか」を疑う。受けた指摘は slide-rules.md に1行追記する。
+6. **機械チェック**: `python3 scripts/check_deck.py generated/mydeck.pptx` を実行し、FAIL 0 にする。出力されるタイトル一覧を上から通し読みして、1本のストーリーになっているか確認する。
+7. **目視QA**: PDF化して全ページを確認する。文字だけでなく余白・版面バランス・孤立折返し・はみ出し・左右カラムの下端揃いも見る。
 
 書き出したPPTXは全図形がネイティブ編集可能（`editable: true`）。納品後の微修正はPowerPoint上でそのままできる。
 

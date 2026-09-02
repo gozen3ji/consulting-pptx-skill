@@ -1,13 +1,23 @@
 # consulting-pptx-skill
 
 **AIに「経営会議レベル」のPowerPointを作らせるためのClaude Codeスキル。**
-コンサル型スライド38型のカタログ＋SlideSpec（JSONによるスライド定義）＋生成パイプライン（HTMLプレビュー→編集可能PPTX）＋スライド作成規約＋機械チェックの一式です。
+スライド作成規約（約80項目）＋機械チェック＋コンサル型スライド38型のカタログ＋SlideSpec（JSONによるスライド定義）＋生成パイプライン（HTMLプレビュー→編集可能PPTX）の一式です。
 
 A Claude Code skill for generating boardroom-quality PowerPoint decks: a catalog of 38 consulting slide archetypes, a JSON SlideSpec format, a render pipeline (HTML preview → natively editable PPTX), a slide-design rulebook, and an automated rule checker.
 
-私たちが実際に毎週の提案書・報告書づくりで回している資料作成システムの公開版です。解説記事はこちら → [note（【公式】Jinba）](https://note.com/jinbaflow)
+私たちが実際に毎週の提案書・報告書づくりで使っている仕組みの公開版です。解説記事はこちら → [note（【公式】Jinba）](https://note.com/jinbaflow)
 
-## 仕組み
+## 本質は `references/slide-rules.md`（約80項目のスライド規約）
+
+このリポジトリでいちばん価値があるのは、実はテンプレでもスクリプトでもなく、**[slide-rules.md](references/slide-rules.md)** というテキストファイルです。実務の資料レビューで受けた指摘を1行ずつ書き溜めた約80項目 — 「結論はタイトルに書く」「角丸禁止」「塗りのあるボックスに枠線を付けない」「1資料1用語」…。
+
+使い方はシンプルで、**AIに資料を作らせる前に毎回このファイルを読ませ、出力後に `scripts/check_deck.py` で違反を機械検出する**だけ。AIはセッションごとに記憶がリセットされるので、口頭で注意しても定着しません。ルールをファイル化して毎回読ませるのが唯一の定着方法です。
+
+そして、良いスライドを作るのは型ではなく**流し込んだ後の調整**です。表を2枚に割る、右カラムを帰結形に書き直す、タイトルの通し読みでストーリーを繋ぎ直す — 型に囚われず考えて直し、そこで受けた指摘をまた slide-rules.md に1行追記する。この蓄積ループが品質の源泉で、38型テンプレとパイプラインは「たたき台を数十秒で出して、調整の反復回数を稼ぐ」ための道具にすぎません。
+
+自社で使うときは、slide-rules.md に自社の規約・指摘を追記して育ててください。
+
+## たたき台を秒で出す仕組み（38型×SlideSpec）
 
 核心は「**AIにレイアウトを描かせない**」こと。38型それぞれのレイアウト（タイトル位置・余白・フォントサイズ・作図ルール）は実測値としてレンダラーに焼き込んであり、AIが書くのは中身（主張・数値・ラベル）だけです。
 
@@ -90,7 +100,7 @@ Node.jsが無い環境でも、見本帳PPTXの手動コピペとルール正典
 
 ## カスタマイズ
 
-- `references/slide-rules.md` に自社の規約を1行ずつ追記していくと、フィードバックが蓄積されて品質が上がっていきます
+- **いちばん効くのは slide-rules.md への追記**です。レビューで受けた指摘を1行ずつ足していくと、御社専用の資料作成AIに育ちます
 - SlideSpecルートの `palette` でブランドカラーを一括差し替えできます（`schema.json` 参照）
 
 ## About
