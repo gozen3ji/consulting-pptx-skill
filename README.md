@@ -1,6 +1,6 @@
 # consulting-pptx-skill
 
-**AIに「経営会議レベル」のPowerPointを作らせるためのClaude Codeスキル。**
+**AIに「まじな」のPowerPointを作らせるためのClaude Codeスキル。**
 スライド作成規約（約80項目）＋機械チェック＋コンサル型スライド38型のカタログ＋SlideSpec（JSONによるスライド定義）＋生成パイプライン（HTMLプレビュー→編集可能PPTX）の一式です。
 
 A Claude Code skill for generating boardroom-quality PowerPoint decks: a catalog of 38 consulting slide archetypes, a JSON SlideSpec format, a render pipeline (HTML preview → natively editable PPTX), a slide-design rulebook, and an automated rule checker.
