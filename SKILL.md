@@ -1,13 +1,11 @@
 ---
 name: consulting-pptx-skill
-description: コンサル型スライド38型の「型システム」から経営会議品質のPowerPoint資料を作成するスキル。型カタログから型を選び、SlideSpec（JSON）を書き、生成パイプラインでHTMLプレビュー→編集可能PPTXを自動生成し、機械チェックで規約を担保する。トリガー例:「スーパーテンプレで」「38型から選んで」「コンサル型のPPTX作って」。
+description: スライド設計規約 slide-rules.md（実務レビュー由来・約80項目の正典）を核に、経営会議品質のスライドを作るスキル。作成前に規約を読み、自由記述テンプレート（本線）または38型SlideSpecパイプライン（たたき台・編集可能PPTX用）で組み、規約の範囲で型に囚われず調整し、check_deck.py の機械チェック FAIL 0 で仕上げる。型カタログはレイアウトの発想帳であり、合わせる対象ではない。トリガー例:「コンサル品質のスライドを作って」「規約に沿ったデッキで」「38型から選んで」。
 ---
 
-# コンサル型スライド作成スキル（38型・SlideSpec生成パイプライン）
+# コンサル型スライド作成スキル（規約正典を核にしたスライド作成システム）
 
-戦略系コンサルティングファームの公開資料を大量に実測して抽出したスライドの「型」38種類と、規約約80項目・機械チェック・自由記述テンプレートのセット。
-
-**本質は `references/slide-rules.md`（約80項目の規約）。作成前に必ず読み、出力後は `scripts/check_deck.py` で機械チェックする。**
+**このスキルの主軸は `references/slide-rules.md` — 実務のレビュー指摘を1行ずつ蓄積した約80項目の設計規約です。** どんなスライドを作るときも、(1) 作成前に規約を読む → (2) 自由記述テンプレートか38型パイプラインでたたき台を組む → (3) 規約の範囲で型に囚われず調整する → (4) `scripts/check_deck.py` で FAIL 0 にする、の順で規約が常に上位に立ちます。38型カタログ・テンプレート・パイプラインはすべて「規約を効率よく満たすための道具」であり、**スライドを型に合わせるのではなく、型をストーリーに合わせて選び、合わなければ捨てて自由に組みます。**
 
 ## 2つの作り方（本線は自由記述）
 
@@ -16,9 +14,9 @@ description: コンサル型スライド38型の「型システム」から経�
 | **A. 自由記述（本線）** | 納品物・こだわるデッキ全般。1枚ごとに構成を考えて組む | `templates/freeform_parts_16x9.html` をコピーし、不要パーツを消して差し替える。38型カタログは「レイアウトの発想帳」として眺めるだけ |
 | B. SlideSpecパイプライン | 数十秒でたたき台が欲しいとき・定型レポートの量産・編集可能PPTXが要るとき | SlideSpec（JSON）→ HTML → QA → PPTX の自動生成 |
 
-**型に引っ張られない**ことが品質の分かれ目。パイプラインは型のスロットに文言を流し込むことしかできないので、
+**品質を決めるのは規約と調整であり、型ではない。** パイプラインは型のスロットに文言を流し込むことしかできないので、
 「この型のままでよいか」を1枚ごとに疑い、収まらないと感じたらAレーンでそのスライドだけ自由に組み直す。
-調整で受けた指摘は slide-rules.md に1行ずつ追記して蓄積する。
+判断に迷ったら常に slide-rules.md に立ち返り、調整で受けた指摘は slide-rules.md に1行ずつ追記して蓄積する。
 
 ## 同梱物
 
@@ -32,7 +30,52 @@ description: コンサル型スライド38型の「型システム」から経�
 | 機械チェックスクリプト | `scripts/check_deck.py`（PPTXを検査するときのみ `pip3 install python-pptx` が必要。HTML検査は標準ライブラリのみ） |
 | おまけ: テンプレPPTX見本帳 | `assets/SuperTemplate_38type.pptx`（全38型を1枚ずつ収録。手動利用・一覧確認用） |
 
-## 38型カタログ（型ID / 使いどころ）
+## 規約の要点（全文は references/slide-rules.md — 作成前に必読）
+
+約80項目のうち、毎回効く原則を抜粋する。**このダイジェストは入口にすぎず、作成前に必ず全文を読む。**
+
+- **タイトル**: 結論を書く・原則1行・体言止め（です/ます禁止）・タイトルだけ通し読みして1本のストーリーになること
+- **レイアウト**: 1スライド=1メッセージ。上下に読ませず左右に分ける（左=事実・図、右=意味合い）。下部の「POINT」帯禁止
+- **表**: カード羅列でなく行=項目・列=観点の「軸のある表」。ヘッダーは本文より大きく太字・塗りなし・最終行の下に罫線なし
+- **装飾**: 角丸禁止・塗りボックスに枠線なし・色分けするなら同一スライドに凡例
+- **文章**: 1資料1用語（表記ゆれ禁止）・略語は初出でフル表記・ブレット語尾は階層内で統一
+
+## デッキ作成の手順（実運用フロー）
+
+共通の手順1のあと、**Aレーン（自由記述）は手順A、Bレーン（パイプライン）は手順2〜4**に進む。
+
+1. **作る前に定義する（Define-before-Produce）**: 目的・成果物の定義・スコープIN/OUTを3〜5行で先に合意する。前提が薄いまま豪華な体裁で出すのが最悪の失敗。
+
+**手順A（自由記述レーン — 本線）**
+- `templates/freeform_parts_16x9.html` をコピーし、不要な section を消して差し替える。38型カタログはレイアウトの発想帳として眺めるだけでよい。
+- 出力後は `python3 scripts/check_deck.py mydeck.html` で FAIL 0 にする（表紙・裏表紙の「タイトル空」WARNは許容）。
+- PDF化して全ページ目視する。例:
+  ```bash
+  "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --disable-gpu \
+    --no-pdf-header-footer --print-to-pdf=mydeck.pdf mydeck.html   # @page 設定済み・ページ数=スライド数
+  ```
+- 以降の手順2〜4はBレーン専用なので読み飛ばしてよい。
+2. ストーリーに合わせてカタログから型を選ぶ。**枠組み → 証拠 → 比較 → 構造 → 計画** の順が基本形。
+3. `pipeline/slide-spec/super_template.json` から該当する型のスライド定義をコピーして新しいSlideSpec（JSON）を作り、文言・データを実物に差し替える。
+   - `title` は12字以上・主張文（体言止め）。`source` 行は必須。プレースホルダー（Text N / ラベルN）を1つも残さない。
+   - **日本語デッキでは表ヘッダーを必ず日本語化する**: `comparison_table` / `scenario_table` / `risk_table` / `cause_effect` はスライドに `"headers": {...}` を付けて列名を差し替える（例: `{"case": "シナリオ", "outcome": "想定される展開", "assumptions": "前提", "implication": "含意"}`。キーは `schema.json` の headers 定義を参照）。英語デフォルトのまま納品しない。
+4. **パイプラインでビルド**（初回のみ `cd pipeline && npm run setup`）:
+   ```bash
+   cd pipeline
+   node scripts/validate_spec.mjs slide-spec/mydeck.json          # スキーマ検証
+   node scripts/render_spec_to_html.mjs slide-spec/mydeck.json generated/mydeck.html   # HTMLプレビュー
+   node scripts/qa_html_deck.mjs generated/mydeck.html            # 構造QA
+   node scripts/export_spec_to_editable_pptx.mjs slide-spec/mydeck.json generated/mydeck.pptx  # 編集可能PPTX
+   ```
+5. **調整（ここが本番）**: HTMLプレビューを見ながら、型に囚われず考えて直す。表を2枚に割る、右カラムを帰結形に書き直す、粒度の揃わない並列を書き直す。1枚ごとに「この型のままでよいか」を疑う。受けた指摘は slide-rules.md に1行追記する。
+6. **機械チェック**: `python3 scripts/check_deck.py generated/mydeck.pptx` を実行し、FAIL 0 にする。出力されるタイトル一覧を上から通し読みして、1本のストーリーになっているか確認する。
+7. **目視QA**: PDF化して全ページを確認する。文字だけでなく余白・版面バランス・孤立折返し・はみ出し・左右カラムの下端揃いも見る。
+
+書き出したPPTXは全図形がネイティブ編集可能（`editable: true`）。納品後の微修正はPowerPoint上でそのままできる。
+
+## 38型カタログ — レイアウトの発想帳（型ID / 使いどころ）
+
+型は「合わせる対象」ではなく「見せ方を思いつくための引き出し」。Bレーンでの型選定と、Aレーンでのレイアウト着想の両方に使う。
 
 各スライド共通フィールド: `kicker`（左上の小見出し）/ `title`（**12字以上・主張を書く**）/ `source`（出典行・必須）。
 フィールドの実例値（数値の形・series構造など）は `super_template.json` の該当スライドを**その型だけ**読んで確認する。
@@ -77,39 +120,6 @@ description: コンサル型スライド38型の「型システム」から経�
 | 35 | `roadmap` | 実行ロードマップを示す場合 |
 | 36 | `gantt` | スケジュールをガントチャートで示す場合 |
 | 37 | `decision_page` | 意思決定を求める場合 — 決めること・前提・依頼 |
-
-## デッキ作成の手順（実運用フロー）
-
-共通の手順1のあと、**Aレーン（自由記述）は手順A、Bレーン（パイプライン）は手順2〜4**に進む。
-
-1. **作る前に定義する（Define-before-Produce）**: 目的・成果物の定義・スコープIN/OUTを3〜5行で先に合意する。前提が薄いまま豪華な体裁で出すのが最悪の失敗。
-
-**手順A（自由記述レーン — 本線）**
-- `templates/freeform_parts_16x9.html` をコピーし、不要な section を消して差し替える。38型カタログはレイアウトの発想帳として眺めるだけでよい。
-- 出力後は `python3 scripts/check_deck.py mydeck.html` で FAIL 0 にする（表紙・裏表紙の「タイトル空」WARNは許容）。
-- PDF化して全ページ目視する。例:
-  ```bash
-  "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --disable-gpu \
-    --no-pdf-header-footer --print-to-pdf=mydeck.pdf mydeck.html   # @page 設定済み・ページ数=スライド数
-  ```
-- 以降の手順2〜4はBレーン専用なので読み飛ばしてよい。
-2. ストーリーに合わせてカタログから型を選ぶ。**枠組み → 証拠 → 比較 → 構造 → 計画** の順が基本形。
-3. `pipeline/slide-spec/super_template.json` から該当する型のスライド定義をコピーして新しいSlideSpec（JSON）を作り、文言・データを実物に差し替える。
-   - `title` は12字以上・主張文（体言止め）。`source` 行は必須。プレースホルダー（Text N / ラベルN）を1つも残さない。
-   - **日本語デッキでは表ヘッダーを必ず日本語化する**: `comparison_table` / `scenario_table` / `risk_table` / `cause_effect` はスライドに `"headers": {...}` を付けて列名を差し替える（例: `{"case": "シナリオ", "outcome": "想定される展開", "assumptions": "前提", "implication": "含意"}`。キーは `schema.json` の headers 定義を参照）。英語デフォルトのまま納品しない。
-4. **パイプラインでビルド**（初回のみ `cd pipeline && npm run setup`）:
-   ```bash
-   cd pipeline
-   node scripts/validate_spec.mjs slide-spec/mydeck.json          # スキーマ検証
-   node scripts/render_spec_to_html.mjs slide-spec/mydeck.json generated/mydeck.html   # HTMLプレビュー
-   node scripts/qa_html_deck.mjs generated/mydeck.html            # 構造QA
-   node scripts/export_spec_to_editable_pptx.mjs slide-spec/mydeck.json generated/mydeck.pptx  # 編集可能PPTX
-   ```
-5. **調整（ここが本番）**: HTMLプレビューを見ながら、型に囚われず考えて直す。表を2枚に割る、右カラムを帰結形に書き直す、粒度の揃わない並列を書き直す。1枚ごとに「この型のままでよいか」を疑う。受けた指摘は slide-rules.md に1行追記する。
-6. **機械チェック**: `python3 scripts/check_deck.py generated/mydeck.pptx` を実行し、FAIL 0 にする。出力されるタイトル一覧を上から通し読みして、1本のストーリーになっているか確認する。
-7. **目視QA**: PDF化して全ページを確認する。文字だけでなく余白・版面バランス・孤立折返し・はみ出し・左右カラムの下端揃いも見る。
-
-書き出したPPTXは全図形がネイティブ編集可能（`editable: true`）。納品後の微修正はPowerPoint上でそのままできる。
 
 ## おまけ: テンプレPPTX見本帳の使い方
 
