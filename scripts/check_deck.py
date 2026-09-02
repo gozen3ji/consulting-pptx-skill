@@ -67,7 +67,10 @@ def check_ai_smell(pages):
             hits[i] = found
     if hits:
         detail = "、".join(f"p{i}:「{'/'.join(ws[:3])}」" for i, ws in sorted(hits.items())[:6])
-        warn(f"AI臭ワード検出: {detail}（§7.9 / ai-smell-lexicon.md — 素の動詞・直球の言い方に置き換え）")
+        warn(f"AI臭ワード検出: {detail}（§7.9 / ai-smell-lexicon.md。素の動詞・直球の言い方に置き換え）")
+    dash_pages = sorted({i for i, txt in pages if " — " in txt or "—" in txt})
+    if dash_pages:
+        warn(f"ダッシュ「 — 」連結 p{dash_pages}（AI文体の典型。句点・「：」・括弧に置き換え。§7.9）")
 
 
 def check_terms(pages):
