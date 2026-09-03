@@ -358,7 +358,7 @@ function addWaterfall(item, pageNum) {
     const h = (Math.abs(d.value) / max) * 2.25;
     const x = x0 + i * gap;
     const color = d.kind === "down" ? ROSE : d.kind === "up" ? BLUE : NAVY;
-    slide.addShape(pptx.ShapeType.rect, { x, y: baseY - h, w: 0.66, h, fill: { color }, line: { color } });
+    slide.addShape(pptx.ShapeType.rect, { x, y: baseY - h, w: 0.66, h, fill: { color } });
     const value = `${d.value > 0 && d.kind === "up" ? "+" : ""}${d.value}`;
     addBodyText(slide, value, x - 0.08, baseY - h - 0.26, 0.82, 0.2, { fontSize: 12, bold: true });
     addBodyText(slide, d.label, x - 0.18, baseY + 0.1, 1.05, 0.32, { fontSize: 9.2 });
@@ -869,7 +869,7 @@ function addStackedBar(item, pageNum) {
     (c.segments || []).forEach((s, si) => {
       const h = (s.value / max) * maxH;
       const color = segColors[si] || NAVY;
-      slide.addShape(pptx.ShapeType.rect, { x, y: cursor - h, w: barW, h, fill: { color }, line: { color } });
+      slide.addShape(pptx.ShapeType.rect, { x, y: cursor - h, w: barW, h, fill: { color } });
       addBodyText(slide, String(s.value), x, cursor - h + h / 2 - 0.12, barW, 0.24, { fontSize: 11, bold: true, align: "center", color: si >= 2 ? INK : WHITE });
       cursor -= h;
     });
@@ -877,7 +877,7 @@ function addStackedBar(item, pageNum) {
   });
   let lx = M;
   (stacks.legend || []).forEach((label, i) => {
-    slide.addShape(pptx.ShapeType.rect, { x: lx, y: 6.5, w: 0.22, h: 0.22, fill: { color: segColors[i] || NAVY }, line: { color: segColors[i] || NAVY } });
+    slide.addShape(pptx.ShapeType.rect, { x: lx, y: 6.5, w: 0.22, h: 0.22, fill: { color: segColors[i] || NAVY } });
     addBodyText(slide, label, lx + 0.32, 6.5, 1.6, 0.24, { fontSize: 11, color: MUTED });
     lx += 2.0;
   });
@@ -917,7 +917,7 @@ function addTrueWaterfall(item, pageNum) {
     const x = M + 0.3 + i * slot + (slot - barW) / 2;
     const h = ((p.top - p.bottom) / range) * maxH;
     const yTop = baseY - ((p.top - domainMin) / range) * maxH;
-    slide.addShape(pptx.ShapeType.rect, { x, y: yTop, w: barW, h, fill: { color: fillFor[p.kind] || NAVY }, line: { color: fillFor[p.kind] || NAVY } });
+    slide.addShape(pptx.ShapeType.rect, { x, y: yTop, w: barW, h, fill: { color: fillFor[p.kind] || NAVY } });
     addBodyText(slide, p.display, x - 0.2, yTop - 0.28, barW + 0.4, 0.22, { fontSize: 11, bold: true, align: "center" });
     addBodyText(slide, p.label, x - 0.3, baseY + 0.1, barW + 0.6, 0.4, { fontSize: 10.5, align: "center" });
   });
@@ -934,7 +934,7 @@ function addCauseEffect(item, pageNum) {
   causes.forEach((c, i) => {
     const y = topY + i * (cH + gap);
     slide.addShape(pptx.ShapeType.rect, { x: M, y, w: leftW, h: cH, fill: { color: WHITE }, line: { color: HAIR, width: 0.75 } });
-    slide.addShape(pptx.ShapeType.rect, { x: M, y, w: 0.07, h: cH, fill: { color: CYAN }, line: { color: CYAN } });
+    slide.addShape(pptx.ShapeType.rect, { x: M, y, w: 0.07, h: cH, fill: { color: CYAN } });
     addBodyText(slide, c.label, M + 0.3, y + 0.16, leftW - 0.5, 0.34, { fontSize: 14, bold: true });
     if (c.detail) addBodyText(slide, c.detail, M + 0.3, y + 0.56, leftW - 0.5, cH - 0.6, { fontSize: 11.5, color: MUTED });
   });
