@@ -1,17 +1,17 @@
 ---
 name: consulting-pptx-skill
-description: スライド設計規約 slide-rules.md（実務レビュー由来・約80項目の正典）を核に、経営会議品質のスライドを作るスキル。作成前に規約を読み、自由記述テンプレート（本線）または38型SlideSpecパイプライン（たたき台・編集可能PPTX用）で組み、規約の範囲で型に囚われず調整し、check_deck.py の機械チェック FAIL 0 で仕上げる。型カタログはレイアウトの発想帳であり、合わせる対象ではない。トリガー例:「コンサル品質のスライドを作って」「規約に沿ったデッキで」「38型から選んで」。
+description: スライド設計規約 slide-rules.md（実務レビュー由来・約80項目の正典）を核に、経営会議品質のスライドを作るスキル。作成前に規約を読み、自由記述テンプレート（本線）または36型SlideSpecパイプライン（たたき台・編集可能PPTX用）で組み、規約の範囲で型に囚われず調整し、check_deck.py の機械チェック FAIL 0 で仕上げる。型カタログはレイアウトの発想帳であり、合わせる対象ではない。トリガー例:「コンサル品質のスライドを作って」「規約に沿ったデッキで」「36型から選んで」。
 ---
 
 # コンサル型スライド作成スキル（規約正典を核にしたスライド作成システム）
 
-**このスキルの主軸は `references/slide-rules.md` — 実務のレビュー指摘を1行ずつ蓄積した約80項目の設計規約です。** どんなスライドを作るときも、(1) 作成前に規約を読む → (2) 自由記述テンプレートか38型パイプラインでたたき台を組む → (3) 規約の範囲で型に囚われず調整する → (4) `scripts/check_deck.py` で FAIL 0 にする、の順で規約が常に上位に立ちます。38型カタログ・テンプレート・パイプラインはすべて「規約を効率よく満たすための道具」であり、**スライドを型に合わせるのではなく、型をストーリーに合わせて選び、合わなければ捨てて自由に組みます。**
+**このスキルの主軸は `references/slide-rules.md` — 実務のレビュー指摘を1行ずつ蓄積した約80項目の設計規約です。** どんなスライドを作るときも、(1) 作成前に規約を読む → (2) 自由記述テンプレートか36型パイプラインでたたき台を組む → (3) 規約の範囲で型に囚われず調整する → (4) `scripts/check_deck.py` で FAIL 0 にする、の順で規約が常に上位に立ちます。36型カタログ・テンプレート・パイプラインはすべて「規約を効率よく満たすための道具」であり、**スライドを型に合わせるのではなく、型をストーリーに合わせて選び、合わなければ捨てて自由に組みます。**
 
 ## 2つの作り方（本線は自由記述）
 
 | レーン | 使いどころ | 道具 |
 | --- | --- | --- |
-| **A. 自由記述（本線）** | 納品物・こだわるデッキ全般。1枚ごとに構成を考えて組む | `templates/freeform_parts_16x9.html` をコピーし、不要パーツを消して差し替える。38型カタログは「レイアウトの発想帳」として眺めるだけ |
+| **A. 自由記述（本線）** | 納品物・こだわるデッキ全般。1枚ごとに構成を考えて組む | `templates/freeform_parts_16x9.html` をコピーし、不要パーツを消して差し替える。36型カタログは「レイアウトの発想帳」として眺めるだけ |
 | B. SlideSpecパイプライン | 数十秒でたたき台が欲しいとき・定型レポートの量産・編集可能PPTXが要るとき | SlideSpec（JSON）→ HTML → QA → PPTX の自動生成 |
 
 **品質を決めるのは規約と調整であり、型ではない。** パイプラインは型のスロットに文言を流し込むことしかできないので、
@@ -23,12 +23,12 @@ description: スライド設計規約 slide-rules.md（実務レビュー由来�
 | もの | パス |
 | --- | --- |
 | 生成パイプライン（Node製） | `pipeline/`（validate / render / qa / export） |
-| 38型のSlideSpec正本 | `pipeline/slide-spec/super_template.json` |
+| 36型のSlideSpec正本 | `pipeline/slide-spec/super_template.json` |
 | SlideSpecスキーマ | `pipeline/slide-spec/schema.json` |
 | スライド設計規約（正典） | `references/slide-rules.md` |
 | 自由記述パーツテンプレ（本線Aレーン用） | `templates/freeform_parts_16x9.html`（表紙・全体マップ・矢羽・前提→帰結2カラム・スタット・軸のある表など10パーツ。ニュートラル配色） |
 | 機械チェックスクリプト | `scripts/check_deck.py`（PPTXを検査するときのみ `pip3 install python-pptx` が必要。HTML検査は標準ライブラリのみ） |
-| おまけ: テンプレPPTX見本帳 | `assets/SuperTemplate_38type.pptx`（全38型を1枚ずつ収録。手動利用・一覧確認用） |
+| おまけ: テンプレPPTX見本帳 | `assets/SuperTemplate_36type.pptx`（全36型を1枚ずつ収録。手動利用・一覧確認用） |
 
 ## 規約の要点（全文は references/slide-rules.md — 作成前に必読）
 
@@ -47,7 +47,7 @@ description: スライド設計規約 slide-rules.md（実務レビュー由来�
 1. **作る前に定義する（Define-before-Produce）**: 目的・成果物の定義・スコープIN/OUTを3〜5行で先に合意する。前提が薄いまま豪華な体裁で出すのが最悪の失敗。
 
 **手順A（自由記述レーン — 本線）**
-- `templates/freeform_parts_16x9.html` をコピーし、不要な section を消して差し替える。38型カタログはレイアウトの発想帳として眺めるだけでよい。
+- `templates/freeform_parts_16x9.html` をコピーし、不要な section を消して差し替える。36型カタログはレイアウトの発想帳として眺めるだけでよい。
 - 出力後は `python3 scripts/check_deck.py mydeck.html` で FAIL 0 にする（表紙・裏表紙の「タイトル空」WARNは許容）。
 - `node scripts/check_layout.mjs mydeck.html` でフッター重なり・はみ出しの実レンダリング検査も FAIL 0 にする（要 playwright）。
 - PDF化して全ページ目視する。例:
@@ -74,7 +74,7 @@ description: スライド設計規約 slide-rules.md（実務レビュー由来�
 
 書き出したPPTXは全図形がネイティブ編集可能（`editable: true`）。納品後の微修正はPowerPoint上でそのままできる。
 
-## 38型カタログ — レイアウトの発想帳（型ID / 使いどころ）
+## 36型カタログ — レイアウトの発想帳（型ID / 使いどころ）
 
 型は「合わせる対象」ではなく「見せ方を思いつくための引き出し」。Bレーンでの型選定と、Aレーンでのレイアウト着想の両方に使う。
 
@@ -105,12 +105,10 @@ description: スライド設計規約 slide-rules.md（実務レビュー由来�
 | 19 | `theme_card_grid` | 複数のテーマをカードで並べる場合 |
 | 20 | `recommendation_pillars` | 複数の提言を柱立てで示す場合 |
 | 21 | `numbered_imperatives` | やるべきことを番号付きで示す場合 |
-| 22 | `question_framework` | 検討すべき問いを構造化する場合 |
-| 23 | `scr` | 状況・複雑化・解決の3段で語る場合 |
+| 23 | `scr` | Situation・Complication・Resolution（状況・難しさ・解決）の3段で語る場合 |
 | 24 | `issue_to_solution_map` | 課題と解決策を対応付ける場合 |
 | 25 | `issue_cause_solution` | 課題から原因、解決策へ流れで示す場合 |
 | 26 | `issue_tree` | 課題をツリーで分解する場合 |
-| 27 | `cause_effect` | 原因と結果の連鎖を示す場合 |
 | 28 | `current_target_state` | 現状と目指す姿を対比する場合 |
 | 29 | `calc_flow` | 計算ロジックを式の流れで示す場合 |
 | 30 | `process_flow` | プロセスの流れを段階で示す場合 |
@@ -124,7 +122,7 @@ description: スライド設計規約 slide-rules.md（実務レビュー由来�
 
 ## おまけ: テンプレPPTX見本帳の使い方
 
-`assets/SuperTemplate_38type.pptx` は同じ38型を1型=1スライドで収めた見本帳。
+`assets/SuperTemplate_36type.pptx` は同じ36型を1型=1スライドで収めた見本帳。
 - 型選定時の**目視カタログ**として眺める
 - Node環境が無い場合の**手動フォールバック**として、該当スライドをコピーして文言を差し替える
 のどちらでも使える。ただし品質の再現性はSlideSpecパイプライン経由のほうが高い。

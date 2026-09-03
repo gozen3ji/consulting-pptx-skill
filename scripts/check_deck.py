@@ -29,6 +29,9 @@ def warn(msg):
     warns.append(msg)
 
 
+# テンプレ集そのものを検査するときだけ True（--template）。
+# 通常のデッキでは「Text N」「◯◯」等のプレースホルダーが残っていたら FAIL にする。
+TEMPLATE_MODE = False
 STRICT_LEN = True  # PPTX: 1行40字。HTMLは2行まで許容(>60でFAIL)
 
 # 表記ゆれ代表ペア（slide-rules §7.6: 1資料1用語）。両方の表記が同一資料に現れたら WARN。
@@ -100,6 +103,24 @@ def check_title(idx, title):
         fail(f"p{idx}: 他スライド参照語で始まるタイトル: 「{t}」")
     if t.count("（") + t.count("(") >= 2:
         warn(f"p{idx}: タイトルに丸括弧が多い: 「{t}」")
+    if not TEMPLATE_MODE and re.search(r"[◯○]{2,}|Text\s*\d|ラベル\s*\d|タイトル\s*\d|Source\s*\d|YYYY|ダミー|^資料名$|^会社名$", t):
+        fail(f"p{idx}: テンプレのプレースホルダーが残っている（タイトルはストーリーラインから書く — slide-rules §2.8）: 「{t}」")
+
+
+# テンプレの見本タイトルは「形の参考」であって埋める鋳型ではない（slide-rules §2.8）。同じ文型が並んだら WARN。
+def check_title_variety(titles):
+    real = [t.strip() for t in titles if t and t.strip()]
+    if len(real) < 5:
+        return
+    molds = {
+        "「◯◯は、…」": lambda t: re.match(r"^.{1,12}は[、,]", t),
+        "「◯◯には、…がある」": lambda t: re.search(r"には[、,].*(ある|存在する)$", t),
+        "数を主語にした形（「3つの…」）": lambda t: re.match(r"^[0-9０-９一二三四五六七八九十]+つ", t),
+    }
+    for name, f in molds.items():
+        hits = [t for t in real if f(t)]
+        if len(hits) >= max(4, int(len(real) * 0.6)):
+            warn(f"タイトルの文型が {name} に偏っている（{len(hits)}/{len(real)}枚）。テンプレの見本文型をなぞらず、主張ごとに自然な文で書く — slide-rules §2.8")
 
 
 # ---------------------------------------------------------------- PPTX
@@ -267,6 +288,8 @@ def main():
         sys.exit(__doc__)
     p = sys.argv[1]
     titles = check_pptx(p) if p.lower().endswith(".pptx") else check_html(p)
+    if not TEMPLATE_MODE:
+        check_title_variety(titles)
     print("=== タイトル一覧（上から通し読みしてストーリーが繋がるか確認） ===")
     for i, t in enumerate(titles, 1):
         print(f"{i:>3}  {t or '(なし)'}")

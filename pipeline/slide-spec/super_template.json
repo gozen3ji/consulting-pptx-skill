@@ -1,18 +1,18 @@
 {
-  "deckTitle": "スーパーテンプレ",
-  "deckSubtitle": "38型のレイアウトテンプレート集（プレースホルダー版）",
+  "deckTitle": "スライド型カタログ",
+  "deckSubtitle": "型のカタログ｜タイトル欄は型名。実デッキではストーリーラインから起こした主張文に差し替える",
   "slides": [
     {
       "template": "cover",
       "kicker": "Super Template",
       "title": "スーパーテンプレ 38型",
       "subtitle": "実測38のスライド型 | コピーして文言を差し替えて使う",
-      "source": "資料：スライド型ライブラリより"
+      "source": "出典：Source 1"
     },
     {
       "template": "executive_summary",
       "kicker": "01  executive_summary",
-      "title": "冒頭で結論と論点を一望させる場合",
+      "title": "エグゼクティブサマリー",
       "sections": [
         {
           "title": "タイトル 2",
@@ -27,13 +27,13 @@
           "copy": "Text 3"
         }
       ],
-      "source": "資料：出典を記載"
+      "source": "出典：Source 1"
     },
     {
       "template": "evidence_basis",
       "kicker": "02  evidence_basis",
-      "title": "この資料が何に基づくかを冒頭で示す場合",
-      "subtitle": "補足（何を・どの範囲で・いつ時点か）",
+      "title": "調査の土台",
+      "subtitle": "指標名、単位、YYYY〜YYYY年",
       "sections": [
         {
           "title": "タイトル 2",
@@ -56,13 +56,13 @@
           "copy": "Text 4"
         }
       ],
-      "source": "資料：出典を記載"
+      "source": "出典：Source 1"
     },
     {
       "template": "big_stat_pair",
       "kicker": "03  big_stat_pair",
-      "title": "大型数値2つで規模やインパクトを対比する場合",
-      "subtitle": "補足（何を・どの範囲で・いつ時点か）",
+      "title": "大型数値の対比",
+      "subtitle": "指標名、単位、YYYY〜YYYY年",
       "kpis": [
         {
           "label": "ラベル1",
@@ -75,12 +75,12 @@
           "note": "注：前提や注記を記載"
         }
       ],
-      "source": "資料：出典を記載"
+      "source": "出典：Source 1"
     },
     {
       "template": "kpi_dashboard",
       "kicker": "04  kpi_dashboard",
-      "title": "主要KPIを一覧で示す場合",
+      "title": "KPI一覧",
       "kpis": [
         {
           "label": "ラベル1",
@@ -107,12 +107,12 @@
           "note": "注：前提や注記を記載"
         }
       ],
-      "source": "資料：出典を記載"
+      "source": "出典：Source 1"
     },
     {
       "template": "chart_insight",
       "kicker": "05  chart_insight",
-      "title": "1つのチャートで主張を証明し、含意を添える場合",
+      "title": "単一チャート＋含意",
       "chart": {
         "unit": "指標名、単位",
         "series": [
@@ -140,13 +140,13 @@
           "copy": "Text 1"
         }
       ],
-      "note": "注：前提や注記を記載",
-      "source": "資料：出典を記載"
+      "note": "注：前提・注記を記載",
+      "source": "出典：Source 1"
     },
     {
       "template": "stacked_bar",
       "kicker": "06  stacked_bar",
-      "title": "構成の変化を積み上げ棒で示す場合",
+      "title": "積み上げ棒",
       "stacks": {
         "unit": "指標名、単位",
         "legend": [
@@ -199,12 +199,12 @@
           }
         ]
       },
-      "source": "資料：出典を記載"
+      "source": "出典：Source 1"
     },
     {
       "template": "waterfall",
       "kicker": "07  waterfall",
-      "title": "増減の寄与をブリッジで示す場合",
+      "title": "寄与度ブリッジ",
       "chart": {
         "unit": "指標名、単位",
         "series": [
@@ -246,13 +246,13 @@
           "copy": "Text 1"
         }
       ],
-      "note": "注：前提や注記を記載",
-      "source": "資料：出典を記載"
+      "note": "注：前提・注記を記載",
+      "source": "出典：Source 1"
     },
     {
       "template": "true_waterfall",
       "kicker": "08  true_waterfall",
-      "title": "起点から着地までの増減を厳密なブリッジで示す場合",
+      "title": "増減ブリッジ（厳密）",
       "chart": {
         "unit": "指標名、単位",
         "series": [
@@ -283,12 +283,12 @@
           }
         ]
       },
-      "source": "資料：出典を記載"
+      "source": "出典：Source 1"
     },
     {
       "template": "small_multiples",
       "kicker": "09  small_multiples",
-      "title": "同じ図法を並べて切り口違いで比較する場合",
+      "title": "小図の並列比較",
       "multiples": [
         {
           "label": "ラベル1",
@@ -359,96 +359,141 @@
           ]
         }
       ],
-      "source": "資料：出典を記載"
+      "source": "出典：Source 1"
     },
     {
       "template": "comparison_table",
       "kicker": "10  comparison_table",
-      "title": "複数の選択肢を評価軸で比較する場合",
+      "title": "選択肢の比較表",
       "table": [
         {
           "criterion": "ラベル1",
           "company": "ラベル2",
           "competitor": "ラベル3",
-          "implication": "Text 1"
+          "implication": [
+            "Text 1",
+            "Text 2"
+          ]
         },
         {
           "criterion": "ラベル4",
           "company": "ラベル5",
           "competitor": "ラベル6",
-          "implication": "Text 2"
+          "implication": [
+            "Text 3",
+            "Text 4"
+          ]
         },
         {
           "criterion": "ラベル7",
           "company": "ラベル8",
           "competitor": "ラベル9",
-          "implication": "Text 3"
+          "implication": [
+            "Text 5",
+            "Text 6"
+          ]
         }
       ],
-      "source": "資料：出典を記載"
+      "source": "出典：Source 1"
     },
     {
       "template": "scenario_table",
       "kicker": "11  scenario_table",
-      "title": "シナリオ別の前提と結果を並べる場合",
+      "title": "シナリオ比較表",
       "table": [
         {
           "case": "ラベル1",
           "outcome": "Text 1",
-          "assumptions": "Text 2",
-          "implication": "Text 3"
+          "assumptions": [
+            "前提1-1：TextをTextと置く",
+            "前提1-2：Textは変わらないとする"
+          ],
+          "implication": [
+            "Text 1をText 2まで積み増す",
+            "Text 3の判断をN月に前倒す"
+          ]
         },
         {
           "case": "ラベル2",
           "outcome": "Text 4",
-          "assumptions": "Text 5",
-          "implication": "Text 6"
+          "assumptions": [
+            "前提2-1：TextをTextと置く",
+            "前提2-2：Textは変わらないとする"
+          ],
+          "implication": [
+            "Text 4をText 5まで積み増す",
+            "Text 6の判断をN月に前倒す"
+          ]
         },
         {
           "case": "ラベル3",
           "outcome": "Text 7",
-          "assumptions": "Text 8",
-          "implication": "Text 9"
+          "assumptions": [
+            "前提3-1：TextをTextと置く",
+            "前提3-2：Textは変わらないとする"
+          ],
+          "implication": [
+            "Text 7をText 8まで積み増す",
+            "Text 9の判断をN月に前倒す"
+          ]
         }
       ],
-      "note": "注：前提や注記を記載",
-      "source": "資料：出典を記載"
+      "note": "注：前提・注記を記載",
+      "source": "出典：Source 1"
     },
     {
       "template": "risk_table",
       "kicker": "12  risk_table",
-      "title": "リスク・兆候・打ち手を整理する場合",
+      "title": "リスク一覧表",
       "table": [
         {
           "risk": "Text 1",
           "severity": "high",
-          "signal": "Text 2",
-          "mitigation": "Text 3",
+          "signal": [
+            "Text 1がNを下回る",
+            "Text 2のNがNか月続く"
+          ],
+          "mitigation": [
+            "Text 3を先に確保する",
+            "Text 4の代替案を用意する"
+          ],
           "owner": "ラベル1"
         },
         {
           "risk": "Text 4",
           "severity": "medium",
-          "signal": "Text 5",
-          "mitigation": "Text 6",
+          "signal": [
+            "Text 5がNを下回る",
+            "Text 6のNがNか月続く"
+          ],
+          "mitigation": [
+            "Text 7を先に確保する",
+            "Text 8の代替案を用意する"
+          ],
           "owner": "ラベル2"
         },
         {
           "risk": "Text 7",
           "severity": "medium",
-          "signal": "Text 8",
-          "mitigation": "Text 9",
+          "signal": [
+            "Text 9がNを下回る",
+            "Text 10のNがNか月続く"
+          ],
+          "mitigation": [
+            "Text 11を先に確保する",
+            "Text 12の代替案を用意する"
+          ],
           "owner": "ラベル3"
         }
       ],
-      "source": "資料：出典を記載"
+      "source": "出典：Source 1"
     },
     {
       "template": "horizontal_axis_table",
       "kicker": "13  horizontal_axis_table",
-      "title": "横軸に項目を並べて評価する場合",
+      "title": "横軸評価表",
       "axis": {
-        "callout": "コールアウト：色付き行の意味を1行で",
+        "callout": "網掛けの行＝Text 1（この行だけ立てている理由を1行で）",
         "headers": [
           "列見出し1",
           "列見出し2",
@@ -494,12 +539,12 @@
           }
         ]
       },
-      "source": "資料：出典を記載"
+      "source": "出典：Source 1"
     },
     {
       "template": "heatmap_table",
       "kicker": "14  heatmap_table",
-      "title": "濃淡で強弱を一覧表示する場合",
+      "title": "ヒートマップ表",
       "heatmap": {
         "rowLabel": "行の軸名",
         "colHeaders": [
@@ -601,12 +646,12 @@
           }
         ]
       },
-      "source": "資料：出典を記載"
+      "source": "出典：Source 1"
     },
     {
       "template": "matrix_2x2",
       "kicker": "15  matrix_2x2",
-      "title": "2つの軸で位置づけを整理する場合",
+      "title": "2×2マトリクス",
       "items": [
         {
           "label": "施策1",
@@ -645,7 +690,7 @@
           ]
         }
       ],
-      "source": "資料：出典を記載",
+      "source": "出典：Source 1",
       "matrix": {
         "yAxis": "縦軸名（上ほど高い）",
         "xAxis": "横軸名（右ほど高い）"
@@ -654,7 +699,7 @@
     {
       "template": "process_matrix",
       "kicker": "16  process_matrix",
-      "title": "プロセスと観点の掛け合わせで整理する場合",
+      "title": "プロセス×観点の行列",
       "grid": {
         "rowLabel": "行の軸名",
         "colHeaders": [
@@ -689,12 +734,12 @@
           }
         ]
       },
-      "source": "資料：出典を記載"
+      "source": "出典：Source 1"
     },
     {
       "template": "nested_row_matrix",
       "kicker": "17  nested_row_matrix",
-      "title": "入れ子の行構造で階層を示す場合",
+      "title": "入れ子行の行列",
       "nested": {
         "groups": [
           {
@@ -742,12 +787,12 @@
           }
         ]
       },
-      "source": "資料：出典を記載"
+      "source": "出典：Source 1"
     },
     {
       "template": "timeline_matrix",
       "kicker": "18  timeline_matrix",
-      "title": "時系列と項目のマトリクスで示す場合",
+      "title": "時系列マトリクス",
       "lanes": {
         "columns": [
           "列見出し1",
@@ -781,13 +826,13 @@
           }
         ]
       },
-      "source": "資料：出典を記載"
+      "source": "出典：Source 1"
     },
     {
       "template": "theme_card_grid",
       "kicker": "19  theme_card_grid",
-      "title": "複数のテーマをカードで並べる場合",
-      "subtitle": "補足（何を・どの範囲で・いつ時点か）",
+      "title": "テーマカード",
+      "subtitle": "指標名、単位、YYYY〜YYYY年",
       "sections": [
         {
           "label": "ラベル1",
@@ -814,12 +859,12 @@
           "value": "92%"
         }
       ],
-      "source": "資料：出典を記載"
+      "source": "出典：Source 1"
     },
     {
       "template": "recommendation_pillars",
       "kicker": "20  recommendation_pillars",
-      "title": "複数の提言を柱立てで示す場合",
+      "title": "提言の柱",
       "sections": [
         {
           "title": "タイトル 2",
@@ -846,13 +891,13 @@
           ]
         }
       ],
-      "source": "資料：出典を記載"
+      "source": "出典：Source 1"
     },
     {
       "template": "numbered_imperatives",
       "kicker": "21  numbered_imperatives",
-      "title": "やるべきことを番号付きで示す場合",
-      "subtitle": "補足（何を・どの範囲で・いつ時点か）",
+      "title": "番号つき打ち手",
+      "subtitle": "指標名、単位、YYYY〜YYYY年",
       "sections": [
         {
           "title": "タイトル 2",
@@ -875,77 +920,38 @@
           "copy": "Text 5"
         }
       ],
-      "source": "資料：出典を記載"
-    },
-    {
-      "template": "question_framework",
-      "kicker": "22  question_framework",
-      "title": "検討すべき問いを構造化する場合",
-      "subtitle": "補足（何を・どの範囲で・いつ時点か）",
-      "sections": [
-        {
-          "label": "ラベル1",
-          "title": "タイトル 2",
-          "copy": "Text 1"
-        },
-        {
-          "label": "ラベル2",
-          "title": "タイトル 3",
-          "copy": "Text 2"
-        },
-        {
-          "label": "ラベル3",
-          "title": "タイトル 4",
-          "copy": "Text 3"
-        },
-        {
-          "label": "ラベル4",
-          "title": "タイトル 5",
-          "copy": "Text 4"
-        },
-        {
-          "label": "ラベル5",
-          "title": "タイトル 6",
-          "copy": "Text 5"
-        },
-        {
-          "label": "ラベル6",
-          "title": "タイトル 7",
-          "copy": "Text 6"
-        }
-      ],
-      "source": "資料：出典を記載"
+      "source": "出典：Source 1"
     },
     {
       "template": "scr",
-      "kicker": "23  scr",
-      "title": "状況・複雑化・解決の3段で語る場合",
+      "kicker": "22  scr",
+      "title": "Situation・Complication・Resolution",
       "scr": [
         {
-          "label": "ラベル1",
+          "label": "Situation",
           "heading": "Text 1",
           "copy": "Text 2",
           "note": "注：前提や注記を記載"
         },
         {
-          "label": "ラベル2",
+          "label": "Complication",
           "heading": "Text 3",
           "copy": "Text 4",
           "note": "注：前提や注記を記載"
         },
         {
-          "label": "ラベル3",
+          "label": "Resolution",
           "heading": "Text 5",
           "copy": "Text 6",
           "note": "注：前提や注記を記載"
         }
       ],
-      "source": "資料：出典を記載"
+      "source": "出典：Source 1"
     },
     {
       "template": "issue_to_solution_map",
-      "kicker": "24  issue_to_solution_map",
-      "title": "課題と解決策を対応付ける場合",
+      "kicker": "23  issue_to_solution_map",
+      "title": "課題と打ち手の対応",
       "mappings": [
         {
           "issue": "Text 1",
@@ -963,12 +969,12 @@
           "impact": "Text 9"
         }
       ],
-      "source": "資料：出典を記載"
+      "source": "出典：Source 1"
     },
     {
       "template": "issue_cause_solution",
-      "kicker": "25  issue_cause_solution",
-      "title": "課題から原因、解決策へ流れで示す場合",
+      "kicker": "24  issue_cause_solution",
+      "title": "課題→原因→解決",
       "stages": [
         {
           "label": "ラベル1",
@@ -986,12 +992,12 @@
           "copy": "Text 6"
         }
       ],
-      "source": "資料：出典を記載"
+      "source": "出典：Source 1"
     },
     {
       "template": "issue_tree",
-      "kicker": "26  issue_tree",
-      "title": "課題をツリーで分解する場合",
+      "kicker": "25  issue_tree",
+      "title": "イシューツリー",
       "tree": {
         "root": "分解したいイシュー",
         "branches": [
@@ -1018,35 +1024,12 @@
           }
         ]
       },
-      "source": "資料：出典を記載"
-    },
-    {
-      "template": "cause_effect",
-      "kicker": "27  cause_effect",
-      "title": "原因と結果の連鎖を示す場合",
-      "causeEffect": {
-        "effect": "Text 1",
-        "causes": [
-          {
-            "label": "ラベル1",
-            "detail": "Text 2"
-          },
-          {
-            "label": "ラベル2",
-            "detail": "Text 3"
-          },
-          {
-            "label": "ラベル3",
-            "detail": "Text 4"
-          }
-        ]
-      },
-      "source": "資料：出典を記載"
+      "source": "出典：Source 1"
     },
     {
       "template": "current_target_state",
-      "kicker": "28  current_target_state",
-      "title": "現状と目指す姿を対比する場合",
+      "kicker": "26  current_target_state",
+      "title": "現状と目指す姿",
       "panels": [
         {
           "label": "ラベル1",
@@ -1069,12 +1052,12 @@
           ]
         }
       ],
-      "source": "資料：出典を記載"
+      "source": "出典：Source 1"
     },
     {
       "template": "calc_flow",
-      "kicker": "29  calc_flow",
-      "title": "計算ロジックを式の流れで示す場合",
+      "kicker": "27  calc_flow",
+      "title": "計算ロジックの流れ",
       "calc": {
         "unit": "指標名、単位",
         "legend": [
@@ -1188,12 +1171,12 @@
           }
         ]
       },
-      "source": "資料：出典を記載"
+      "source": "出典：Source 1"
     },
     {
       "template": "process_flow",
-      "kicker": "30  process_flow",
-      "title": "プロセスの流れを段階で示す場合",
+      "kicker": "28  process_flow",
+      "title": "プロセスの段階",
       "steps": [
         {
           "title": "タイトル 2",
@@ -1212,12 +1195,12 @@
           "copy": "Text 4"
         }
       ],
-      "source": "資料：出典を記載"
+      "source": "出典：Source 1"
     },
     {
       "template": "cycle",
-      "kicker": "31  cycle",
-      "title": "循環するサイクル構造を示す場合",
+      "kicker": "29  cycle",
+      "title": "循環サイクル",
       "steps": [
         {
           "title": "タイトル 2",
@@ -1240,12 +1223,12 @@
           "copy": "Text 5"
         }
       ],
-      "source": "資料：出典を記載"
+      "source": "出典：Source 1"
     },
     {
       "template": "chevron_rail",
-      "kicker": "32  chevron_rail",
-      "title": "段階の進行をシェブロンで示す場合",
+      "kicker": "30  chevron_rail",
+      "title": "矢羽の段階（全体像の見出し）",
       "steps": [
         {
           "title": "タイトル 2",
@@ -1268,12 +1251,12 @@
           "copy": "Text 5"
         }
       ],
-      "source": "資料：出典を記載"
+      "source": "出典：Source 1"
     },
     {
       "template": "chevron_value_chain",
-      "kicker": "33  chevron_value_chain",
-      "title": "バリューチェーン全体を示す場合",
+      "kicker": "31  chevron_value_chain",
+      "title": "バリューチェーン",
       "valueChain": {
         "rails": [
           {
@@ -1346,12 +1329,12 @@
           }
         ]
       },
-      "source": "資料：出典を記載"
+      "source": "出典：Source 1"
     },
     {
       "template": "decision_fork",
-      "kicker": "34  decision_fork",
-      "title": "分岐する選択肢と判断を示す場合",
+      "kicker": "32  decision_fork",
+      "title": "分岐と判断",
       "fork": {
         "question": "問い 1：検討すべき問いを記載",
         "branches": [
@@ -1373,12 +1356,12 @@
           }
         ]
       },
-      "source": "資料：出典を記載"
+      "source": "出典：Source 1"
     },
     {
       "template": "roadmap",
-      "kicker": "35  roadmap",
-      "title": "実行ロードマップを示す場合",
+      "kicker": "33  roadmap",
+      "title": "ロードマップ",
       "sections": [
         {
           "title": "タイトル 2",
@@ -1397,12 +1380,12 @@
           "copy": "Text 4"
         }
       ],
-      "source": "資料：出典を記載"
+      "source": "出典：Source 1"
     },
     {
       "template": "gantt",
-      "kicker": "36  gantt",
-      "title": "スケジュールをガントチャートで示す場合",
+      "kicker": "34  gantt",
+      "title": "ガントチャート",
       "gantt": {
         "periods": [
           "ラベル1",
@@ -1503,19 +1486,19 @@
           }
         ]
       },
-      "source": "資料：出典を記載"
+      "source": "出典：Source 1"
     },
     {
       "template": "decision_page",
-      "kicker": "37  decision_page",
-      "title": "意思決定を求める場合（決めること・前提・依頼）",
+      "kicker": "35  decision_page",
+      "title": "意思決定ページ",
       "ask": "Text 1",
       "decisions": [
         "Text 2",
         "Text 3",
         "Text 4"
       ],
-      "source": "資料：出典を記載"
+      "source": "出典：Source 1"
     }
   ]
 }

@@ -387,6 +387,7 @@ body {
 .comparison .head {
   min-height: auto;
   color: var(--ink);
+  font-size: 21px; /* rule 6: header 2pt larger than body (19px) */
   font-weight: 700;
   border-bottom: 2px solid var(--rule);
 }
@@ -650,6 +651,7 @@ body {
 .scenario-table th,
 .risk-table th {
   padding: 12px 14px;
+  font-size: 21px; /* rule 6: header 2pt larger than body (19px) */
   border-bottom: 2px solid var(--ink);
   text-align: left;
   font-weight: 700;
@@ -664,7 +666,7 @@ body {
 
 .scenario-table .num {
   color: var(--blue);
-  font-size: 28px;
+  font-size: 19px; /* rule 6: body emphasis must not exceed the header size */
   font-weight: 700;
 }
 

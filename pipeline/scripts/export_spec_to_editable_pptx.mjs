@@ -26,14 +26,17 @@ const deck = JSON.parse(await fs.readFile(inputPath, "utf8"));
 // Pick a font with Japanese glyph coverage when the deck contains Japanese; Arial lacks CJK glyphs.
 const HAS_JP = /[぀-ヿ㐀-鿿]/.test(JSON.stringify(deck));
 const FONT = HAS_JP ? "Yu Gothic" : "Arial";
+// 2026-09-03: 見出し・ロゴは明朝。HTMLパーツ集（Yu Mincho）と外枠を揃えるため
+// （統合カタログでPPTX由来ページとHTML由来ページの書体・版面がずれていた）。
+const FONT_SERIF = HAS_JP ? "Yu Mincho Demibold" : "Georgia";  // HTML側 h1(font-weight:600) と同じ太さ
 const LANG = HAS_JP ? "ja-JP" : "en-US";
 
 const W = 13.333;
 const H = 7.5;
-const M = 0.6;
-const TOP = 0.48;
-const CONTENT_TOP = 1.95;
-const FOOTER_Y = 6.83;
+const M = 0.63;              // 16mm
+const TOP = 0.47;            // ヘッダーバーの文字上端 12mm
+const CONTENT_TOP = 1.72;    // 本文開始 43.7mm
+const FOOTER_Y = 7.09;       // フッター罫線 180mm
 // Base palette. A spec may override any key via a root-level "palette" object
 // (e.g. {"palette": {"navy": "1F3A5F"}}) — used for brand-recolored decks.
 const PALETTE = deck.palette || {};
@@ -64,30 +67,31 @@ pptx.theme = {
 };
 
 function addKicker(slide, text) {
+  // 左: 資料名（明朝）／右: 型ID・章ラベル／下に細罫。HTMLパーツ集の .bar と同じ構成。
+  slide.addText(String(deck.deckTitle || ""), {
+    x: M, y: TOP - 0.12, w: 7.0, h: 0.3,
+    fontFace: FONT_SERIF, fontSize: 14, bold: false, color: INK,
+    margin: 0, breakLine: false, valign: "bottom", fit: "shrink",
+  });
   slide.addText(String(text || "").toUpperCase(), {
-    x: M,
-    y: TOP,
-    w: 5.5,
-    h: 0.2,
-    fontFace: FONT,
-    fontSize: 9,
-    bold: true,
-    color: MUTED,
-    margin: 0,
-    breakLine: false,
-    fit: "shrink",
+    x: W - M - 5.0, y: TOP - 0.02, w: 5.0, h: 0.2,
+    fontFace: FONT, fontSize: 8, bold: false, color: MUTED,
+    align: "right", margin: 0, breakLine: false, fit: "shrink",
+  });
+  slide.addShape(pptx.ShapeType.line, {
+    x: M, y: 0.858, w: W - M * 2, h: 0, line: { color: INK, width: 1.1 },
   });
 }
 
 function addTitle(slide, title, opts = {}) {
   slide.addText(title, {
     x: M,
-    y: 0.75,
-    w: 12.1,
-    h: 0.82,
-    fontFace: FONT,
-    fontSize: 27,
-    bold: true,
+    y: 1.00,
+    w: W - M * 2,
+    h: 0.55,
+    fontFace: FONT_SERIF,
+    fontSize: 22,
+    bold: false,
     color: INK,
     margin: 0,
     breakLine: false,
@@ -98,7 +102,7 @@ function addTitle(slide, title, opts = {}) {
   if (opts.titleRule === true) {
     slide.addShape(pptx.ShapeType.line, {
       x: M,
-      y: 1.68,
+      y: 1.62,
       w: W - M * 2,
       h: 0,
       line: { color: INK, width: 0.7 },
@@ -107,48 +111,72 @@ function addTitle(slide, title, opts = {}) {
 }
 
 function addFooter(slide, item, pageNum) {
-  slide.addShape(pptx.ShapeType.line, {
-    x: M,
-    y: FOOTER_Y,
-    w: W - M * 2,
-    h: 0,
-    line: { color: INK, width: 0.7 },
+  // 出典は罫線の「上」（HTMLパーツ集の .src と同じ位置）
+  slide.addText([item.note, item.source].filter(Boolean).join(" ") || "", {
+    x: M, y: FOOTER_Y - 0.26, w: 9.8, h: 0.2,
+    fontFace: FONT, fontSize: 7.5, color: MUTED, margin: 0, fit: "shrink",
   });
-  slide.addText([item.note, item.source].filter(Boolean).join(" ") || "Source: Synthetic example", {
-    x: M,
-    y: FOOTER_Y + 0.08,
-    w: 9.8,
-    h: 0.18,
-    fontFace: FONT,
-    fontSize: 7.2,
-    color: MUTED,
-    margin: 0,
-    fit: "shrink",
+  slide.addShape(pptx.ShapeType.line, {
+    x: M, y: FOOTER_Y, w: W - M * 2, h: 0, line: { color: HAIR, width: 0.7 },
+  });
+  slide.addText(String(deck.deckTitle || ""), {
+    x: M, y: FOOTER_Y + 0.09, w: 6.0, h: 0.2,
+    fontFace: FONT, fontSize: 8.5, bold: true, color: INK, margin: 0, fit: "shrink",
   });
   slide.addText(String(pageNum), {
-    x: W - M - 0.3,
-    y: FOOTER_Y + 0.08,
-    w: 0.3,
-    h: 0.18,
-    fontFace: FONT,
-    fontSize: 7.2,
-    color: INK,
-    align: "right",
-    margin: 0,
+    x: W - M - 0.4, y: FOOTER_Y + 0.09, w: 0.4, h: 0.2,
+    fontFace: FONT, fontSize: 7.5, color: MUTED, align: "right", margin: 0,
   });
 }
 
 // Vertical balancing: content elements are buffered per slide, then shifted
 // down as a block so the body sits centered between the title zone and the
 // footer, instead of cramming against the title and leaving the bottom empty.
-const CONTENT_AREA_TOP = 1.72;
-const CONTENT_AREA_BOTTOM = FOOTER_Y - 0.12;
+const CONTENT_AREA_TOP = 1.70;
+const CONTENT_AREA_BOTTOM = FOOTER_Y - 0.34;  // 出典行の分を空ける
 const pendingBalancedSlides = [];
+
+// 2026-09-03: slide-rules §5.3「塗りありボックスに枠線を付けない」に合わせ、
+// 図形オプションを書き出し直前に正規化する。98か所の line: を個別に消すのではなく
+// ここで一括して落とす（check_deck の「塗りあり図形に枠線」WARN の発生源）。
+function normalizeShapeOpts(opts) {
+  if (!opts || typeof opts !== "object") return opts;
+  const fill = opts.fill;
+  const line = opts.line;
+  if (!fill || !line) return opts;
+  const fillColor = typeof fill === "string" ? fill : fill.color;
+  const lineColor = typeof line === "string" ? line : line.color;
+  if (!fillColor || fill.type === "none") return opts;
+  if (fillColor === lineColor) {
+    // 塗りと同色の枠線＝完全に冗長。落とす
+    const { line: _drop, ...rest } = opts;
+    return rest;
+  }
+  if (String(fillColor).toUpperCase() === "FFFFFF") {
+    // 白塗り＋濃色枠は「塗りなし＋枠線」と見た目が同じ。ルール適合側に寄せる
+    return { ...opts, fill: { type: "none" } };
+  }
+  // 塗りに対して意味の違う枠線が付いているものは枠線を落とす（塗りが領域を示す）
+  const { line: _drop2, ...rest } = opts;
+  return rest;
+}
+
+// 2026-09-03: slide-rules §7.3「マーカー記号を本文テキストに直打ちしない」。
+// 「• 」を文字として連結せず、PPTX の書式ブレット（buChar）で付ける。
+function toFormattedBullets(list) {
+  const items = (list || []).filter(Boolean);
+  if (!items.length) return null;
+  return items.map((b, i) => ({
+    text: String(b),
+    options: { bullet: { code: "2022", indent: 12 }, breakLine: i < items.length - 1 },
+  }));
+}
 
 function makeBalancingProxy(slide) {
   const ops = [];
   pendingBalancedSlides.push({ slide, ops });
   const buffer = (method) => (...args) => {
+    if (method === "addShape" && args[1]) args[1] = normalizeShapeOpts(args[1]);
     ops.push([method, args]);
   };
   return {
@@ -251,7 +279,8 @@ function addCover(item, pageNum) {
     w: 4.9,
     h: 4.9,
     rotate: 28,
-    fill: { color: WHITE, transparency: 100 },
+    // 透明度100%の白塗り＝実質「塗りなし」。塗りあり＋枠線に見えるので type:"none" にする（slide-rules §5.3）
+    fill: { type: "none" },
     line: { color: CYAN, transparency: 25, width: 0.7 },
   });
   addKicker(slide, item.kicker);
@@ -370,7 +399,7 @@ function addWaterfall(item, pageNum) {
 function addComparison(item, pageNum) {
   const slide = addShell(item, pageNum);
   const h = item.headers || {};
-  const headers = [h.criterion || "Criterion", h.company || "Company", h.competitor || "Competitors", h.implication || "Implication"];
+  const headers = [h.criterion || "評価軸", h.company || "自社", h.competitor || "他社", h.implication || "読み取り"];
   const rows = (item.table || []).map((r) => [r.criterion, r.company, r.competitor, r.implication]);
   addTableLike(slide, headers, rows, [2.4, 2.4, 2.4, 4.93], 2.22, {});
 }
@@ -378,7 +407,7 @@ function addComparison(item, pageNum) {
 function addScenario(item, pageNum) {
   const slide = addShell(item, pageNum);
   const h = item.headers || {};
-  const headers = [h.case || "Case", h.outcome || "Revenue outcome", h.assumptions || "Key assumptions", h.implication || "Management implication"];
+  const headers = [h.case || "シナリオ", h.outcome || "結果", h.assumptions || "置いた前提", h.implication || "経営の打ち手"];
   const rows = (item.table || []).map((r) => [r.case, r.outcome, r.assumptions, r.implication]);
   addTableLike(slide, headers, rows, [1.7, 1.9, 4.3, 4.23], 2.22, { numericCol: 1 });
 }
@@ -386,7 +415,7 @@ function addScenario(item, pageNum) {
 function addRisk(item, pageNum) {
   const slide = addShell(item, pageNum);
   const h = item.headers || {};
-  const headers = [h.risk || "Risk", h.signal || "Signal to track", h.mitigation || "Mitigation", h.owner || "Owner"];
+  const headers = [h.risk || "リスク", h.signal || "見るべき兆候", h.mitigation || "打ち手", h.owner || "担当"];
   const rows = (item.table || []).map((r) => [r.risk, r.signal, r.mitigation, r.owner]);
   addTableLike(slide, headers, rows, [3.1, 2.8, 5.0, 1.23], 2.22, {});
 }
@@ -399,7 +428,7 @@ function addTableLike(slide, headers, rows, widths, y, opts = {}) {
     text: h,
     options: {
       bold: true,
-      fontSize: 10.5,
+      fontSize: 12.5, // rule 6: header 2pt larger than body (10.5)
       color: INK,
       align: "left",
       valign: "top",
@@ -409,12 +438,18 @@ function addTableLike(slide, headers, rows, widths, y, opts = {}) {
   const bodyRows = rows.map((row) =>
     row.map((txt, i) => {
       const isNum = i === opts.numericCol;
+      const cellText = Array.isArray(txt)
+        ? txt.filter(Boolean).map((b, bi, arr) => ({
+            text: String(b),
+            options: { bullet: { code: "2022", indent: 10 }, breakLine: bi < arr.length - 1 },
+          }))
+        : String(txt ?? "");
       return {
-        text: String(txt ?? ""),
+        text: cellText,
         options: {
           bold: i === 0 || isNum,
           color: isNum ? BLUE : INK,
-          fontSize: isNum ? 15 : 10.5,
+          fontSize: 10.5, // rule 6: emphasis is bold+color only, never larger than the header
           align: "left",
           valign: "top",
           border: [{ type: "none" }, { type: "none" }, { type: "solid", pt: 0.5, color: HAIR }, { type: "none" }],
@@ -701,16 +736,10 @@ function addCurrentTargetState(item, pageNum) {
     addBodyText(slide, p.label, x + 0.3, y + 0.28, panelW - 0.6, 0.32, { fontSize: 14, bold: true, color: isTarget ? BLUE : INK });
     slide.addShape(pptx.ShapeType.line, { x: x + 0.3, y: y + 0.66, w: panelW - 0.6, h: 0, line: { color: isTarget ? BLUE : INK, width: 1.6 } });
     if (p.heading) addBodyText(slide, p.heading, x + 0.3, y + 0.82, panelW - 0.6, 0.4, { fontSize: 15, bold: true });
-    (p.bullets || []).forEach((b, bi) => {
-      const by = y + 1.4 + bi * 0.62;
-      if (isTarget) {
-        slide.addShape(pptx.ShapeType.ellipse, { x: x + 0.3, y: by, w: 0.28, h: 0.28, fill: { color: BLUE }, line: { color: BLUE } });
-        addBodyText(slide, String.fromCharCode(65 + bi), x + 0.3, by, 0.28, 0.28, { fontSize: 11, bold: true, color: WHITE, align: "center", valign: "middle" });
-        addBodyText(slide, b, x + 0.72, by, panelW - 1.0, 0.55, { fontSize: 12 });
-      } else {
-        addBodyText(slide, b, x + 0.3, by, panelW - 0.6, 0.55, { fontSize: 12 });
-      }
-    });
+    // 2026-09-03 レビュー指摘: A/B/C の丸チップは不要（後続で参照しない番号は装飾 — slide-rules §7.13）。
+    // 両パネルとも書式ブレットで列挙する
+    const bl = toFormattedBullets(p.bullets);
+    if (bl) addBodyText(slide, bl, x + 0.3, y + 1.4, panelW - 0.6, panelH - 1.5, { fontSize: 12 });
   });
   // canonical circle-arrow: navy circle + white chevron marking "current leads to target"
   const ax = M + panelW + (gap - 0.56) / 2;
@@ -921,6 +950,13 @@ function addTrueWaterfall(item, pageNum) {
     addBodyText(slide, p.display, x - 0.2, yTop - 0.28, barW + 0.4, 0.22, { fontSize: 11, bold: true, align: "center" });
     addBodyText(slide, p.label, x - 0.3, baseY + 0.1, barW + 0.6, 0.4, { fontSize: 10.5, align: "center" });
   });
+  // 2026-09-03: ゼロ基準の横線が無く、棒が宙に浮いて見えていた（addWaterfall には元からある）。
+  // 棒の下端＝ゼロ位置に基準線を引く。ゼロが領域の途中にある場合はその高さに引く。
+  const zeroY = baseY - ((0 - domainMin) / range) * maxH;
+  slide.addShape(pptx.ShapeType.line, { x: M, y: baseY, w: totalW + 0.6, h: 0, line: { color: INK, width: 1 } });
+  if (zeroY < baseY - 0.02) {
+    slide.addShape(pptx.ShapeType.line, { x: M, y: zeroY, w: totalW + 0.6, h: 0, line: { color: HAIR, width: 0.75, dashType: "dash" } });
+  }
 }
 
 function addCauseEffect(item, pageNum) {
@@ -1259,7 +1295,7 @@ function addRecommendationPillars(item, pageNum) {
       addBodyText(slide, p.copy, x, yy, colW, 0.6, { fontSize: 12, color: INK });
       yy += 0.7;
     }
-    const bullets = (p.bullets || []).map((b) => `• ${b}`).join("\n");
+    const bullets = toFormattedBullets(p.bullets);
     if (bullets) addBodyText(slide, bullets, x, yy, colW, 2.0, { fontSize: 12 });
   });
 }
@@ -1301,34 +1337,58 @@ function addSmallMultiples(item, pageNum) {
 }
 
 function addNestedRowMatrix(item, pageNum) {
+  // 2026-09-03: 内容の列挙で最もよく使う型。規約に合わせて作り直した
+  //  - 軸（大分類・小分類）は塗りつぶしでなく太字＋罫線で示す（slide-rules §6「軸は塗りでなく罫線」）
+  //  - 行区切りは点線でなく薄い実線1本。最終行の下には引かない（§5.4）
+  //  - 列見出しを置き、各列が何かを言葉で示す
   const slide = addShell(item, pageNum, { titleRule: false });
-  const groups = (item.nested || {}).groups || [];
+  const nested = item.nested || {};
+  const groups = nested.groups || [];
+  const heads = nested.headers || {};
   const totalRows = groups.reduce((a, g) => a + g.rows.length, 0) || 1;
-  const groupW = 2.0;
-  const labelW = 2.4;
-  const contentX = M + groupW + labelW + 0.1;
+  const groupW = 2.3;
+  const labelW = 2.6;
+  const contentX = M + groupW + labelW + 0.2;
   const contentW = W - M - contentX;
-  const topY = 2.05;
-  const available = FOOTER_Y - 0.3 - topY;
-  const rowH = Math.min(0.95, available / totalRows);
+  const headY = 2.02;
+  const topY = headY + 0.42;
+  const available = FOOTER_Y - 0.34 - topY;
+  const rowH = Math.min(1.05, available / totalRows);
+
+  // 列見出し＋太い下罫（表ヘッダーと同じ文法）
+  addBodyText(slide, heads.group || "大分類", M, headY, groupW, 0.3, { fontSize: 12.5, bold: true, color: INK });
+  addBodyText(slide, heads.row || "小分類", M + groupW, headY, labelW, 0.3, { fontSize: 12.5, bold: true, color: INK });
+  addBodyText(slide, heads.content || "内容", contentX, headY, contentW, 0.3, { fontSize: 12.5, bold: true, color: INK });
+  slide.addShape(pptx.ShapeType.line, { x: M, y: topY - 0.06, w: W - M * 2, h: 0, line: { color: INK, width: 1.2 } });
+
   let ri = 0;
-  groups.forEach((group) => {
+  groups.forEach((group, gi) => {
     const gy = topY + ri * rowH;
     const gh = group.rows.length * rowH;
-    slide.addShape(pptx.ShapeType.rect, { x: M, y: gy + 0.06, w: groupW - 0.16, h: gh - 0.18, fill: { color: NAVY }, line: { color: NAVY } });
-    addBodyText(slide, group.label, M, gy + 0.06, groupW - 0.16, gh - 0.18, { fontSize: 14, bold: true, color: WHITE, align: "center", valign: "middle" });
-    group.rows.forEach((r) => {
+    // 大分類: 明朝の太字＋左の縦罫（塗らない）
+    slide.addShape(pptx.ShapeType.line, { x: M, y: gy + 0.06, w: 0, h: gh - 0.14, line: { color: INK, width: 2 } });
+    addBodyText(slide, group.label, M + 0.14, gy + 0.06, groupW - 0.24, gh - 0.14,
+      { fontSize: 13.5, bold: true, color: INK, valign: "middle" });
+    if (gi > 0) {
+      slide.addShape(pptx.ShapeType.line, { x: M, y: gy, w: W - M * 2, h: 0, line: { color: MUTED, width: 0.9 } });
+    }
+    group.rows.forEach((r, riInGroup) => {
       const yy = topY + ri * rowH;
-      slide.addShape(pptx.ShapeType.rect, { x: M + groupW, y: yy + 0.06, w: labelW - 0.16, h: rowH - 0.18, fill: { color: SOFTBLUE }, line: { color: SOFTBLUE } });
-      addBodyText(slide, r.label, M + groupW, yy + 0.06, labelW - 0.16, rowH - 0.18, { fontSize: 12.5, bold: true, align: "center", valign: "middle" });
+      addBodyText(slide, r.label, M + groupW, yy + 0.08, labelW - 0.2, rowH - 0.16,
+        { fontSize: 12, bold: true, color: INK, valign: "middle" });
       let cy = yy + 0.1;
       if (r.copy) {
-        addBodyText(slide, r.copy, contentX, cy, contentW, 0.36, { fontSize: 12 });
-        cy += 0.36;
+        addBodyText(slide, r.copy, contentX, cy, contentW, 0.34, { fontSize: 11.5 });
+        cy += 0.34;
       }
-      const bullets = (r.bullets || []).map((b) => `• ${b}`).join("\n");
-      if (bullets) addBodyText(slide, bullets, contentX, cy, contentW, rowH - 0.12 - (cy - yy), { fontSize: 11.5 });
-      slide.addShape(pptx.ShapeType.line, { x: M + groupW, y: yy + rowH - 0.02, w: W - M - (M + groupW), h: 0, line: { color: HAIR, width: 0.5, dashType: "dash" } });
+      const bullets = toFormattedBullets(r.bullets);
+      if (bullets) addBodyText(slide, bullets, contentX, cy, contentW, rowH - 0.14 - (cy - yy), { fontSize: 11.5 });
+      // 行区切りは薄い実線。グループ末尾と最終行の下には引かない
+      const isGroupLast = riInGroup === group.rows.length - 1;
+      if (!isGroupLast) {
+        slide.addShape(pptx.ShapeType.line, { x: M + groupW, y: yy + rowH, w: W - M - (M + groupW), h: 0,
+          line: { color: HAIR, width: 0.6 } });
+      }
       ri += 1;
     });
   });

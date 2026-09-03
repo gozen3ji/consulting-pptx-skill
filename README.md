@@ -1,9 +1,9 @@
 # consulting-pptx-skill
 
 **AIに「まじな」のPowerPointを作らせるためのClaude Codeスキル。**
-スライド作成規約（約80項目）＋機械チェック＋コンサル型スライド38型のカタログ＋SlideSpec（JSONによるスライド定義）＋生成パイプライン（HTMLプレビュー→編集可能PPTX）の一式です。
+スライド作成規約（約80項目）＋機械チェック＋コンサル型スライド36型のカタログ＋SlideSpec（JSONによるスライド定義）＋生成パイプライン（HTMLプレビュー→編集可能PPTX）の一式です。
 
-A Claude Code skill for generating boardroom-quality PowerPoint decks: a catalog of 38 consulting slide archetypes, a JSON SlideSpec format, a render pipeline (HTML preview → natively editable PPTX), a slide-design rulebook, and an automated rule checker.
+A Claude Code skill for generating boardroom-quality PowerPoint decks: a catalog of 36 consulting slide archetypes, a JSON SlideSpec format, a render pipeline (HTML preview → natively editable PPTX), a slide-design rulebook, and an automated rule checker.
 
 私たちが実際に毎週の提案書・報告書づくりで使っている仕組みの公開版です。解説記事はこちら → [AIにまじなスライド作らせる（note）](https://note.com/jinbaflow/n/nc8372b84e572)
 
@@ -13,13 +13,13 @@ A Claude Code skill for generating boardroom-quality PowerPoint decks: a catalog
 
 使い方はシンプルで、**AIに資料を作らせる前に毎回このファイルを読ませ、出力後に `scripts/check_deck.py` で違反を機械検出する**だけ。AIはセッションごとに記憶がリセットされるので、口頭で注意しても定着しません。ルールをファイル化して毎回読ませるのが唯一の定着方法です。
 
-そして、良いスライドを作るのは型ではなく**流し込んだ後の調整**です。表を2枚に割る、右カラムを帰結形に書き直す、タイトルの通し読みでストーリーを繋ぎ直す — 型に囚われず考えて直し、そこで受けた指摘をまた slide-rules.md に1行追記する。この蓄積ループが品質の源泉で、38型テンプレとパイプラインは「たたき台を数十秒で出して、調整の反復回数を稼ぐ」ための道具にすぎません。
+そして、良いスライドを作るのは型ではなく**流し込んだ後の調整**です。表を2枚に割る、右カラムを帰結形に書き直す、タイトルの通し読みでストーリーを繋ぎ直す — 型に囚われず考えて直し、そこで受けた指摘をまた slide-rules.md に1行追記する。この蓄積ループが品質の源泉で、36型テンプレとパイプラインは「たたき台を数十秒で出して、調整の反復回数を稼ぐ」ための道具にすぎません。
 
 自社で使うときは、slide-rules.md に自社の規約・指摘を追記して育ててください。
 
-## たたき台を秒で出す仕組み（38型×SlideSpec）
+## たたき台を秒で出す仕組み（36型×SlideSpec）
 
-核心は「**AIにレイアウトを描かせない**」こと。38型それぞれのレイアウト（タイトル位置・余白・フォントサイズ・作図ルール）は実測値としてレンダラーに焼き込んであり、AIが書くのは中身（主張・数値・ラベル）だけです。
+核心は「**AIにレイアウトを描かせない**」こと。36型それぞれのレイアウト（タイトル位置・余白・フォントサイズ・作図ルール）は実測値としてレンダラーに焼き込んであり、AIが書くのは中身（主張・数値・ラベル）だけです。
 
 このJSON（SlideSpec）を書くと——
 
@@ -68,7 +68,7 @@ npm run setup
 
 あとはClaude Codeにこう頼みます:
 
-> 新規事業の投資判断資料を作りたい。38型から型を選んで10枚構成のSlideSpecを書き、パイプラインで編集可能なPPTXまで出して。作成前に slide-rules.md を読み、出力後は check_deck.py でFAIL 0にすること。
+> 新規事業の投資判断資料を作りたい。36型から型を選んで10枚構成のSlideSpecを書き、パイプラインで編集可能なPPTXまで出して。作成前に slide-rules.md を読み、出力後は check_deck.py でFAIL 0にすること。
 
 ## 手動で使う場合
 
@@ -87,14 +87,14 @@ python3 ../scripts/check_deck.py generated/deck.pptx                            
 
 | パス | 内容 |
 | --- | --- |
-| `SKILL.md` | 38型カタログ＋実運用フロー（AIへの指示書。これがスキルの本体） |
+| `SKILL.md` | 36型カタログ＋実運用フロー（AIへの指示書。これがスキルの本体） |
 | `pipeline/` | 生成スクリプト（validate / render / qa / export / shots）＋CSS |
-| `pipeline/slide-spec/super_template.json` | 38型すべての完成SlideSpec定義（コピーして使う正本） |
+| `pipeline/slide-spec/super_template.json` | 36型すべての完成SlideSpec定義（コピーして使う正本） |
 | `pipeline/slide-spec/example_deck.json` | 記入例3枚（上のプレビュー画像の元データ） |
 | `pipeline/slide-spec/schema.json` | SlideSpecスキーマ |
 | `references/slide-rules.md` | スライド作成ルール正典（約80項目） |
 | `scripts/check_deck.py` | 規約の機械チェック（PPTX / HTML両対応。要 `pip3 install python-pptx`） |
-| `assets/SuperTemplate_38type.pptx` | おまけ: 38型を1枚ずつ収めた見本帳PPTX（[PDF版](assets/SuperTemplate_38type.pdf)） |
+| `assets/SuperTemplate_36type.pptx` | おまけ: 36型を1枚ずつ収めた見本帳PPTX（[PDF版](assets/SuperTemplate_36type.pdf)） |
 
 Node.jsが無い環境でも、見本帳PPTXの手動コピペとルール正典・機械チェックはそのまま使えます。
 
