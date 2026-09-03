@@ -1,9 +1,9 @@
 # consulting-pptx-skill
 
 **AIに「まじな」のPowerPointを作らせるためのClaude Codeスキル。**
-スライド作成規約（約80項目）＋機械チェック＋コンサル型スライド36型のカタログ＋SlideSpec（JSONによるスライド定義）＋生成パイプライン（HTMLプレビュー→編集可能PPTX）の一式です。
+スライド作成規約（約85項目）＋機械チェック＋**自由記述パーツ集27パーツ**＋コンサル型スライド36型のSlideSpec（JSONによるスライド定義）＋生成パイプライン（HTMLプレビュー→編集可能PPTX）の一式です。
 
-A Claude Code skill for generating boardroom-quality PowerPoint decks: a catalog of 36 consulting slide archetypes, a JSON SlideSpec format, a render pipeline (HTML preview → natively editable PPTX), a slide-design rulebook, and an automated rule checker.
+A Claude Code skill for generating boardroom-quality decks: a 27-part freeform HTML parts library, a catalog of 36 consulting slide archetypes with a JSON SlideSpec format, a render pipeline (HTML preview → natively editable PPTX), a slide-design rulebook, and an automated rule checker.
 
 私たちが実際に毎週の提案書・報告書づくりで使っている仕組みの公開版です。解説記事はこちら → [AIにまじなスライド作らせる（note）](https://note.com/jinbaflow/n/nc8372b84e572)
 
@@ -16,6 +16,19 @@ A Claude Code skill for generating boardroom-quality PowerPoint decks: a catalog
 そして、良いスライドを作るのは型ではなく**流し込んだ後の調整**です。表を2枚に割る、右カラムを帰結形に書き直す、タイトルの通し読みでストーリーを繋ぎ直す — 型に囚われず考えて直し、そこで受けた指摘をまた slide-rules.md に1行追記する。この蓄積ループが品質の源泉で、36型テンプレとパイプラインは「たたき台を数十秒で出して、調整の反復回数を稼ぐ」ための道具にすぎません。
 
 自社で使うときは、slide-rules.md に自社の規約・指摘を追記して育ててください。
+
+## 作り方は2経路、型カタログは1本
+
+| 経路 | 実体 | 出せるもの | 使うとき |
+| --- | --- | --- | --- |
+| **自由記述（本線）** | `templates/freeform_parts_16x9.html`（27パーツ） | HTMLデッキ → PDF | 納品物。主張に合わせて1枚ずつ組む |
+| **SlideSpec パイプライン** | `pipeline/slide-spec/super_template.json`（36型） | **編集可能なPPTX** | たたき台を秒で出す・PowerPointで渡す |
+
+どちらの型も **タイトル欄は型名だけ**で、見本の主張文は置いていません。見本文があると文型がそのまま真似され、主張ではなくテンプレを写した資料になるからです（slide-rules §2.8）。タイトルは必ずストーリーラインから起こして差し替えます。
+
+プレースホルダーの書き方は両経路で統一しています: 本文 `Text 1`、項目名 `ラベル 1`、見出し `タイトル 1`、数値 `00`、年 `YYYY年`、指標行 `指標名、単位、YYYY〜YYYY年`、出典 `出典：Source 1`。`check_deck.py` はこれらが納品デッキに残っていたら **FAIL**、タイトルの文型が6割以上同じなら **WARN** にします（テンプレ集そのものを検査するときだけ `--template`）。
+
+パーツ集の主なもの: 主張パネル＋図／打ち手の効果表／状態ヒートマップ／充足度評価表（ハーベイボール）／割合のドットマトリクス／進捗バブル行列／分布の順位棒／注記つき散布図／柱＋土台／対向シェブロン／外部動向の根拠グリッド／比例円の対比／増減の縦棒／シナリオ線＋成長率チップ／調査の土台／課題と打ち手の2カラム／セパレーター（章扉＝アジェンダ再掲・現在地を強調）。
 
 ## たたき台を秒で出す仕組み（36型×SlideSpec）
 
@@ -79,7 +92,10 @@ node scripts/render_spec_to_html.mjs slide-spec/example_deck.json generated/deck
 node scripts/qa_html_deck.mjs generated/deck.html                                        # 構造QA
 node scripts/export_spec_to_editable_pptx.mjs slide-spec/example_deck.json generated/deck.pptx  # 編集可能PPTX
 python3 ../scripts/check_deck.py generated/deck.pptx                                     # 規約の機械チェック
+node ../scripts/check_layout.mjs generated/deck.html                                     # HTMLのはみ出し・重なり検査
 ```
+
+自由記述で組むときは `templates/freeform_parts_16x9.html` をコピーして不要な `<section>` を消し、プレースホルダーを差し替えてから同じ `check_deck.py` にかけます。
 
 書き出されるPPTXは画像貼り付けではなく、全図形がPowerPointで編集できるネイティブなテキストボックス・表・シェイプです。
 
@@ -87,13 +103,15 @@ python3 ../scripts/check_deck.py generated/deck.pptx                            
 
 | パス | 内容 |
 | --- | --- |
-| `SKILL.md` | 36型カタログ＋実運用フロー（AIへの指示書。これがスキルの本体） |
+| `SKILL.md` | 実運用フロー＋36型カタログ（AIへの指示書。これがスキルの本体） |
+| `templates/freeform_parts_16x9.html` | 自由記述パーツ集（27パーツ・1パーツ=1スライド・16:9）。本線の作り方 |
 | `pipeline/` | 生成スクリプト（validate / render / qa / export / shots）＋CSS |
 | `pipeline/slide-spec/super_template.json` | 36型すべての完成SlideSpec定義（コピーして使う正本） |
 | `pipeline/slide-spec/example_deck.json` | 記入例3枚（上のプレビュー画像の元データ） |
 | `pipeline/slide-spec/schema.json` | SlideSpecスキーマ |
 | `references/slide-rules.md` | スライド作成ルール正典（約80項目） |
-| `scripts/check_deck.py` | 規約の機械チェック（PPTX / HTML両対応。要 `pip3 install python-pptx`） |
+| `scripts/check_deck.py` | 規約の機械チェック（PPTX / HTML両対応。要 `pip3 install python-pptx`。テンプレ集の検査は `--template`） |
+| `scripts/check_layout.mjs` | HTMLデッキの実レンダリング検査（フッターとの重なり・右端/下端のはみ出し） |
 | `assets/SuperTemplate_36type.pptx` | おまけ: 36型を1枚ずつ収めた見本帳PPTX（[PDF版](assets/SuperTemplate_36type.pdf)） |
 
 Node.jsが無い環境でも、見本帳PPTXの手動コピペとルール正典・機械チェックはそのまま使えます。
