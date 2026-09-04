@@ -123,6 +123,45 @@ def check_title_variety(titles):
             warn(f"タイトルの文型が {name} に偏っている（{len(hits)}/{len(real)}枚）。テンプレの見本文型をなぞらず、主張ごとに自然な文で書く — slide-rules §2.8")
 
 
+# --- 数の不一致（slide-rules §2.9） -------------------------------------------
+# タイトルに書いた数と、本文の連番ラベルの最大値を突き合わせる。
+# 例: タイトル「3段階で移行する」に対し本文が「STEP 1〜4」。
+# 機械で拾える数少ない「内容の矛盾」なので FAIL にする。
+KANSUJI = {"一": 1, "二": 2, "三": 3, "四": 4, "五": 5,
+           "六": 6, "七": 7, "八": 8, "九": 9, "十": 10}
+COUNT_WORDS = r"(?:段階|フェーズ|ステップ|柱|論点)"
+ENUM_FAMILY = [
+    (r"段階|フェーズ|ステップ", r"(?:フェーズ|ステップ|STEP|Step|PHASE|Phase|段階)"),
+    (r"柱", r"(?:柱)"),
+    (r"論点", r"(?:論点)"),
+]
+
+
+def _to_int(s):
+    s = s.translate(str.maketrans("０１２３４５６７８９", "0123456789"))
+    if s.isdigit():
+        return int(s)
+    return KANSUJI.get(s)
+
+
+def check_count_match(idx, title, text):
+    """タイトルの「N段階」等が本文の連番ラベルと食い違っていたら FAIL"""
+    if not title or not text:
+        return
+    for m in re.finditer(r"([0-9０-９]+|[一二三四五六七八九十])\s*(" + COUNT_WORDS + ")", title):
+        n = _to_int(m.group(1))
+        if not n or not (2 <= n <= 12):
+            continue
+        fam = next((lab for pat, lab in ENUM_FAMILY if re.search(pat, m.group(2))), None)
+        if not fam:
+            continue
+        found = [v for v in (_to_int(x.group(1))
+                             for x in re.finditer(fam + r"\s*([0-9０-９]+)", text)) if v]
+        if found and max(found) != n:
+            fail(f"p{idx}: タイトルの「{m.group(0)}」と本文の連番（最大{max(found)}）が食い違う"
+                 f"（§2.9 数はページの中身と一致させる）: 「{title}」")
+
+
 # ---------------------------------------------------------------- PPTX
 def check_pptx(path):
     try:
@@ -196,6 +235,7 @@ def check_pptx(path):
         title = title.replace("\n", " ")
         titles.append(title)
         check_title(i, title)
+        check_count_match(i, title, dict(term_pages).get(i, ""))
         # サブタイトル疑い: タイトル直下 (y 1.2〜1.75in) の細字テキスト1行
         for sh in s.shapes:
             if sh.has_text_frame and sh.top is not None and Emu(1097280) <= sh.top < Emu(1600200):
@@ -272,6 +312,7 @@ def check_html(path):
         t = re.sub(r"\s+", " ", t)
         titles.append(t)
         check_title(i, t)
+        check_count_match(i, t, re.sub(r"<[^>]+>", " ", s))
     if not slides:
         warn("`.slide` 要素が見つからない（タイトル検査スキップ）")
     if slides:

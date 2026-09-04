@@ -11,7 +11,7 @@ A Claude Code skill for generating boardroom-quality decks: a 27-part freeform H
 
 このリポジトリでいちばん価値があるのは、実はテンプレでもスクリプトでもなく、**[slide-rules.md](references/slide-rules.md)** というテキストファイルです。実務の資料レビューで受けた指摘を1行ずつ書き溜めた約80項目 — 「結論はタイトルに書く」「角丸禁止」「塗りのあるボックスに枠線を付けない」「1資料1用語」…。
 
-使い方はシンプルで、**AIに資料を作らせる前に毎回このファイルを読ませ、出力後に `scripts/check_deck.py` で違反を機械検出する**だけ。AIはセッションごとに記憶がリセットされるので、口頭で注意しても定着しません。ルールをファイル化して毎回読ませるのが唯一の定着方法です。
+使い方はシンプルで、**AIに資料を作らせる前に毎回このファイルを読ませ、出力後に `scripts/check_deck.py` で違反を機械検出し、最後に `references/content-review-prompt.md` で作り方を伏せた別エージェントに内容の矛盾を拾わせる**だけ。AIはセッションごとに記憶がリセットされるので、口頭で注意しても定着しません。ルールをファイル化して毎回読ませるのが唯一の定着方法です。
 
 そして、良いスライドを作るのは型ではなく**流し込んだ後の調整**です。表を2枚に割る、右カラムを帰結形に書き直す、タイトルの通し読みでストーリーを繋ぎ直す — 型に囚われず考えて直し、そこで受けた指摘をまた slide-rules.md に1行追記する。この蓄積ループが品質の源泉で、36型テンプレとパイプラインは「たたき台を数十秒で出して、調整の反復回数を稼ぐ」ための道具にすぎません。
 
@@ -110,7 +110,8 @@ node ../scripts/check_layout.mjs generated/deck.html                            
 | `pipeline/slide-spec/example_deck.json` | 記入例3枚（上のプレビュー画像の元データ） |
 | `pipeline/slide-spec/schema.json` | SlideSpecスキーマ |
 | `references/slide-rules.md` | スライド作成ルール正典（約80項目） |
-| `scripts/check_deck.py` | 規約の機械チェック（PPTX / HTML両対応。要 `pip3 install python-pptx`。テンプレ集の検査は `--template`） |
+| `references/content-review-prompt.md` | 内容レビューの指示文。機械チェックのあと、作り方を伏せた別エージェントに全ページを読ませ、タイトルと図の食い違い・根拠のない評価語・既出ページの焼き直しを拾う |
+| `scripts/check_deck.py` | 規約の機械チェック（PPTX / HTML両対応。要 `pip3 install python-pptx`。テンプレ集の検査は `--template`）。タイトルの「N段階」と本文の連番の食い違いも FAIL にする |
 | `scripts/check_layout.mjs` | HTMLデッキの実レンダリング検査（フッターとの重なり・右端/下端のはみ出し） |
 | `assets/SuperTemplate_36type.pptx` | おまけ: 36型を1枚ずつ収めた見本帳PPTX（[PDF版](assets/SuperTemplate_36type.pdf)） |
 
