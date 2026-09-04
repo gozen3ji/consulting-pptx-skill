@@ -78,7 +78,7 @@
         },
         "headers": {
           "type": "object",
-          "description": "Localizable table/label headers. comparison_table: criterion/company/competitor/implication. scenario_table: case/outcome/assumptions/implication. risk_table: risk/signal/mitigation/owner. cause_effect: effect. English defaults keep old specs working; Japanese decks should set these.",
+          "description": "Localizable table/label headers. comparison_table: criterion/company/competitor/implication. scenario_table: case/outcome/assumptions/implication. risk_table: risk/signal/mitigation/owner. cause_effect: effect. issue_to_solution_map: issue/resolution. timeline_matrix: phase. gantt: milestone. decision_page: recommended. English defaults keep old specs working; Japanese decks should set these.",
           "properties": {
             "criterion": { "type": "string" },
             "company": { "type": "string" },

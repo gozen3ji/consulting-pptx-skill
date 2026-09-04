@@ -490,7 +490,7 @@ function addRoadmap(item, pageNum) {
 function addDecision(item, pageNum) {
   const slide = addShell(item, pageNum);
   slide.addShape(pptx.ShapeType.line, { x: M, y: 2.22, w: 5.7, h: 0, line: { color: BLUE, width: 2.2 } });
-  addBodyText(slide, "RECOMMENDED DECISION", M, 2.45, 2.4, 0.24, { fontSize: 10.5, bold: true, color: MUTED });
+  addBodyText(slide, ((item.headers || {}).recommended || "RECOMMENDED DECISION"), M, 2.45, 2.4, 0.24, { fontSize: 10.5, bold: true, color: MUTED });
   addBodyText(slide, item.ask || "", M, 2.85, 5.8, 1.5, { fontSize: 22, bold: true });
   (item.decisions || []).forEach((d, i) => {
     const y = 2.25 + i * 0.78;
@@ -625,9 +625,9 @@ function addIssueToSolution(item, pageNum) {
   const solX = M + colW + gapW;
 
   const headerY = 2.15;
-  addBodyText(slide, "Issue", issueX, headerY, colW, 0.3, { fontSize: 14, bold: true });
+  addBodyText(slide, ((item.headers || {}).issue || "Issue"), issueX, headerY, colW, 0.3, { fontSize: 14, bold: true });
   slide.addShape(pptx.ShapeType.line, { x: issueX, y: headerY + 0.4, w: colW, h: 0, line: { color: INK, width: 2 } });
-  addBodyText(slide, "Resolution", solX, headerY, colW, 0.3, { fontSize: 14, bold: true });
+  addBodyText(slide, ((item.headers || {}).resolution || "Resolution"), solX, headerY, colW, 0.3, { fontSize: 14, bold: true });
   slide.addShape(pptx.ShapeType.line, { x: solX, y: headerY + 0.4, w: colW, h: 0, line: { color: INK, width: 2 } });
 
   const rowY0 = headerY + 0.65;
@@ -832,7 +832,7 @@ function addTimelineMatrix(item, pageNum) {
   const colW = (totalW - periodW - colGap * cols) / cols;
   const headerY = 2.2;
   const colX = (ci) => M + periodW + ci * (colW + colGap);
-  addBodyText(slide, "Phase", M, headerY, periodW, 0.3, { fontSize: 12.5, bold: true });
+  addBodyText(slide, ((item.headers || {}).phase || "Phase"), M, headerY, periodW, 0.3, { fontSize: 12.5, bold: true });
   slide.addShape(pptx.ShapeType.line, { x: M, y: headerY + 0.36, w: periodW - 0.2, h: 0, line: { color: INK, width: 1.4 } });
   lanes.columns.forEach((c, ci) => {
     addBodyText(slide, c, colX(ci), headerY, colW, 0.3, { fontSize: 12, bold: true });
@@ -1043,7 +1043,7 @@ function addGantt(item, pageNum) {
     const my = tasksTop;
     milestones.forEach((m) => {
       const cx = colCenter(m.at);
-      slide.addShape(pptx.ShapeType.triangle, { x: cx - 0.1, y: my, w: 0.2, h: 0.18, fill: { color: INK }, line: { color: INK } });
+      slide.addShape(pptx.ShapeType.triangle, { x: cx - 0.1, y: my, w: 0.2, h: 0.18, fill: { color: INK } });
       addBodyText(slide, m.label, cx - 0.95, my + 0.2, 1.9, 0.22, { fontSize: 9, bold: true, align: "center" });
     });
     tasksTop = my + 0.52;

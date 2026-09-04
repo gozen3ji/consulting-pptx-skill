@@ -71,7 +71,8 @@ function validate(deck) {
       );
     }
     const minTitleLen = /[぀-ヿ㐀-鿿]/.test(slide.title || "") ? 12 : 20;
-    if (!slide.title || slide.title.length < minTitleLen) {
+    // TEMPLATE_MODE=1: 型カタログ（タイトル＝型名）を描画するときだけ最短字数の検証を外す
+    if (!process.env.TEMPLATE_MODE && (!slide.title || slide.title.length < minTitleLen)) {
       throw new Error(`Slide ${index + 1} needs an action-oriented title (min ${minTitleLen} chars).`);
     }
     const rect = (rows, width, label) => {
@@ -168,7 +169,7 @@ function renderMatrix(slide, n) {
   return shell(
     slide,
     n,
-    `<div class="matrix-wrap"><div class="matrix-chart"><div class="matrix-axis-y">Higher impact</div><div class="matrix-axis-x">Higher feasibility</div>${points}</div><div class="insight-panel"><div class="section-label">${esc(section.title)}</div><ul class="bullets">${bullets}</ul></div></div>`,
+    `<div class="matrix-wrap"><div class="matrix-chart"><div class="matrix-axis-y">${esc(slide.matrix?.yAxis || "Higher impact")}</div><div class="matrix-axis-x">${esc(slide.matrix?.xAxis || "Higher feasibility")}</div>${points}</div><div class="insight-panel"><div class="section-label">${esc(section.title)}</div><ul class="bullets">${bullets}</ul></div></div>`,
   );
 }
 
@@ -249,7 +250,7 @@ function renderDecision(slide, n) {
   return shell(
     slide,
     n,
-    `<div class="decision-layout"><div class="decision-ask"><div class="decision-ask-title">Recommended decision</div><div class="decision-ask-copy">${esc(slide.ask)}</div></div><div class="decision-list">${decisions}</div></div>`,
+    `<div class="decision-layout"><div class="decision-ask"><div class="decision-ask-title">${esc((slide.headers||{}).recommended || "Recommended decision")}</div><div class="decision-ask-copy">${esc(slide.ask)}</div></div><div class="decision-list">${decisions}</div></div>`,
   );
 }
 
@@ -336,7 +337,7 @@ function renderIssueToSolution(slide, n) {
   return shell(
     slide,
     n,
-    `<div class="ism"><div class="ism-col-label">Issue</div><div></div><div class="ism-col-label solution">Resolution</div>${rows}</div>`,
+    `<div class="ism"><div class="ism-col-label">${esc((slide.headers||{}).issue || "Issue")}</div><div></div><div class="ism-col-label solution">${esc((slide.headers||{}).resolution || "Resolution")}</div>${rows}</div>`,
     { noTitleRule: true },
   );
 }
@@ -454,7 +455,7 @@ function renderTimelineMatrix(slide, n) {
   const lanes = slide.lanes || { columns: [], rows: [] };
   const cols = lanes.columns.length;
   const template = `1fr repeat(${cols}, minmax(0, 1.4fr))`;
-  const cells = [`<div class="tlm-colhead">Phase</div>`];
+  const cells = [`<div class="tlm-colhead">${esc((slide.headers||{}).phase || "Phase")}</div>`];
   lanes.columns.forEach((c) => cells.push(`<div class="tlm-colhead">${esc(c)}</div>`));
   (lanes.rows || []).forEach((row) => {
     cells.push(`<div class="tlm-period">${esc(row.period)}</div>`);
@@ -603,7 +604,7 @@ function renderGantt(slide, n) {
   gr += 1;
 
   if (milestones.length) {
-    parts.push(`<div class="g2-corner g2-mscorner" style="grid-row:${gr}; grid-column:1/3;">Milestone</div>`);
+    parts.push(`<div class="g2-corner g2-mscorner" style="grid-row:${gr}; grid-column:1/3;">${esc((slide.headers||{}).milestone || "Milestone")}</div>`);
     const ms = milestones
       .map((m) => `<div class="g2-ms" style="left:${((m.at + 0.5) * monthPct).toFixed(2)}%;"><div class="g2-diamond" aria-hidden="true">&#9650;</div><div class="g2-mslab">${esc(m.label)}</div></div>`)
       .join("");

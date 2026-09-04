@@ -5,8 +5,8 @@
     {
       "template": "cover",
       "kicker": "Super Template",
-      "title": "スーパーテンプレ 38型",
-      "subtitle": "実測38のスライド型 | コピーして文言を差し替えて使う",
+      "title": "スーパーテンプレ",
+      "subtitle": "SlideSpec 36型の見本帳 | 型は発想帳。合わなければ自由記述パーツで組む",
       "source": "出典：Source 1"
     },
     {
@@ -394,7 +394,13 @@
           ]
         }
       ],
-      "source": "出典：Source 1"
+      "source": "出典：Source 1",
+      "headers": {
+        "criterion": "評価軸",
+        "company": "自社",
+        "competitor": "競合",
+        "implication": "含意"
+      }
     },
     {
       "template": "scenario_table",
@@ -439,7 +445,13 @@
         }
       ],
       "note": "注：前提・注記を記載",
-      "source": "出典：Source 1"
+      "source": "出典：Source 1",
+      "headers": {
+        "case": "シナリオ",
+        "outcome": "結果",
+        "assumptions": "前提",
+        "implication": "経営への含意"
+      }
     },
     {
       "template": "risk_table",
@@ -486,7 +498,13 @@
           "owner": "ラベル3"
         }
       ],
-      "source": "出典：Source 1"
+      "source": "出典：Source 1",
+      "headers": {
+        "risk": "リスク",
+        "signal": "兆候",
+        "mitigation": "対応策",
+        "owner": "担当"
+      }
     },
     {
       "template": "horizontal_axis_table",
@@ -826,7 +844,10 @@
           }
         ]
       },
-      "source": "出典：Source 1"
+      "source": "出典：Source 1",
+      "headers": {
+        "phase": "段階"
+      }
     },
     {
       "template": "theme_card_grid",
@@ -969,7 +990,11 @@
           "impact": "Text 9"
         }
       ],
-      "source": "出典：Source 1"
+      "source": "出典：Source 1",
+      "headers": {
+        "issue": "課題",
+        "resolution": "打ち手"
+      }
     },
     {
       "template": "issue_cause_solution",
@@ -1486,7 +1511,10 @@
           }
         ]
       },
-      "source": "出典：Source 1"
+      "source": "出典：Source 1",
+      "headers": {
+        "milestone": "マイルストーン"
+      }
     },
     {
       "template": "decision_page",
@@ -1498,7 +1526,10 @@
         "Text 3",
         "Text 4"
       ],
-      "source": "出典：Source 1"
+      "source": "出典：Source 1",
+      "headers": {
+        "recommended": "推奨する意思決定"
+      }
     }
   ]
 }
