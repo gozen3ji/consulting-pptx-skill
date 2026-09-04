@@ -52,6 +52,20 @@ const templates = new Set([
   "chevron_value_chain",
 ]);
 
+// ── 型プラグイン（scripts/archetypes/*.mjs）。PPTX エクスポーターと同じ登録簿。
+// html(ctx, item, n) を持つ型はそれで描画し、持たない型は中身を汎用レイアウトで描画する（プレビュー・QA 用）。
+const ARCHETYPES = await (async () => {
+  const dir = path.resolve(root, "scripts/archetypes");
+  const map = new Map();
+  let files = [];
+  try { files = (await fs.readdir(dir)).filter((f) => f.endsWith(".mjs") && !f.startsWith("_")).sort(); } catch { return map; }
+  for (const f of files) {
+    const mod = await import(path.join(dir, f));
+    if (mod.id) { map.set(mod.id, mod); templates.add(mod.id); }
+  }
+  return map;
+})();
+
 function esc(value = "") {
   return String(value)
     .replaceAll("&", "&amp;")
@@ -848,7 +862,28 @@ function renderEvidenceBasis(slide, n) {
   return shell(slide, n, `<div class="basis">${why}<div class="basis-rows">${rows}</div></div>`, { ownSubtitle: true });
 }
 
+function renderGenericParts(slide, n) {
+  // プラグイン型の汎用プレビュー: parts の中身を見出し＋箇条書きで並べる（レイアウトの再現は PPTX 側が正）
+  const parts = slide.parts || {};
+  const block = (k, v) => {
+    if (v == null) return "";
+    if (Array.isArray(v)) {
+      const lis = v.map((x) => `<li>${esc(typeof x === "object" ? Object.values(x).filter((y) => typeof y !== "object").join(" ／ ") : x)}</li>`).join("");
+      return `<div><div class="section-label">${esc(k)}</div><ul class="body-copy">${lis}</ul></div>`;
+    }
+    if (typeof v === "object") return `<div><div class="section-label">${esc(k)}</div><div class="body-copy">${esc(Object.entries(v).map(([a, b]) => `${a}: ${b}`).join(" ／ "))}</div></div>`;
+    return `<div><div class="section-label">${esc(k)}</div><div class="body-copy">${esc(v)}</div></div>`;
+  };
+  const cols = Object.entries(parts).map(([k, v]) => block(k, v)).join("");
+  return shell(slide, n, `<div class="three-col">${cols || '<div class="body-copy">（parts なし）</div>'}</div>`);
+}
+
 function renderSlide(slide, n) {
+  if (ARCHETYPES.has(slide.template)) {
+    const mod = ARCHETYPES.get(slide.template);
+    const ctx = { esc, shell, footer, titleHtml, spec, TEMPLATE_MODE: !!process.env.TEMPLATE_MODE };
+    return typeof mod.html === "function" ? mod.html(ctx, slide, n) : renderGenericParts(slide, n);
+  }
   switch (slide.template) {
     case "cover":
       return renderCover(slide, n);

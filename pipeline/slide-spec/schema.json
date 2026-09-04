@@ -2,22 +2,43 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Consulting SlideSpec",
   "type": "object",
-  "required": ["deckTitle", "slides"],
+  "required": [
+    "deckTitle",
+    "slides"
+  ],
   "properties": {
-    "deckTitle": { "type": "string" },
-    "deckSubtitle": { "type": "string" },
-    "skin": { "enum": ["cool", "warm"], "description": "Deck color/type skin. cool (default) = white/near-black/navy+cyan/sans. warm = cream/espresso/brown/serif, editorial." },
-    "viewer": { "type": "boolean", "description": "Emit the scale-to-fit on-screen viewer wrapper." },
+    "deckTitle": {
+      "type": "string"
+    },
+    "deckSubtitle": {
+      "type": "string"
+    },
+    "skin": {
+      "enum": [
+        "cool",
+        "warm"
+      ],
+      "description": "Deck color/type skin. cool (default) = white/near-black/navy+cyan/sans. warm = cream/espresso/brown/serif, editorial."
+    },
+    "viewer": {
+      "type": "boolean",
+      "description": "Emit the scale-to-fit on-screen viewer wrapper."
+    },
     "slides": {
       "type": "array",
       "minItems": 1,
-      "items": { "$ref": "#/$defs/slide" }
+      "items": {
+        "$ref": "#/$defs/slide"
+      }
     }
   },
   "$defs": {
     "slide": {
       "type": "object",
-      "required": ["template", "title"],
+      "required": [
+        "template",
+        "title"
+      ],
       "properties": {
         "template": {
           "enum": [
@@ -58,258 +79,690 @@
             "true_waterfall",
             "nested_row_matrix",
             "calc_flow",
-            "chevron_value_chain"
+            "chevron_value_chain",
+            "title_page",
+            "overview_map",
+            "table_of_contents",
+            "section_divider",
+            "chevron_steps",
+            "premise_conclusion",
+            "stat_table_readout",
+            "card_grid_2x2",
+            "axis_table",
+            "back_cover",
+            "claim_panel_figure",
+            "lever_effect_table",
+            "status_heatmap_comment",
+            "harvey_ball_table",
+            "dot_matrix_share",
+            "progress_bubble_matrix",
+            "ranked_bar_annotated",
+            "scatter_annotated",
+            "pillars_foundation",
+            "opposing_chevrons",
+            "evidence_clip_grid",
+            "proportional_circles",
+            "delta_bars_totals",
+            "scenario_lines_cagr",
+            "research_basis",
+            "issue_action_columns",
+            "agenda_separator"
           ]
         },
-        "title": { "type": "string" },
-        "kicker": { "type": "string" },
-        "subtitle": { "type": "string" },
-        "source": { "type": "string" },
-        "note": { "type": "string" },
+        "title": {
+          "type": "string"
+        },
+        "kicker": {
+          "type": "string"
+        },
+        "subtitle": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        },
+        "note": {
+          "type": "string"
+        },
         "sections": {
           "type": "array",
           "minItems": 1,
-          "items": { "$ref": "#/$defs/section" }
+          "items": {
+            "$ref": "#/$defs/section"
+          }
         },
-        "chart": { "$ref": "#/$defs/chart" },
+        "chart": {
+          "$ref": "#/$defs/chart"
+        },
         "table": {
           "type": "array",
-          "items": { "type": "object" }
+          "items": {
+            "type": "object"
+          }
         },
         "headers": {
           "type": "object",
           "description": "Localizable table/label headers. comparison_table: criterion/company/competitor/implication. scenario_table: case/outcome/assumptions/implication. risk_table: risk/signal/mitigation/owner. cause_effect: effect. issue_to_solution_map: issue/resolution. timeline_matrix: phase. gantt: milestone. decision_page: recommended. English defaults keep old specs working; Japanese decks should set these.",
           "properties": {
-            "criterion": { "type": "string" },
-            "company": { "type": "string" },
-            "competitor": { "type": "string" },
-            "implication": { "type": "string" },
-            "case": { "type": "string" },
-            "outcome": { "type": "string" },
-            "assumptions": { "type": "string" },
-            "risk": { "type": "string" },
-            "signal": { "type": "string" },
-            "mitigation": { "type": "string" },
-            "owner": { "type": "string" },
-            "effect": { "type": "string" }
+            "criterion": {
+              "type": "string"
+            },
+            "company": {
+              "type": "string"
+            },
+            "competitor": {
+              "type": "string"
+            },
+            "implication": {
+              "type": "string"
+            },
+            "case": {
+              "type": "string"
+            },
+            "outcome": {
+              "type": "string"
+            },
+            "assumptions": {
+              "type": "string"
+            },
+            "risk": {
+              "type": "string"
+            },
+            "signal": {
+              "type": "string"
+            },
+            "mitigation": {
+              "type": "string"
+            },
+            "owner": {
+              "type": "string"
+            },
+            "effect": {
+              "type": "string"
+            }
           }
         },
         "items": {
           "type": "array",
-          "items": { "type": "object" }
+          "items": {
+            "type": "object"
+          }
         },
-        "ask": { "type": "string" },
+        "ask": {
+          "type": "string"
+        },
         "decisions": {
           "type": "array",
-          "items": { "type": "string" }
+          "items": {
+            "type": "string"
+          }
         },
         "scr": {
           "type": "array",
           "minItems": 3,
           "maxItems": 3,
-          "items": { "$ref": "#/$defs/scrColumn" }
+          "items": {
+            "$ref": "#/$defs/scrColumn"
+          }
         },
-        "axis": { "$ref": "#/$defs/axisTable" },
+        "axis": {
+          "$ref": "#/$defs/axisTable"
+        },
         "mappings": {
           "type": "array",
           "minItems": 1,
-          "items": { "$ref": "#/$defs/mapping" }
+          "items": {
+            "$ref": "#/$defs/mapping"
+          }
         },
         "steps": {
           "type": "array",
           "minItems": 2,
-          "items": { "$ref": "#/$defs/step" }
+          "items": {
+            "$ref": "#/$defs/step"
+          }
         },
         "stages": {
           "type": "array",
           "minItems": 2,
-          "items": { "$ref": "#/$defs/stage" }
+          "items": {
+            "$ref": "#/$defs/stage"
+          }
         },
         "panels": {
           "type": "array",
           "minItems": 2,
-          "items": { "$ref": "#/$defs/panel" }
+          "items": {
+            "$ref": "#/$defs/panel"
+          }
         },
-        "fork": { "$ref": "#/$defs/fork" },
-        "heatmap": { "$ref": "#/$defs/heatmap" },
-        "lanes": { "$ref": "#/$defs/lanes" },
-        "grid": { "$ref": "#/$defs/grid" },
-        "stacks": { "$ref": "#/$defs/stacks" },
-        "causeEffect": { "$ref": "#/$defs/causeEffect" },
-        "gantt": { "$ref": "#/$defs/gantt" },
-        "tree": { "$ref": "#/$defs/tree" },
-        "nested": { "$ref": "#/$defs/nested" },
-        "calc": { "$ref": "#/$defs/calc" },
-        "valueChain": { "$ref": "#/$defs/valueChain" },
+        "fork": {
+          "$ref": "#/$defs/fork"
+        },
+        "heatmap": {
+          "$ref": "#/$defs/heatmap"
+        },
+        "lanes": {
+          "$ref": "#/$defs/lanes"
+        },
+        "grid": {
+          "$ref": "#/$defs/grid"
+        },
+        "stacks": {
+          "$ref": "#/$defs/stacks"
+        },
+        "causeEffect": {
+          "$ref": "#/$defs/causeEffect"
+        },
+        "gantt": {
+          "$ref": "#/$defs/gantt"
+        },
+        "tree": {
+          "$ref": "#/$defs/tree"
+        },
+        "nested": {
+          "$ref": "#/$defs/nested"
+        },
+        "calc": {
+          "$ref": "#/$defs/calc"
+        },
+        "valueChain": {
+          "$ref": "#/$defs/valueChain"
+        },
         "kpis": {
           "type": "array",
           "minItems": 2,
-          "items": { "$ref": "#/$defs/kpi" }
+          "items": {
+            "$ref": "#/$defs/kpi"
+          }
         },
         "multiples": {
           "type": "array",
           "minItems": 2,
-          "items": { "$ref": "#/$defs/multiple" }
+          "items": {
+            "$ref": "#/$defs/multiple"
+          }
+        },
+        "parts": {
+          "type": "object",
+          "description": "自由記述パーツ由来の型（scripts/archetypes/*.mjs）が使うデータ。中身の形は各型モジュールの example を見る"
         }
       },
       "allOf": [
         {
-          "if": { "properties": { "template": { "const": "scr" } } },
-          "then": { "required": ["scr"] }
+          "if": {
+            "properties": {
+              "template": {
+                "const": "scr"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "scr"
+            ]
+          }
         },
         {
-          "if": { "properties": { "template": { "const": "horizontal_axis_table" } } },
-          "then": { "required": ["axis"] }
+          "if": {
+            "properties": {
+              "template": {
+                "const": "horizontal_axis_table"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "axis"
+            ]
+          }
         },
         {
-          "if": { "properties": { "template": { "const": "issue_to_solution_map" } } },
-          "then": { "required": ["mappings"] }
+          "if": {
+            "properties": {
+              "template": {
+                "const": "issue_to_solution_map"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "mappings"
+            ]
+          }
         },
         {
-          "if": { "properties": { "template": { "const": "process_flow" } } },
-          "then": { "required": ["steps"] }
+          "if": {
+            "properties": {
+              "template": {
+                "const": "process_flow"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "steps"
+            ]
+          }
         },
         {
-          "if": { "properties": { "template": { "const": "cycle" } } },
-          "then": { "required": ["steps"] }
+          "if": {
+            "properties": {
+              "template": {
+                "const": "cycle"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "steps"
+            ]
+          }
         },
         {
-          "if": { "properties": { "template": { "const": "issue_cause_solution" } } },
-          "then": { "required": ["stages"] }
+          "if": {
+            "properties": {
+              "template": {
+                "const": "issue_cause_solution"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "stages"
+            ]
+          }
         },
         {
-          "if": { "properties": { "template": { "const": "current_target_state" } } },
-          "then": { "required": ["panels"] }
+          "if": {
+            "properties": {
+              "template": {
+                "const": "current_target_state"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "panels"
+            ]
+          }
         },
         {
-          "if": { "properties": { "template": { "const": "decision_fork" } } },
-          "then": { "required": ["fork"] }
+          "if": {
+            "properties": {
+              "template": {
+                "const": "decision_fork"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "fork"
+            ]
+          }
         },
         {
-          "if": { "properties": { "template": { "const": "heatmap_table" } } },
-          "then": { "required": ["heatmap"] }
+          "if": {
+            "properties": {
+              "template": {
+                "const": "heatmap_table"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "heatmap"
+            ]
+          }
         },
         {
-          "if": { "properties": { "template": { "const": "timeline_matrix" } } },
-          "then": { "required": ["lanes"] }
+          "if": {
+            "properties": {
+              "template": {
+                "const": "timeline_matrix"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "lanes"
+            ]
+          }
         },
         {
-          "if": { "properties": { "template": { "const": "process_matrix" } } },
-          "then": { "required": ["grid"] }
+          "if": {
+            "properties": {
+              "template": {
+                "const": "process_matrix"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "grid"
+            ]
+          }
         },
         {
-          "if": { "properties": { "template": { "const": "stacked_bar" } } },
-          "then": { "required": ["stacks"] }
+          "if": {
+            "properties": {
+              "template": {
+                "const": "stacked_bar"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "stacks"
+            ]
+          }
         },
         {
-          "if": { "properties": { "template": { "const": "true_waterfall" } } },
-          "then": { "required": ["chart"] }
+          "if": {
+            "properties": {
+              "template": {
+                "const": "true_waterfall"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "chart"
+            ]
+          }
         },
         {
-          "if": { "properties": { "template": { "const": "nested_row_matrix" } } },
-          "then": { "required": ["nested"] }
+          "if": {
+            "properties": {
+              "template": {
+                "const": "nested_row_matrix"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "nested"
+            ]
+          }
         },
         {
-          "if": { "properties": { "template": { "const": "calc_flow" } } },
-          "then": { "required": ["calc"] }
+          "if": {
+            "properties": {
+              "template": {
+                "const": "calc_flow"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "calc"
+            ]
+          }
         },
         {
-          "if": { "properties": { "template": { "const": "chevron_value_chain" } } },
-          "then": { "required": ["valueChain"] }
+          "if": {
+            "properties": {
+              "template": {
+                "const": "chevron_value_chain"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "valueChain"
+            ]
+          }
         },
         {
-          "if": { "properties": { "template": { "const": "cause_effect" } } },
-          "then": { "required": ["causeEffect"] }
+          "if": {
+            "properties": {
+              "template": {
+                "const": "cause_effect"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "causeEffect"
+            ]
+          }
         },
         {
-          "if": { "properties": { "template": { "const": "chevron_rail" } } },
-          "then": { "required": ["steps"] }
+          "if": {
+            "properties": {
+              "template": {
+                "const": "chevron_rail"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "steps"
+            ]
+          }
         },
         {
-          "if": { "properties": { "template": { "const": "gantt" } } },
-          "then": { "required": ["gantt"] }
+          "if": {
+            "properties": {
+              "template": {
+                "const": "gantt"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "gantt"
+            ]
+          }
         },
         {
-          "if": { "properties": { "template": { "const": "issue_tree" } } },
-          "then": { "required": ["tree"] }
+          "if": {
+            "properties": {
+              "template": {
+                "const": "issue_tree"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "tree"
+            ]
+          }
         },
         {
-          "if": { "properties": { "template": { "const": "kpi_dashboard" } } },
-          "then": { "required": ["kpis"] }
+          "if": {
+            "properties": {
+              "template": {
+                "const": "kpi_dashboard"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "kpis"
+            ]
+          }
         },
         {
-          "if": { "properties": { "template": { "const": "recommendation_pillars" } } },
-          "then": { "required": ["sections"] }
+          "if": {
+            "properties": {
+              "template": {
+                "const": "recommendation_pillars"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "sections"
+            ]
+          }
         },
         {
-          "if": { "properties": { "template": { "const": "small_multiples" } } },
-          "then": { "required": ["multiples"] }
+          "if": {
+            "properties": {
+              "template": {
+                "const": "small_multiples"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "multiples"
+            ]
+          }
         },
         {
-          "if": { "properties": { "template": { "const": "big_stat_pair" } } },
-          "then": { "required": ["kpis"] }
+          "if": {
+            "properties": {
+              "template": {
+                "const": "big_stat_pair"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "kpis"
+            ]
+          }
         },
         {
-          "if": { "properties": { "template": { "const": "numbered_imperatives" } } },
-          "then": { "required": ["sections"] }
+          "if": {
+            "properties": {
+              "template": {
+                "const": "numbered_imperatives"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "sections"
+            ]
+          }
         },
         {
-          "if": { "properties": { "template": { "const": "theme_card_grid" } } },
-          "then": { "required": ["sections"] }
+          "if": {
+            "properties": {
+              "template": {
+                "const": "theme_card_grid"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "sections"
+            ]
+          }
         },
         {
-          "if": { "properties": { "template": { "const": "question_framework" } } },
-          "then": { "required": ["sections"] }
+          "if": {
+            "properties": {
+              "template": {
+                "const": "question_framework"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "sections"
+            ]
+          }
         },
         {
-          "if": { "properties": { "template": { "const": "evidence_basis" } } },
-          "then": { "required": ["sections"] }
+          "if": {
+            "properties": {
+              "template": {
+                "const": "evidence_basis"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "sections"
+            ]
+          }
         }
       ]
     },
     "scrColumn": {
       "type": "object",
-      "required": ["label", "heading"],
+      "required": [
+        "label",
+        "heading"
+      ],
       "properties": {
-        "label": { "type": "string", "description": "Column label — free text. English (Situation/Complication/Resolution) or a localized/scene label (例: 現状/課題/打ち手) both work; no fixed wording is enforced." },
-        "heading": { "type": "string" },
-        "copy": { "type": "string" },
-        "note": { "type": "string" }
+        "label": {
+          "type": "string",
+          "description": "Column label — free text. English (Situation/Complication/Resolution) or a localized/scene label (例: 現状/課題/打ち手) both work; no fixed wording is enforced."
+        },
+        "heading": {
+          "type": "string"
+        },
+        "copy": {
+          "type": "string"
+        },
+        "note": {
+          "type": "string"
+        }
       }
     },
     "axisTable": {
       "type": "object",
-      "required": ["headers", "rows"],
+      "required": [
+        "headers",
+        "rows"
+      ],
       "properties": {
-        "callout": { "type": "string" },
-        "flow": { "type": "boolean" },
-        "rowBanner": { "type": "boolean" },
-        "dotColumn": { "type": "integer", "minimum": 0 },
+        "callout": {
+          "type": "string"
+        },
+        "flow": {
+          "type": "boolean"
+        },
+        "rowBanner": {
+          "type": "boolean"
+        },
+        "dotColumn": {
+          "type": "integer",
+          "minimum": 0
+        },
         "dotLegend": {
           "type": "array",
-          "items": { "type": "string" }
+          "items": {
+            "type": "string"
+          }
         },
         "headers": {
           "type": "array",
           "minItems": 2,
-          "items": { "type": "string" }
+          "items": {
+            "type": "string"
+          }
         },
         "weights": {
           "type": "array",
-          "items": { "type": "number", "exclusiveMinimum": 0 }
+          "items": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          }
         },
         "rows": {
           "type": "array",
           "minItems": 2,
           "items": {
             "type": "object",
-            "required": ["cells"],
+            "required": [
+              "cells"
+            ],
             "properties": {
               "cells": {
                 "type": "array",
-                "items": { "type": "string" }
+                "items": {
+                  "type": "string"
+                }
               },
-              "highlight": { "type": "boolean" }
+              "highlight": {
+                "type": "boolean"
+              }
             }
           }
         }
@@ -317,59 +770,112 @@
     },
     "mapping": {
       "type": "object",
-      "required": ["issue", "solution"],
+      "required": [
+        "issue",
+        "solution"
+      ],
       "properties": {
-        "issue": { "type": "string" },
-        "solution": { "type": "string" },
-        "impact": { "type": "string" }
+        "issue": {
+          "type": "string"
+        },
+        "solution": {
+          "type": "string"
+        },
+        "impact": {
+          "type": "string"
+        }
       }
     },
     "step": {
       "type": "object",
-      "required": ["title"],
+      "required": [
+        "title"
+      ],
       "properties": {
-        "title": { "type": "string" },
-        "copy": { "type": "string" }
+        "title": {
+          "type": "string"
+        },
+        "copy": {
+          "type": "string"
+        }
       }
     },
     "stage": {
       "type": "object",
-      "required": ["label", "heading"],
+      "required": [
+        "label",
+        "heading"
+      ],
       "properties": {
-        "label": { "type": "string" },
-        "heading": { "type": "string" },
-        "copy": { "type": "string" }
+        "label": {
+          "type": "string"
+        },
+        "heading": {
+          "type": "string"
+        },
+        "copy": {
+          "type": "string"
+        }
       }
     },
     "panel": {
       "type": "object",
-      "required": ["label"],
+      "required": [
+        "label"
+      ],
       "properties": {
-        "label": { "type": "string" },
-        "heading": { "type": "string" },
+        "label": {
+          "type": "string"
+        },
+        "heading": {
+          "type": "string"
+        },
         "bullets": {
           "type": "array",
-          "items": { "type": "string" }
+          "items": {
+            "type": "string"
+          }
         },
-        "tone": { "enum": ["neutral", "current", "target"] }
+        "tone": {
+          "enum": [
+            "neutral",
+            "current",
+            "target"
+          ]
+        }
       }
     },
     "fork": {
       "type": "object",
-      "required": ["question", "branches"],
+      "required": [
+        "question",
+        "branches"
+      ],
       "properties": {
-        "question": { "type": "string" },
+        "question": {
+          "type": "string"
+        },
         "branches": {
           "type": "array",
           "minItems": 2,
           "items": {
             "type": "object",
-            "required": ["label"],
+            "required": [
+              "label"
+            ],
             "properties": {
-              "label": { "type": "string" },
-              "copy": { "type": "string" },
-              "outcome": { "type": "string" },
-              "recommended": { "type": "boolean" }
+              "label": {
+                "type": "string"
+              },
+              "copy": {
+                "type": "string"
+              },
+              "outcome": {
+                "type": "string"
+              },
+              "recommended": {
+                "type": "boolean"
+              }
             }
           }
         }
@@ -377,33 +883,55 @@
     },
     "heatmap": {
       "type": "object",
-      "required": ["colHeaders", "rows"],
+      "required": [
+        "colHeaders",
+        "rows"
+      ],
       "properties": {
-        "rowLabel": { "type": "string" },
+        "rowLabel": {
+          "type": "string"
+        },
         "colHeaders": {
           "type": "array",
-          "items": { "type": "string" }
+          "items": {
+            "type": "string"
+          }
         },
         "legend": {
           "type": "array",
-          "items": { "type": "string" }
+          "items": {
+            "type": "string"
+          }
         },
         "rows": {
           "type": "array",
           "minItems": 2,
           "items": {
             "type": "object",
-            "required": ["label", "cells"],
+            "required": [
+              "label",
+              "cells"
+            ],
             "properties": {
-              "label": { "type": "string" },
+              "label": {
+                "type": "string"
+              },
               "cells": {
                 "type": "array",
                 "items": {
                   "type": "object",
-                  "required": ["level"],
+                  "required": [
+                    "level"
+                  ],
                   "properties": {
-                    "text": { "type": "string" },
-                    "level": { "type": "integer", "minimum": 0, "maximum": 3 }
+                    "text": {
+                      "type": "string"
+                    },
+                    "level": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 3
+                    }
                   }
                 }
               }
@@ -414,23 +942,35 @@
     },
     "lanes": {
       "type": "object",
-      "required": ["columns", "rows"],
+      "required": [
+        "columns",
+        "rows"
+      ],
       "properties": {
         "columns": {
           "type": "array",
-          "items": { "type": "string" }
+          "items": {
+            "type": "string"
+          }
         },
         "rows": {
           "type": "array",
           "minItems": 2,
           "items": {
             "type": "object",
-            "required": ["period", "cells"],
+            "required": [
+              "period",
+              "cells"
+            ],
             "properties": {
-              "period": { "type": "string" },
+              "period": {
+                "type": "string"
+              },
               "cells": {
                 "type": "array",
-                "items": { "type": "string" }
+                "items": {
+                  "type": "string"
+                }
               }
             }
           }
@@ -439,24 +979,38 @@
     },
     "grid": {
       "type": "object",
-      "required": ["colHeaders", "rows"],
+      "required": [
+        "colHeaders",
+        "rows"
+      ],
       "properties": {
-        "rowLabel": { "type": "string" },
+        "rowLabel": {
+          "type": "string"
+        },
         "colHeaders": {
           "type": "array",
-          "items": { "type": "string" }
+          "items": {
+            "type": "string"
+          }
         },
         "rows": {
           "type": "array",
           "minItems": 2,
           "items": {
             "type": "object",
-            "required": ["label", "cells"],
+            "required": [
+              "label",
+              "cells"
+            ],
             "properties": {
-              "label": { "type": "string" },
+              "label": {
+                "type": "string"
+              },
               "cells": {
                 "type": "array",
-                "items": { "type": "string" }
+                "items": {
+                  "type": "string"
+                }
               }
             }
           }
@@ -465,18 +1019,29 @@
     },
     "causeEffect": {
       "type": "object",
-      "required": ["effect", "causes"],
+      "required": [
+        "effect",
+        "causes"
+      ],
       "properties": {
-        "effect": { "type": "string" },
+        "effect": {
+          "type": "string"
+        },
         "causes": {
           "type": "array",
           "minItems": 2,
           "items": {
             "type": "object",
-            "required": ["label"],
+            "required": [
+              "label"
+            ],
             "properties": {
-              "label": { "type": "string" },
-              "detail": { "type": "string" }
+              "label": {
+                "type": "string"
+              },
+              "detail": {
+                "type": "string"
+              }
             }
           }
         }
@@ -484,21 +1049,34 @@
     },
     "gantt": {
       "type": "object",
-      "required": ["periods", "rows"],
+      "required": [
+        "periods",
+        "rows"
+      ],
       "properties": {
         "periods": {
           "type": "array",
           "minItems": 2,
-          "items": { "type": "string" }
+          "items": {
+            "type": "string"
+          }
         },
         "periodBands": {
           "type": "array",
           "items": {
             "type": "object",
-            "required": ["label", "span"],
+            "required": [
+              "label",
+              "span"
+            ],
             "properties": {
-              "label": { "type": "string" },
-              "span": { "type": "integer", "minimum": 1 }
+              "label": {
+                "type": "string"
+              },
+              "span": {
+                "type": "integer",
+                "minimum": 1
+              }
             }
           }
         },
@@ -506,10 +1084,18 @@
           "type": "array",
           "items": {
             "type": "object",
-            "required": ["at", "label"],
+            "required": [
+              "at",
+              "label"
+            ],
             "properties": {
-              "at": { "type": "integer", "minimum": 0 },
-              "label": { "type": "string" }
+              "at": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "label": {
+                "type": "string"
+              }
             }
           }
         },
@@ -518,14 +1104,36 @@
           "minItems": 2,
           "items": {
             "type": "object",
-            "required": ["label", "start", "span"],
+            "required": [
+              "label",
+              "start",
+              "span"
+            ],
             "properties": {
-              "label": { "type": "string" },
-              "group": { "type": "string" },
-              "start": { "type": "integer", "minimum": 0 },
-              "span": { "type": "integer", "minimum": 1 },
-              "ongoing": { "type": "boolean" },
-              "phase": { "enum": ["plan", "build", "scale"] }
+              "label": {
+                "type": "string"
+              },
+              "group": {
+                "type": "string"
+              },
+              "start": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "span": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "ongoing": {
+                "type": "boolean"
+              },
+              "phase": {
+                "enum": [
+                  "plan",
+                  "build",
+                  "scale"
+                ]
+              }
             }
           }
         }
@@ -533,20 +1141,31 @@
     },
     "tree": {
       "type": "object",
-      "required": ["root", "branches"],
+      "required": [
+        "root",
+        "branches"
+      ],
       "properties": {
-        "root": { "type": "string" },
+        "root": {
+          "type": "string"
+        },
         "branches": {
           "type": "array",
           "minItems": 2,
           "items": {
             "type": "object",
-            "required": ["label"],
+            "required": [
+              "label"
+            ],
             "properties": {
-              "label": { "type": "string" },
+              "label": {
+                "type": "string"
+              },
               "children": {
                 "type": "array",
-                "items": { "type": "string" }
+                "items": {
+                  "type": "string"
+                }
               }
             }
           }
@@ -555,26 +1174,44 @@
     },
     "nested": {
       "type": "object",
-      "required": ["groups"],
+      "required": [
+        "groups"
+      ],
       "properties": {
         "groups": {
           "type": "array",
           "minItems": 1,
           "items": {
             "type": "object",
-            "required": ["label", "rows"],
+            "required": [
+              "label",
+              "rows"
+            ],
             "properties": {
-              "label": { "type": "string" },
+              "label": {
+                "type": "string"
+              },
               "rows": {
                 "type": "array",
                 "minItems": 1,
                 "items": {
                   "type": "object",
-                  "required": ["label"],
+                  "required": [
+                    "label"
+                  ],
                   "properties": {
-                    "label": { "type": "string" },
-                    "copy": { "type": "string" },
-                    "bullets": { "type": "array", "items": { "type": "string" } }
+                    "label": {
+                      "type": "string"
+                    },
+                    "copy": {
+                      "type": "string"
+                    },
+                    "bullets": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
                   }
                 }
               }
@@ -585,37 +1222,68 @@
     },
     "calc": {
       "type": "object",
-      "required": ["panels"],
+      "required": [
+        "panels"
+      ],
       "properties": {
-        "unit": { "type": "string" },
-        "legend": { "type": "array", "items": { "type": "string" } },
+        "unit": {
+          "type": "string"
+        },
+        "legend": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "panels": {
           "type": "array",
           "minItems": 2,
           "maxItems": 6,
           "items": {
             "type": "object",
-            "required": ["label", "categories"],
+            "required": [
+              "label",
+              "categories"
+            ],
             "properties": {
-              "label": { "type": "string" },
-              "op": { "enum": ["x", "eq", "arrow"] },
+              "label": {
+                "type": "string"
+              },
+              "op": {
+                "enum": [
+                  "x",
+                  "eq",
+                  "arrow"
+                ]
+              },
               "categories": {
                 "type": "array",
                 "items": {
                   "type": "object",
-                  "required": ["label", "segments"],
+                  "required": [
+                    "label",
+                    "segments"
+                  ],
                   "properties": {
-                    "label": { "type": "string" },
+                    "label": {
+                      "type": "string"
+                    },
                     "segments": {
                       "type": "array",
                       "minItems": 1,
                       "maxItems": 3,
                       "items": {
                         "type": "object",
-                        "required": ["value"],
+                        "required": [
+                          "value"
+                        ],
                         "properties": {
-                          "label": { "type": "string" },
-                          "value": { "type": "number" }
+                          "label": {
+                            "type": "string"
+                          },
+                          "value": {
+                            "type": "number"
+                          }
                         }
                       }
                     }
@@ -629,7 +1297,9 @@
     },
     "valueChain": {
       "type": "object",
-      "required": ["rails"],
+      "required": [
+        "rails"
+      ],
       "properties": {
         "rails": {
           "type": "array",
@@ -637,19 +1307,34 @@
           "maxItems": 2,
           "items": {
             "type": "object",
-            "required": ["steps"],
+            "required": [
+              "steps"
+            ],
             "properties": {
-              "label": { "type": "string" },
-              "tone": { "enum": ["primary", "alt"] },
+              "label": {
+                "type": "string"
+              },
+              "tone": {
+                "enum": [
+                  "primary",
+                  "alt"
+                ]
+              },
               "steps": {
                 "type": "array",
                 "minItems": 2,
                 "items": {
                   "type": "object",
-                  "required": ["label"],
+                  "required": [
+                    "label"
+                  ],
                   "properties": {
-                    "label": { "type": "string" },
-                    "description": { "type": "string" }
+                    "label": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    }
                   }
                 }
               }
@@ -660,10 +1345,20 @@
           "type": "array",
           "items": {
             "type": "object",
-            "required": ["label", "values"],
+            "required": [
+              "label",
+              "values"
+            ],
             "properties": {
-              "label": { "type": "string" },
-              "values": { "type": "array", "items": { "type": "string" } }
+              "label": {
+                "type": "string"
+              },
+              "values": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
             }
           }
         }
@@ -671,28 +1366,51 @@
     },
     "kpi": {
       "type": "object",
-      "required": ["label", "value"],
+      "required": [
+        "label",
+        "value"
+      ],
       "properties": {
-        "label": { "type": "string" },
-        "value": { "type": "string" },
-        "delta": { "type": "string" },
-        "note": { "type": "string" }
+        "label": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "delta": {
+          "type": "string"
+        },
+        "note": {
+          "type": "string"
+        }
       }
     },
     "multiple": {
       "type": "object",
-      "required": ["label", "series"],
+      "required": [
+        "label",
+        "series"
+      ],
       "properties": {
-        "label": { "type": "string" },
+        "label": {
+          "type": "string"
+        },
         "series": {
           "type": "array",
           "minItems": 2,
           "items": {
             "type": "object",
-            "required": ["label", "value"],
+            "required": [
+              "label",
+              "value"
+            ],
             "properties": {
-              "label": { "type": "string" },
-              "value": { "type": "number" }
+              "label": {
+                "type": "string"
+              },
+              "value": {
+                "type": "number"
+              }
             }
           }
         }
@@ -700,31 +1418,48 @@
     },
     "stacks": {
       "type": "object",
-      "required": ["categories"],
+      "required": [
+        "categories"
+      ],
       "properties": {
-        "unit": { "type": "string" },
+        "unit": {
+          "type": "string"
+        },
         "legend": {
           "type": "array",
-          "items": { "type": "string" }
+          "items": {
+            "type": "string"
+          }
         },
         "categories": {
           "type": "array",
           "minItems": 2,
           "items": {
             "type": "object",
-            "required": ["label", "segments"],
+            "required": [
+              "label",
+              "segments"
+            ],
             "properties": {
-              "label": { "type": "string" },
+              "label": {
+                "type": "string"
+              },
               "segments": {
                 "type": "array",
                 "minItems": 1,
                 "maxItems": 3,
                 "items": {
                   "type": "object",
-                  "required": ["value"],
+                  "required": [
+                    "value"
+                  ],
                   "properties": {
-                    "label": { "type": "string" },
-                    "value": { "type": "number" }
+                    "label": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "number"
+                    }
                   }
                 }
               }
@@ -735,31 +1470,54 @@
     },
     "section": {
       "type": "object",
-      "required": ["title"],
+      "required": [
+        "title"
+      ],
       "properties": {
-        "title": { "type": "string" },
-        "copy": { "type": "string" },
+        "title": {
+          "type": "string"
+        },
+        "copy": {
+          "type": "string"
+        },
         "bullets": {
           "type": "array",
-          "items": { "type": "string" }
+          "items": {
+            "type": "string"
+          }
         },
-        "value": { "type": "string" },
-        "label": { "type": "string" }
+        "value": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        }
       }
     },
     "chart": {
       "type": "object",
       "properties": {
-        "unit": { "type": "string" },
+        "unit": {
+          "type": "string"
+        },
         "series": {
           "type": "array",
           "items": {
             "type": "object",
-            "required": ["label", "value"],
+            "required": [
+              "label",
+              "value"
+            ],
             "properties": {
-              "label": { "type": "string" },
-              "value": { "type": "number" },
-              "kind": { "type": "string" }
+              "label": {
+                "type": "string"
+              },
+              "value": {
+                "type": "number"
+              },
+              "kind": {
+                "type": "string"
+              }
             }
           }
         }

@@ -229,9 +229,10 @@ function toFormattedBullets(list) {
   }));
 }
 
-function makeBalancingProxy(slide) {
+function makeBalancingProxy(slide, fixed = false) {
+  // fixed=true: 版面いっぱいに組む型（行リスト・表など）は縦中央寄せをしない（枠線正規化だけ通す）
   const ops = [];
-  pendingBalancedSlides.push({ slide, ops });
+  pendingBalancedSlides.push({ slide, ops, fixed });
   const buffer = (method) => (...args) => {
     if (method === "addShape" && args[1]) args[1] = normalizeShapeOpts(args[1]);
     ops.push([method, args]);
@@ -241,11 +242,12 @@ function makeBalancingProxy(slide) {
     addShape: buffer("addShape"),
     addTable: buffer("addTable"),
     addImage: buffer("addImage"),
+    addChart: buffer("addChart"),
   };
 }
 
 function opGeometry(method, args) {
-  const opts = method === "addShape" ? args[1] : method === "addImage" ? args[0] : args[1];
+  const opts = method === "addShape" ? args[1] : method === "addImage" ? args[0] : method === "addChart" ? args[2] : args[1];
   if (!opts || typeof opts.y !== "number") return null;
   let h = typeof opts.h === "number" ? opts.h : null;
   if (h === null && method === "addTable" && Array.isArray(args[0])) {
@@ -263,7 +265,7 @@ function opGeometry(method, args) {
 }
 
 function flushBalancedSlides() {
-  for (const { slide, ops } of pendingBalancedSlides) {
+  for (const { slide, ops, fixed } of pendingBalancedSlides) {
     let minY = Infinity;
     let maxBottom = -Infinity;
     let measurable = ops.length > 0;
@@ -277,7 +279,7 @@ function flushBalancedSlides() {
       maxBottom = Math.max(maxBottom, geo.bottom);
     }
     let offset = 0;
-    if (measurable && minY >= CONTENT_AREA_TOP - 0.35) {
+    if (!fixed && measurable && minY >= CONTENT_AREA_TOP - 0.35) {
       const centeredTop = CONTENT_AREA_TOP + (CONTENT_AREA_BOTTOM - CONTENT_AREA_TOP - (maxBottom - minY)) / 2;
       offset = Math.max(0, Math.min(centeredTop - minY, CONTENT_AREA_BOTTOM - maxBottom));
     }
@@ -298,7 +300,7 @@ function addShell(item, pageNum, opts = {}) {
   addKicker(slide, item.kicker || item.template);
   addTitle(slide, item.title, opts);
   addFooter(slide, item, pageNum);
-  return makeBalancingProxy(slide);
+  return makeBalancingProxy(slide, opts.balance === false);
 }
 
 function addBodyText(slide, text, x, y, w, h, opts = {}) {
@@ -1578,7 +1580,34 @@ function addChevronValueChain(item, pageNum) {
   });
 }
 
+// ── 型プラグイン（scripts/archetypes/*.mjs） ──────────────────────────────
+// 自由記述パーツ集（templates/freeform_parts_16x9.html）の各パーツを編集可能PPTXでも出すための追加型。
+// 1ファイル=1型。`export const id`, `export function pptx(ctx, item, pageNum)`, 任意で `html(ctx, item, n)` / `example`。
+// 本体の add* 関数と同じヘルパーを ctx 経由で使う（外枠・余白・配色・書式ブレット・縦バランス）。
+const ARCHETYPES = await (async () => {
+  const dir = path.resolve(root, "scripts/archetypes");
+  const map = new Map();
+  let files = [];
+  try { files = (await fs.readdir(dir)).filter((f) => f.endsWith(".mjs") && !f.startsWith("_")).sort(); } catch { return map; }
+  for (const f of files) {
+    const mod = await import(path.join(dir, f));
+    if (mod.id && typeof mod.pptx === "function") map.set(mod.id, mod);
+  }
+  return map;
+})();
+const ctx = {
+  pptx, deck, W, H, M, TOP, CONTENT_TOP, FOOTER_Y, CONTENT_AREA_TOP, CONTENT_AREA_BOTTOM,
+  FONT, FONT_SERIF, LANG,
+  colors: { INK, NAVY, MUTED, HAIR, BLUE, CYAN, ROSE, WARNING, GREEN, WHITE, SOFTYELLOW, SOFTBLUE },
+  addShell, addKicker, addTitle, addFooter, addBodyText, addMetricSub, addInsightPanel,
+  toFormattedBullets, smartBreak, lineCapacity, fwLen, estTextHeight, makeBalancingProxy, normalizeShapeOpts,
+};
+
 deck.slides.forEach((item, i) => {
+  if (ARCHETYPES.has(item.template)) {
+    ARCHETYPES.get(item.template).pptx(ctx, item, i + 1);
+    return;
+  }
   switch (item.template) {
     case "cover":
       addCover(item, i + 1);

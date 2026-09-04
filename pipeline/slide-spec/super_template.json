@@ -1530,6 +1530,1264 @@
       "headers": {
         "recommended": "推奨する意思決定"
       }
+    },
+    {
+      "template": "title_page",
+      "kicker": "パーツ01｜表紙",
+      "title": "表紙",
+      "parts": {
+        "title": "Text 1",
+        "subtitle": "ラベル 1：Text 2に基づく整理"
+      }
+    },
+    {
+      "template": "overview_map",
+      "kicker": "パーツ02｜全体マップ",
+      "title": "全体マップ",
+      "source": "出典：Source 1",
+      "parts": {
+        "rows": [
+          {
+            "label": "ラベル 1",
+            "text": "Text 1",
+            "ref": "→ P.3"
+          },
+          {
+            "label": "ラベル 2",
+            "text": "Text 2",
+            "ref": "→ P.4"
+          },
+          {
+            "label": "ラベル 3",
+            "text": "Text 3",
+            "ref": "→ P.5"
+          },
+          {
+            "label": "ラベル 4",
+            "text": "Text 4",
+            "ref": "→ P.6"
+          }
+        ]
+      }
+    },
+    {
+      "template": "table_of_contents",
+      "kicker": "パーツ03｜目次",
+      "title": "目次",
+      "parts": {
+        "items": [
+          {
+            "n": "01",
+            "text": "ラベル 1",
+            "page": "P.3"
+          },
+          {
+            "n": "02",
+            "text": "ラベル 2",
+            "page": "P.6"
+          },
+          {
+            "n": "03",
+            "text": "ラベル 3",
+            "page": "P.9"
+          },
+          {
+            "n": "04",
+            "text": "ラベル 4",
+            "page": "P.12"
+          },
+          {
+            "n": "05",
+            "text": "ラベル 5",
+            "page": "P.15"
+          }
+        ]
+      }
+    },
+    {
+      "template": "section_divider",
+      "kicker": "パーツ04｜章扉",
+      "title": "章扉",
+      "parts": {
+        "no": "ラベル 1",
+        "title": "Text 1"
+      }
+    },
+    {
+      "template": "chevron_steps",
+      "kicker": "パーツ05｜矢羽（プロセス・変遷）",
+      "title": "矢羽（プロセス・変遷）",
+      "source": "出典：Source 1",
+      "parts": {
+        "steps": [
+          {
+            "n": "YYYY年M月",
+            "title": "ラベル 1",
+            "text": "Text 1"
+          },
+          {
+            "n": "YYYY年M月",
+            "title": "ラベル 2",
+            "text": "Text 2"
+          },
+          {
+            "n": "YYYY年M月",
+            "title": "ラベル 3",
+            "text": "Text 3"
+          },
+          {
+            "n": "現在",
+            "title": "ラベル 4",
+            "text": "Text 4"
+          }
+        ]
+      }
+    },
+    {
+      "template": "premise_conclusion",
+      "kicker": "パーツ06｜前提→帰結の2カラム",
+      "title": "前提→帰結の2カラム",
+      "source": "出典：Source 1",
+      "parts": {
+        "left": {
+          "header": "Text 1の推移（事実）",
+          "rows": [
+            [
+              "YYYY年M月",
+              "Text 1"
+            ],
+            [
+              "YYYY年M月",
+              "Text 2"
+            ],
+            [
+              "YYYY年M月〜",
+              "Text 3"
+            ]
+          ]
+        },
+        "right": {
+          "header": "だから、Text 2はこう変わる",
+          "bullets": [
+            "Text 4（語尾は階層内で統一）",
+            "Text 5",
+            "Text 6"
+          ]
+        }
+      }
+    },
+    {
+      "template": "stat_table_readout",
+      "kicker": "パーツ07｜大型数値の表＋読み取り",
+      "title": "大型数値の表＋読み取り",
+      "source": "出典：Source 1",
+      "parts": {
+        "left": {
+          "header": "数値で見るText 1の現状",
+          "rows": [
+            [
+              "ラベル 2",
+              "ラベル 3",
+              "Text 1"
+            ],
+            [
+              "ラベル 4",
+              "ラベル 5",
+              "Text 2"
+            ],
+            [
+              "ラベル 6",
+              "ラベル 7",
+              "Text 3"
+            ]
+          ]
+        },
+        "right": {
+          "header": "だから、こう読める",
+          "bullets": [
+            "Text 4",
+            "Text 5",
+            "Text 6"
+          ]
+        }
+      }
+    },
+    {
+      "template": "card_grid_2x2",
+      "kicker": "パーツ08｜並列カード 2×2",
+      "title": "並列カード 2×2",
+      "source": "出典：Source 1",
+      "parts": {
+        "cards": [
+          {
+            "title": "ラベル 1：ラベル 2（主語＋何をする で統一）",
+            "bullets": [
+              "Text 1",
+              "Text 2"
+            ]
+          },
+          {
+            "title": "ラベル 3：ラベル 4",
+            "bullets": [
+              "Text 3",
+              "Text 4"
+            ]
+          },
+          {
+            "title": "ラベル 5：ラベル 6",
+            "bullets": [
+              "Text 5",
+              "Text 6"
+            ]
+          },
+          {
+            "title": "ラベル 7：ラベル 8",
+            "bullets": [
+              "Text 7",
+              "Text 8"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "template": "axis_table",
+      "kicker": "パーツ09｜軸のある表",
+      "title": "軸のある表",
+      "source": "出典：Source 1",
+      "parts": {
+        "headers": [
+          "ラベル 1（軸）",
+          "ラベル 2",
+          "ラベル 3",
+          "ラベル 4"
+        ],
+        "cols": [
+          {
+            "w": 52,
+            "axis": true
+          },
+          {
+            "w": 106
+          },
+          {
+            "w": 70
+          },
+          {
+            "w": 78
+          }
+        ],
+        "rows": [
+          [
+            "ラベル 5",
+            "Text 1",
+            "ラベル 6",
+            {
+              "bullets": [
+                "Text 1",
+                "Text 2"
+              ]
+            }
+          ],
+          [
+            "ラベル 8",
+            "Text 2",
+            "ラベル 9",
+            {
+              "bullets": [
+                "Text 3",
+                "Text 4"
+              ]
+            }
+          ],
+          [
+            "ラベル 11",
+            "Text 3",
+            "ラベル 12",
+            {
+              "bullets": [
+                "Text 5",
+                "Text 6"
+              ]
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "template": "back_cover",
+      "kicker": "パーツ10｜裏表紙",
+      "title": "裏表紙",
+      "parts": {
+        "company": "会社名",
+        "contact": "連絡先"
+      }
+    },
+    {
+      "template": "claim_panel_figure",
+      "kicker": "パーツ11｜主張パネル＋図",
+      "title": "主張パネル＋図",
+      "source": "出典：Source 1",
+      "parts": {
+        "panel": {
+          "n": "2",
+          "label": "ラベル 1（区分名）",
+          "claim": "Text 1（この1枚の主張を1文で）"
+        },
+        "right": {
+          "axisTitle": "指標名",
+          "unit": "単位、YYYY〜YYYY年",
+          "rows": [
+            [
+              "ラベル 7",
+              "ラベル 8",
+              "Text 1"
+            ],
+            [
+              "ラベル 9",
+              "ラベル 10",
+              "Text 2"
+            ],
+            [
+              "ラベル 11",
+              "ラベル 12",
+              "Text 3"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "template": "lever_effect_table",
+      "kicker": "パーツ12｜打ち手の効果表",
+      "title": "打ち手の効果表",
+      "source": "出典：Source 1",
+      "parts": {
+        "headers": [
+          "打ち手",
+          "効果の幅（単位）",
+          "前提・制約"
+        ],
+        "rows": [
+          {
+            "axis": "ラベル 2",
+            "effect": {
+              "dir": "up",
+              "label": "＋00〜00",
+              "pct": 0.8
+            },
+            "bullets": [
+              "Text 1",
+              "Text 2"
+            ]
+          },
+          {
+            "axis": "ラベル 5",
+            "effect": {
+              "dir": "up",
+              "label": "＋00〜00",
+              "pct": 0.55
+            },
+            "bullets": [
+              "Text 3",
+              "Text 4"
+            ]
+          },
+          {
+            "axis": "ラベル 8",
+            "effect": {
+              "dir": "dn",
+              "label": "−00",
+              "pct": 0.38
+            },
+            "bullets": [
+              "Text 5",
+              "Text 6"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "template": "status_heatmap_comment",
+      "kicker": "パーツ13｜状態ヒートマップ＋右コメント",
+      "title": "状態ヒートマップ＋右コメント",
+      "source": "出典：Source 1",
+      "parts": {
+        "axisTitle": "指標カテゴリー別の状況",
+        "unit": "YYYY年M月時点",
+        "colHeaders": [
+          "指標カテゴリー",
+          "前月比",
+          "前年比"
+        ],
+        "rows": [
+          {
+            "label": "ラベル 1",
+            "values": [
+              4,
+              2
+            ]
+          },
+          {
+            "label": "ラベル 2",
+            "values": [
+              3,
+              3
+            ]
+          },
+          {
+            "label": "ラベル 3",
+            "values": [
+              0,
+              4
+            ]
+          },
+          {
+            "label": "ラベル 4",
+            "values": [
+              2,
+              0
+            ]
+          }
+        ],
+        "legend": [
+          {
+            "v": 4,
+            "label": "大きく改善"
+          },
+          {
+            "v": 3,
+            "label": "改善"
+          },
+          {
+            "v": 0,
+            "label": "横ばい"
+          },
+          {
+            "v": 2,
+            "label": "悪化"
+          }
+        ],
+        "commentTitle": "だから、次に見るべき点",
+        "comments": [
+          "Text 1",
+          "Text 2",
+          "Text 3"
+        ]
+      }
+    },
+    {
+      "template": "harvey_ball_table",
+      "kicker": "パーツ14｜充足度評価表（ハーベイボール）",
+      "title": "充足度評価表（ハーベイボール）",
+      "source": "出典：Source 1",
+      "parts": {
+        "headers": [
+          "評価軸",
+          "ラベル 1案",
+          "ラベル 2案",
+          "判断の理由"
+        ],
+        "rows": [
+          {
+            "axis": "ラベル 3",
+            "values": [
+              4,
+              2
+            ],
+            "bullets": [
+              "Text 1",
+              "Text 2"
+            ]
+          },
+          {
+            "axis": "ラベル 4",
+            "values": [
+              3,
+              0
+            ],
+            "bullets": [
+              "Text 3",
+              "Text 4"
+            ]
+          },
+          {
+            "axis": "ラベル 5",
+            "values": [
+              2,
+              4
+            ],
+            "bullets": [
+              "Text 5",
+              "Text 6"
+            ]
+          }
+        ],
+        "legend": [
+          {
+            "q": 4,
+            "label": "満たす"
+          },
+          {
+            "q": 2,
+            "label": "一部満たす"
+          },
+          {
+            "q": 0,
+            "label": "満たさない"
+          }
+        ]
+      }
+    },
+    {
+      "template": "dot_matrix_share",
+      "kicker": "パーツ15｜割合のドットマトリクス",
+      "title": "割合のドットマトリクス",
+      "source": "出典：Source 1",
+      "parts": {
+        "header": "Text 1に取り組んでいる領域",
+        "unit": "回答者に占める割合、n=ラベル 2、複数回答",
+        "columns": [
+          {
+            "value": "58%",
+            "pct": 58,
+            "label": "ラベル 3"
+          },
+          {
+            "value": "42%",
+            "pct": 42,
+            "label": "ラベル 4"
+          },
+          {
+            "value": "21%",
+            "pct": 21,
+            "label": "ラベル 5"
+          },
+          {
+            "value": "13%",
+            "pct": 13,
+            "label": "ラベル 6"
+          }
+        ]
+      }
+    },
+    {
+      "template": "progress_bubble_matrix",
+      "kicker": "パーツ16｜進捗バブル行列",
+      "title": "進捗バブル行列",
+      "source": "出典：Source 1",
+      "parts": {
+        "header": "取り組み段階別の件数",
+        "unit": "件、n=ラベル 1",
+        "colHeaders": [
+          "構想",
+          "試行",
+          "部分展開",
+          "全面展開"
+        ],
+        "rows": [
+          {
+            "axis": "ラベル 2層",
+            "values": [
+              30,
+              9,
+              9,
+              4
+            ]
+          },
+          {
+            "axis": "ラベル 3層",
+            "values": [
+              15,
+              12,
+              6,
+              6
+            ]
+          },
+          {
+            "axis": "ラベル 4層",
+            "values": [
+              54,
+              13,
+              13,
+              6
+            ]
+          },
+          {
+            "axis": "ラベル 5層",
+            "values": [
+              8,
+              9,
+              6,
+              4
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "template": "ranked_bar_annotated",
+      "kicker": "パーツ17｜分布の順位棒＋注記",
+      "title": "分布の順位棒＋注記",
+      "source": "出典：Source 1",
+      "parts": {
+        "axisTitle": "指標名",
+        "unit": "単位、YYYY〜YYYY年",
+        "bars": [
+          {
+            "label": "ラベル 1",
+            "value": 240,
+            "highlight": true
+          },
+          {
+            "label": "ラベル 2",
+            "value": 224,
+            "highlight": true
+          },
+          {
+            "label": "ラベル 3",
+            "value": 210,
+            "highlight": true
+          },
+          {
+            "label": "ラベル 4",
+            "value": 192,
+            "highlight": true
+          },
+          {
+            "label": "ラベル 5",
+            "value": 180,
+            "highlight": true
+          },
+          {
+            "label": "ラベル 6",
+            "value": 154,
+            "highlight": false
+          },
+          {
+            "label": "ラベル 7",
+            "value": 140,
+            "highlight": false
+          },
+          {
+            "label": "ラベル 8",
+            "value": 130,
+            "highlight": false
+          },
+          {
+            "label": "ラベル 9",
+            "value": 118,
+            "highlight": false
+          },
+          {
+            "label": "ラベル 10",
+            "value": 110,
+            "highlight": false
+          },
+          {
+            "label": "ラベル 11",
+            "value": 100,
+            "highlight": false
+          },
+          {
+            "label": "ラベル 12",
+            "value": 92,
+            "highlight": false
+          },
+          {
+            "label": "ラベル 13",
+            "value": 86,
+            "highlight": false
+          },
+          {
+            "label": "ラベル 14",
+            "value": 80,
+            "highlight": false
+          },
+          {
+            "label": "ラベル 15",
+            "value": 74,
+            "highlight": false
+          },
+          {
+            "label": "ラベル 16",
+            "value": 70,
+            "highlight": false
+          },
+          {
+            "label": "ラベル 17",
+            "value": 64,
+            "highlight": false
+          },
+          {
+            "label": "ラベル 18",
+            "value": 60,
+            "highlight": false
+          },
+          {
+            "label": "ラベル 19",
+            "value": 56,
+            "highlight": false
+          },
+          {
+            "label": "ラベル 20",
+            "value": 52,
+            "highlight": false
+          },
+          {
+            "label": "ラベル 21",
+            "value": 48,
+            "highlight": false
+          },
+          {
+            "label": "ラベル 22",
+            "value": 45,
+            "highlight": false
+          },
+          {
+            "label": "ラベル 23",
+            "value": 42,
+            "highlight": false
+          },
+          {
+            "label": "ラベル 24",
+            "value": 39,
+            "highlight": false
+          },
+          {
+            "label": "ラベル 25",
+            "value": 36,
+            "highlight": false
+          },
+          {
+            "label": "ラベル 26",
+            "value": 33,
+            "highlight": false
+          },
+          {
+            "label": "ラベル 27",
+            "value": 31,
+            "highlight": false
+          },
+          {
+            "label": "ラベル 28",
+            "value": 29,
+            "highlight": false
+          },
+          {
+            "label": "ラベル 29",
+            "value": 27,
+            "highlight": false
+          },
+          {
+            "label": "ラベル 30",
+            "value": 25,
+            "highlight": false
+          },
+          {
+            "label": "ラベル 31",
+            "value": 23,
+            "highlight": false
+          },
+          {
+            "label": "ラベル 32",
+            "value": 21,
+            "highlight": false
+          },
+          {
+            "label": "ラベル 33",
+            "value": 20,
+            "highlight": false
+          },
+          {
+            "label": "ラベル 34",
+            "value": 18,
+            "highlight": false
+          },
+          {
+            "label": "ラベル 35",
+            "value": 17,
+            "highlight": false
+          },
+          {
+            "label": "ラベル 36",
+            "value": 15,
+            "highlight": false
+          },
+          {
+            "label": "ラベル 37",
+            "value": 14,
+            "highlight": false
+          },
+          {
+            "label": "ラベル 38",
+            "value": 13,
+            "highlight": false
+          },
+          {
+            "label": "ラベル 39",
+            "value": 12,
+            "highlight": false
+          },
+          {
+            "label": "ラベル 40",
+            "value": 11,
+            "highlight": false
+          },
+          {
+            "label": "ラベル 41",
+            "value": 10,
+            "highlight": false
+          },
+          {
+            "label": "ラベル 42",
+            "value": 9,
+            "highlight": false
+          },
+          {
+            "label": "ラベル 43",
+            "value": 8,
+            "highlight": false
+          },
+          {
+            "label": "ラベル 44",
+            "value": 8,
+            "highlight": false
+          },
+          {
+            "label": "ラベル 45",
+            "value": 7,
+            "highlight": false
+          },
+          {
+            "label": "ラベル 46",
+            "value": 6,
+            "highlight": false
+          },
+          {
+            "label": "ラベル 47",
+            "value": 6,
+            "highlight": false
+          },
+          {
+            "label": "ラベル 48",
+            "value": 5,
+            "highlight": false
+          },
+          {
+            "label": "ラベル 49",
+            "value": 5,
+            "highlight": false
+          },
+          {
+            "label": "ラベル 50",
+            "value": 4,
+            "highlight": false
+          }
+        ],
+        "topLabel": "上位N社",
+        "otherLabel": "その他",
+        "readout": {
+          "title": "だから、Text 4に絞る",
+          "bullets": [
+            "Text 1",
+            "Text 2",
+            "Text 3"
+          ]
+        }
+      }
+    },
+    {
+      "template": "scatter_annotated",
+      "kicker": "パーツ18｜注記つき散布図",
+      "title": "注記つき散布図",
+      "source": "出典：Source 1",
+      "parts": {
+        "axisTitle": "Text 1とText 2の関係",
+        "unit": "単位、YYYY年",
+        "points": [
+          {
+            "label": "ラベル 5",
+            "x": 10,
+            "y": 17
+          },
+          {
+            "label": "ラベル 6",
+            "x": 20,
+            "y": 29
+          },
+          {
+            "label": "ラベル 7",
+            "x": 32,
+            "y": 24
+          },
+          {
+            "label": "ラベル 8",
+            "x": 41,
+            "y": 41
+          },
+          {
+            "label": "ラベル 9",
+            "x": 56,
+            "y": 52
+          },
+          {
+            "label": "ラベル 10",
+            "x": 65,
+            "y": 62
+          },
+          {
+            "label": "ラベル 11",
+            "x": 78,
+            "y": 71
+          },
+          {
+            "label": "ラベル 12",
+            "x": 90,
+            "y": 83
+          }
+        ],
+        "refLines": [
+          {
+            "axis": "x",
+            "value": 47,
+            "label": "平均（ラベル 4）"
+          }
+        ],
+        "annotations": {
+          "topLeft": "Text 13が高い",
+          "bottomLeft": "Text 14が低い",
+          "bottomRight": "Text 15が大きい →"
+        }
+      }
+    },
+    {
+      "template": "pillars_foundation",
+      "kicker": "パーツ19｜柱＋土台",
+      "title": "柱＋土台",
+      "source": "出典：Source 1",
+      "parts": {
+        "pillars": [
+          {
+            "title": "ラベル 1",
+            "text": "Text 1"
+          },
+          {
+            "title": "ラベル 2",
+            "text": "Text 2"
+          },
+          {
+            "title": "ラベル 3",
+            "text": "Text 3"
+          },
+          {
+            "title": "ラベル 4",
+            "text": "Text 4"
+          }
+        ],
+        "bases": [
+          {
+            "lead": "共通条件1",
+            "text": "Text 5を全社で整えること"
+          },
+          {
+            "lead": "共通条件2",
+            "text": "Text 6を継続的に確保すること"
+          }
+        ]
+      }
+    },
+    {
+      "template": "opposing_chevrons",
+      "kicker": "パーツ20｜対向シェブロン",
+      "title": "対向シェブロン",
+      "source": "出典：Source 1",
+      "parts": {
+        "left": [
+          "Text 1",
+          "Text 2",
+          "Text 3",
+          "Text 4"
+        ],
+        "center": [
+          {
+            "text": "収益を\n拡大する"
+          },
+          {
+            "text": "損失を\n抑える",
+            "alt": true
+          }
+        ],
+        "right": [
+          "Text 5",
+          "Text 6",
+          "Text 7",
+          "Text 8"
+        ]
+      }
+    },
+    {
+      "template": "evidence_clip_grid",
+      "kicker": "パーツ21｜外部動向の根拠グリッド",
+      "title": "外部動向の根拠グリッド",
+      "source": "出典：Source 1（YYYY年M月D日）、Source 2（YYYY年M月D日）",
+      "parts": {
+        "clips": [
+          {
+            "tag": "ラベル 1分類",
+            "date": "YYYY年M月D日",
+            "headline": "Text 1",
+            "text": "Text 2"
+          },
+          {
+            "tag": "ラベル 2分類",
+            "date": "YYYY年M月D日",
+            "headline": "Text 3",
+            "text": "Text 4"
+          },
+          {
+            "tag": "ラベル 3分類",
+            "date": "YYYY年M月D日",
+            "headline": "Text 5",
+            "text": "Text 6"
+          },
+          {
+            "tag": "ラベル 4分類",
+            "date": "YYYY年M月D日",
+            "headline": "Text 7",
+            "text": "Text 8"
+          }
+        ]
+      }
+    },
+    {
+      "template": "proportional_circles",
+      "kicker": "パーツ22｜比例円の対比",
+      "title": "比例円の対比",
+      "source": "出典：Source 1。円の面積は割合に比例",
+      "parts": {
+        "axisTitle": "Text 1に占める割合",
+        "unit": "％、YYYY年 / YYYY年",
+        "items": [
+          {
+            "heading": "現在（YYYY年）",
+            "value": "65%",
+            "size": 65,
+            "label": "Text 2が占める割合"
+          },
+          {
+            "heading": "N年後（YYYY年）",
+            "value": "30%",
+            "size": 30,
+            "label": "Text 3が占める割合"
+          }
+        ]
+      }
+    },
+    {
+      "template": "delta_bars_totals",
+      "kicker": "パーツ23｜増減の縦棒＋左右合計",
+      "title": "増減の縦棒＋左右合計",
+      "source": "出典：Source 1",
+      "parts": {
+        "axisTitle": "指標名",
+        "unit": "単位、YYYY〜YYYY年",
+        "upLabel": "増える分",
+        "downLabel": "減る分",
+        "categories": [
+          {
+            "label": "ラベル 2",
+            "up": 90,
+            "down": 50
+          },
+          {
+            "label": "ラベル 3",
+            "up": 68,
+            "down": 88
+          },
+          {
+            "label": "ラベル 4",
+            "up": 32,
+            "down": 12
+          },
+          {
+            "label": "ラベル 5",
+            "up": 10,
+            "down": 43
+          },
+          {
+            "label": "ラベル 6",
+            "up": 52,
+            "down": 46
+          }
+        ],
+        "upTotal": 200,
+        "downTotal": 185
+      }
+    },
+    {
+      "template": "scenario_lines_cagr",
+      "kicker": "パーツ24｜シナリオ線＋成長率チップ",
+      "title": "シナリオ線＋成長率チップ",
+      "source": "出典：Source 1",
+      "parts": {
+        "axisTitle": "指標名",
+        "unit": "単位、YYYY〜YYYY年",
+        "categories": [
+          "YYYY",
+          "YYYY",
+          "YYYY",
+          "YYYY",
+          "YYYY",
+          "YYYY"
+        ],
+        "series": [
+          {
+            "name": "Text 3が進む場合",
+            "values": [
+              35,
+              44,
+              56,
+              72,
+              91,
+              114
+            ],
+            "chip": "27%"
+          },
+          {
+            "name": "現状の延長",
+            "values": [
+              35,
+              43,
+              53,
+              65,
+              80,
+              96
+            ],
+            "chip": "23%"
+          },
+          {
+            "name": "Text 4が遅れる場合",
+            "values": [
+              35,
+              42,
+              50,
+              59,
+              70,
+              81
+            ],
+            "chip": "19%"
+          }
+        ],
+        "chipTitle": "年平均成長率"
+      }
+    },
+    {
+      "template": "research_basis",
+      "kicker": "パーツ25｜調査の土台",
+      "title": "調査の土台",
+      "source": "出典：Source 1（調査期間 YYYY年M月〜M月）",
+      "parts": {
+        "methodTitle": "調べ方",
+        "methods": [
+          "Text 1",
+          "Text 2",
+          "Text 3"
+        ],
+        "targetTitle": "調べた対象",
+        "targets": [
+          {
+            "n": "ラベル 1社",
+            "text": "Text 4"
+          },
+          {
+            "n": "ラベル 2件",
+            "text": "Text 5"
+          },
+          {
+            "n": "Nか月",
+            "text": "Text 6"
+          }
+        ]
+      }
+    },
+    {
+      "template": "issue_action_columns",
+      "kicker": "パーツ26｜課題と打ち手の2カラム",
+      "title": "課題と打ち手の2カラム",
+      "source": "出典：Source 1",
+      "parts": {
+        "headers": {
+          "issue": "いま起きている課題",
+          "action": "これから打つ手"
+        },
+        "rows": [
+          {
+            "issue": {
+              "label": "ラベル 1",
+              "text": "Text 1"
+            },
+            "action": {
+              "label": "ラベル 4",
+              "text": "Text 4"
+            }
+          },
+          {
+            "issue": {
+              "label": "ラベル 2",
+              "text": "Text 2"
+            },
+            "action": {
+              "label": "ラベル 5",
+              "text": "Text 5"
+            }
+          },
+          {
+            "issue": {
+              "label": "ラベル 3",
+              "text": "Text 3"
+            },
+            "action": {
+              "label": "ラベル 6",
+              "text": "Text 6"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "template": "agenda_separator",
+      "kicker": "パーツ27｜セパレーター（章扉＝アジェンダ再掲）",
+      "title": "セパレーター（章扉＝アジェンダ再掲）",
+      "parts": {
+        "items": [
+          {
+            "n": "01",
+            "text": "ラベル 1",
+            "page": "P.4",
+            "current": false
+          },
+          {
+            "n": "02",
+            "text": "ラベル 2",
+            "page": "P.9",
+            "current": true
+          },
+          {
+            "n": "03",
+            "text": "ラベル 3",
+            "page": "P.15",
+            "current": false
+          },
+          {
+            "n": "04",
+            "text": "ラベル 4",
+            "page": "P.21",
+            "current": false
+          }
+        ]
+      }
     }
   ]
 }
