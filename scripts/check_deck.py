@@ -93,10 +93,12 @@ def check_title(idx, title):
         fail(f"p{idx}: タイトルがですます調 → 体言止めに: 「{t}」")
     # タイトルは PPTX/HTML とも2行まで許容。1行目安(TITLE_MAX=40字)超は WARN、2行にも収まらない長さ(>80字)だけ FAIL。
     # 文字を縮小して1行に詰めるのは不可（slide-rules §2.1）。
-    if len(t) > TITLE_MAX * 2:
-        fail(f"p{idx}: タイトル {len(t)} 字（>{TITLE_MAX*2}・2行にも収まらない。主張を絞る）: 「{t}」")
-    elif len(t) > TITLE_MAX:
-        warn(f"p{idx}: タイトル {len(t)} 字（2行になる想定。意味の切れ目で改行・泣き別れなし・文字縮小で1行に詰めない）: 「{t}」")
+    # 半角文字（英数・記号・空白）は全角の半分として数える（英語タイトルを日本語基準で FAIL にしない）
+    tlen = sum(0.5 if ord(ch) < 0x3000 else 1 for ch in t)
+    if tlen > TITLE_MAX * 2:
+        fail(f"p{idx}: タイトル 全角換算{tlen:.0f}字（>{TITLE_MAX*2}・2行にも収まらない。主張を絞る）: 「{t}」")
+    elif tlen > TITLE_MAX:
+        warn(f"p{idx}: タイトル 全角換算{tlen:.0f}字（2行になる想定。意味の切れ目で改行・泣き別れなし・文字縮小で1行に詰めない）: 「{t}」")
     if re.match(r"^(Step|STEP|ステップ)\s*\d", t):
         fail(f"p{idx}: タイトルに Step 連結（タグチップで表現）: 「{t}」")
     if re.search(r"^(この|その|ここまで)", t):
