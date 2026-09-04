@@ -1,9 +1,9 @@
 # consulting-pptx-skill
 
 **AIに「まじな」のPowerPointを作らせるためのClaude Codeスキル。**
-スライド作成規約（約110項目）＋機械チェック＋**自由記述パーツ集27パーツ**＋コンサル型スライド36型のSlideSpec（JSONによるスライド定義）＋生成パイプライン（HTMLプレビュー→編集可能PPTX）の一式です。
+スライド作成規約（約110項目）＋機械チェック＋**62型のスライド型カタログ**（自由記述パーツ集27パーツ＋SlideSpecで生成する36型）＋生成パイプライン（HTMLプレビュー→編集可能PPTX）の一式です。
 
-A Claude Code skill for generating boardroom-quality decks: a 27-part freeform HTML parts library, a catalog of 36 consulting slide archetypes with a JSON SlideSpec format, a render pipeline (HTML preview → natively editable PPTX), a slide-design rulebook, and an automated rule checker.
+A Claude Code skill for generating boardroom-quality decks: a 62-archetype slide catalog (a freeform HTML parts library plus 36 SlideSpec-generated archetypes with natively editable PPTX export), a render pipeline (HTML preview → editable PPTX), a slide-design rulebook, and an automated rule checker.
 
 私たちが実際に毎週の提案書・報告書づくりで使っている仕組みの公開版です。解説記事はこちら → [AIにまじなスライド作らせる（note）](https://note.com/jinbaflow/n/nc8372b84e572)
 
@@ -13,7 +13,7 @@ A Claude Code skill for generating boardroom-quality decks: a 27-part freeform H
 
 使い方はシンプルで、**AIに資料を作らせる前に毎回このファイルを読ませ、出力後に `scripts/check_deck.py` で違反を機械検出し、最後に `references/content-review-prompt.md` で作り方を伏せた別エージェントにデッキのファイルを渡して、日本語の言い回し・論理展開・内容の矛盾を拾わせ、指摘を採否表にして採用分だけ直す**だけ。AIはセッションごとに記憶がリセットされるので、口頭で注意しても定着しません。ルールをファイル化して毎回読ませるのが唯一の定着方法です。
 
-そして、良いスライドを作るのは型ではなく**流し込んだ後の調整**です。表を2枚に割る、右カラムを帰結形に書き直す、タイトルの通し読みでストーリーを繋ぎ直す — 型に囚われず考えて直し、そこで受けた指摘をまた slide-rules.md に1行追記する。この蓄積ループが品質の源泉で、36型テンプレとパイプラインは「たたき台を数十秒で出して、調整の反復回数を稼ぐ」ための道具にすぎません。
+そして、良いスライドを作るのは型ではなく**流し込んだ後の調整**です。表を2枚に割る、右カラムを帰結形に書き直す、タイトルの通し読みでストーリーを繋ぎ直す — 型に囚われず考えて直し、そこで受けた指摘をまた slide-rules.md に1行追記する。この蓄積ループが品質の源泉で、型カタログとパイプラインは「たたき台を数十秒で出して、調整の反復回数を稼ぐ」ための道具にすぎません。
 
 自社で使うときは、slide-rules.md に自社の規約・指摘を追記して育ててください。
 
@@ -28,9 +28,15 @@ A Claude Code skill for generating boardroom-quality decks: a 27-part freeform H
 - **表**（§6）: 主張に効かない列は置かない。列見出しは中身を指す具体名詞（「事実」のような抽象語は不可）。列を定義したらセルの粒度を揃え、別カテゴリを混ぜない。
 - **フレッシュアイ・レビュー**（§8）: 文脈を共有しない別エージェントにデッキのファイルを渡し、日本語・論理・破綻を指摘させ、採否表を作ってから直す。`check_deck.py` はタイトル80字超のみ FAIL、40字超は「2行想定」の WARN。
 
-## 型の数え方
+## 62型のスライド型カタログ
 
-「36型」「27パーツ」は、SlideSpec で生成できる型と自由記述パーツ集の見出しの数であって、作れる見せ方の上限ではありません。実際のデッキでは、型を組み合わせたり崩したりして規約の範囲で自由に組むので、見せ方のパターンはこれより多くなります。型カタログは「レイアウトの発想帳」として使い、合わなければ捨ててください。36型の見本は [docs/catalog/](docs/catalog/) に1枚ずつ画像で置いています（テンプレ再描画: `TEMPLATE_MODE=1 npm run render -- slide-spec/super_template.json generated/super_template.html`。型名だけのタイトルは通常の最短字数チェックに引っかかるため、この環境変数で検証を外します）。
+入口は **[assets/SlideCatalog_16x9.pdf](assets/SlideCatalog_16x9.pdf)**（70ページ）です。A 枠組み／B 数字で証明／C 比較・評価／D 構造で通す／E 進め方・計画／F 提示・締め の6章に62型を並べ、P.2 の索引と各ページ右下の「PPTX」「HTML」がその型を出せる経路を示します。同じ70枚を PPTX にした **[assets/SuperTemplate_62type.pptx](assets/SuperTemplate_62type.pptx)** も置いています（SlideSpec由来の35型は編集可能な図形のまま、HTML経路の27パーツと索引・章扉は画像。スライド番号＝カタログのページ番号）。
+
+「62型」は作れる見せ方の上限ではありません。実際のデッキでは、型を組み合わせたり崩したりして規約の範囲で自由に組むので、見せ方のパターンはこれより多くなります。型カタログは「レイアウトの発想帳」として使い、合わなければ捨ててください。
+
+内訳は、自由記述パーツ集の27パーツと、SlideSpec で生成できる36型のうち表紙を除く35型（表紙はパーツ集側のものを収録）。36型だけの見本は [docs/catalog/](docs/catalog/) に1枚ずつ画像でも置いています（テンプレ再描画: `TEMPLATE_MODE=1 npm run render -- slide-spec/super_template.json generated/super_template.html`。型名だけのタイトルは通常の最短字数チェックに引っかかるため、この環境変数で検証を外します）。
+
+カタログと見本帳の再生成は `python3 scripts/build_slide_catalog.py`（要: `pipeline/` で `npm run setup` 済み、`pip3 install pymupdf python-pptx`、LibreOffice）。見本帳の配色は HTML パーツ集と同じブラウン系で統一しています。SlideSpec から生成するデッキの既定色はネイビーで、SlideSpec ルートの `palette` で変えられます。
 
 ## 作り方は2経路、型カタログは1本
 
@@ -96,7 +102,7 @@ npm run setup
 
 あとはClaude Codeにこう頼みます:
 
-> 新規事業の投資判断資料を作りたい。36型から型を選んで10枚構成のSlideSpecを書き、パイプラインで編集可能なPPTXまで出して。作成前に slide-rules.md を読み、出力後は check_deck.py でFAIL 0にすること。
+> 新規事業の投資判断資料を作りたい。型カタログから型を選んで10枚構成のSlideSpecを書き、パイプラインで編集可能なPPTXまで出して。作成前に slide-rules.md を読み、出力後は check_deck.py でFAIL 0にすること。
 
 ## 手動で使う場合
 
@@ -118,19 +124,23 @@ node ../scripts/check_layout.mjs generated/deck.html                            
 
 | パス | 内容 |
 | --- | --- |
-| `SKILL.md` | 実運用フロー＋36型カタログ（AIへの指示書。これがスキルの本体） |
+| `SKILL.md` | 実運用フロー＋型カタログの一覧（AIへの指示書。これがスキルの本体） |
 | `templates/freeform_parts_16x9.html` | 自由記述パーツ集（27パーツ・1パーツ=1スライド・16:9）。本線の作り方 |
 | `pipeline/` | 生成スクリプト（validate / render / qa / export / shots）＋CSS |
 | `pipeline/slide-spec/super_template.json` | 36型すべての完成SlideSpec定義（コピーして使う正本） |
 | `pipeline/slide-spec/example_deck.json` | 記入例3枚（上のプレビュー画像の元データ） |
 | `pipeline/slide-spec/schema.json` | SlideSpecスキーマ |
-| `references/slide-rules.md` | スライド作成ルール正典（約80項目） |
+| `references/slide-rules.md` | スライド作成ルール正典（約110項目） |
 | `references/content-review-prompt.md` | フレッシュアイ・レビューの指示文。機械チェックのあと、作り方を伏せた別エージェントにデッキのファイルを渡して日本語・論理・破綻を拾わせ、採否表にして直す |
 | `scripts/check_deck.py` | 規約の機械チェック（PPTX / HTML両対応。要 `pip3 install python-pptx`。テンプレ集の検査は `--template`）。タイトルの「N段階」と本文の連番の食い違いも FAIL にする |
 | `scripts/check_layout.mjs` | HTMLデッキの実レンダリング検査（フッターとの重なり・右端/下端のはみ出し） |
-| `assets/SuperTemplate_36type.pptx` | おまけ: 36型を1枚ずつ収めた見本帳PPTX（[PDF版](assets/SuperTemplate_36type.pdf)） |
+| `scripts/build_slide_catalog.py` | 62型カタログPDFと見本帳PPTX（62型／36型）・単体PDFをまとめて再生成する |
+| `assets/SlideCatalog_16x9.pdf` | **62型のスライド型カタログ（70ページ）。型を探すときの入口** |
+| `assets/SuperTemplate_62type.pptx` | カタログと同じ70枚のPPTX見本帳（SlideSpec由来の35型＝編集可能図形、HTML経路27パーツ＋索引・章扉＝画像） |
+| `assets/SuperTemplate_36type.pptx` | SlideSpecで生成できる36型だけの見本帳（全て編集可能図形。[PDF版](assets/SuperTemplate_36type.pdf)） |
+| `assets/FreeformParts_16x9.pdf` | 自由記述パーツ集27パーツの一覧PDF |
 
-Node.jsが無い環境でも、見本帳PPTXの手動コピペとルール正典・機械チェックはそのまま使えます。
+Node.jsが無い環境でも、カタログPDFで型を選び、見本帳PPTXから手動コピペし、ルール正典と機械チェックを使うところまでは Node.js なしで回せます。
 
 ## カスタマイズ
 

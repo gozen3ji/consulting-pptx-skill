@@ -23,13 +23,14 @@ description: スライド設計規約 slide-rules.md（実務レビュー由来�
 | もの | パス |
 | --- | --- |
 | 生成パイプライン（Node製） | `pipeline/`（validate / render / qa / export） |
+| 型カタログ（62型・入口はここ） | `assets/SlideCatalog_16x9.pdf`（P.2が索引。右下の PPTX / HTML が生成経路） |
 | 36型のSlideSpec正本 | `pipeline/slide-spec/super_template.json` |
 | SlideSpecスキーマ | `pipeline/slide-spec/schema.json` |
 | スライド設計規約（正典） | `references/slide-rules.md` |
 | 自由記述パーツテンプレ（本線Aレーン用） | `templates/freeform_parts_16x9.html`（表紙・全体マップ・矢羽・前提→帰結2カラム・スタット・軸のある表など10パーツ。ニュートラル配色） |
 | フレッシュアイ・レビューの指示文（納品前に文脈を共有しない別エージェントで読み合わせ） | `references/content-review-prompt.md` |
 | 機械チェックスクリプト | `scripts/check_deck.py`（PPTXを検査するときのみ `pip3 install python-pptx` が必要。HTML検査は標準ライブラリのみ） |
-| おまけ: テンプレPPTX見本帳 | `assets/SuperTemplate_36type.pptx`（全36型を1枚ずつ収録。手動利用・一覧確認用） |
+| PPTX見本帳 | `assets/SuperTemplate_62type.pptx`（カタログと同じ70枚。SlideSpec由来の35型＝編集可能図形、HTML経路27パーツ＋索引・章扉＝画像）／`assets/SuperTemplate_36type.pptx`（36型のみ・全て編集可能図形） |
 
 ## 規約の要点（全文は references/slide-rules.md — 作成前に必読）
 
@@ -129,7 +130,7 @@ description: スライド設計規約 slide-rules.md（実務レビュー由来�
 
 ## おまけ: テンプレPPTX見本帳の使い方
 
-`assets/SuperTemplate_36type.pptx` は同じ36型を1型=1スライドで収めた見本帳。
+`assets/SlideCatalog_16x9.pdf` は自由記述パーツ27型も含めた62型の統合カタログ（SlideSpec側は表紙を除く35型）、`assets/SuperTemplate_62type.pptx` はその PPTX 版。`assets/SuperTemplate_36type.pptx` は同じ36型を1型=1スライドで収めた見本帳。
 - 型選定時の**目視カタログ**として眺める
 - Node環境が無い場合の**手動フォールバック**として、該当スライドをコピーして文言を差し替える
 のどちらでも使える。ただし品質の再現性はSlideSpecパイプライン経由のほうが高い。

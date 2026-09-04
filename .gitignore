@@ -1,3 +1,4 @@
-node_modules/
+node_modules
 generated/
+__pycache__/
 .DS_Store

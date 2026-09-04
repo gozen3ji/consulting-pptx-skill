@@ -4,6 +4,7 @@
 使い方:
   python3 check_deck.py out.pptx
   python3 check_deck.py deck.html
+  python3 check_deck.py assets/SuperTemplate_36type.pptx --template   # テンプレ集そのものを検査するとき
 
 正典: references/slide-rules.md
 終了コード: FAIL があれば 1。
@@ -213,6 +214,13 @@ def check_pptx(path):
             for c in OLD_COLORS:
                 if f'val="{c}"' in xml or f'val="{c.lower()}"' in xml:
                     fail(f"p{idx}: 禁止色 {c}")
+            # ブレット記号のテキスト直打ち（slide-rules §7.3: マーカーは buChar 書式で付与）
+            lb = len(re.findall(r"<a:t>\s*•", xml))
+            if lb:
+                fail(f"p{idx}: ブレット「•」を本文テキストに直打ち ×{lb}（buChar/buNone 書式に — slide-rules §7.3）")
+            ld = len(re.findall(r"<a:t>\s*[–‐-]\s\s", xml))
+            if ld:
+                warn(f"p{idx}: 第2階層マーカー「– 」らしきテキスト直打ち ×{ld}（buChar 書式に — slide-rules §7.3）")
         # theme / master も色チェック
         for n in z.namelist():
             if "theme" in n or "slideMaster" in n or "slideLayout" in n:
@@ -327,9 +335,14 @@ def check_html(path):
 
 
 def main():
-    if len(sys.argv) < 2:
+    global TEMPLATE_MODE
+    args = sys.argv[1:]
+    if "--template" in args:
+        TEMPLATE_MODE = True
+        args.remove("--template")
+    if not args:
         sys.exit(__doc__)
-    p = sys.argv[1]
+    p = args[0]
     titles = check_pptx(p) if p.lower().endswith(".pptx") else check_html(p)
     if not TEMPLATE_MODE:
         check_title_variety(titles)
