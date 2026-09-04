@@ -83,19 +83,76 @@ function addKicker(slide, text) {
   });
 }
 
+// 2026-09-05 スキル有無検証の反映（slide-rules §2.13 / §5.13）
+// 全角換算の文字数（半角は0.5）
+function fwLen(str) {
+  let n = 0;
+  for (const ch of String(str || "")) n += ch.charCodeAt(0) < 0x3000 ? 0.5 : 1;
+  return n;
+}
+// 1行に入る全角換算文字数（箱幅 in ／ フォントサイズ pt）
+function lineCapacity(wIn, fontPt, factor = 1.0) {
+  return Math.max(4, Math.floor(wIn / ((fontPt / 72) * factor)));
+}
+// 意味の切れ目で改行を入れて泣き別れ（末尾1〜3字）を防ぐ。容量を超えないときはそのまま返す。
+function smartBreak(text, cap, minTail = 4) {
+  const t = String(text || "").replace(/\r/g, "");
+  if (!t || t.includes("\n")) return t;
+  if (fwLen(t) <= cap) return t;
+  const chars = [...t];
+  // 位置 i で切る＝chars[0..i) が1行目
+  const isBreakAfter = (ch) => /[、。：:）)」』\s／/・]/.test(ch);
+  const isBreakBefore = (ch) => /[（(「『]/.test(ch);
+  let best = -1;
+  let acc = 0;
+  const total = fwLen(t);
+  for (let i = 1; i < chars.length; i++) {
+    acc += chars[i - 1].charCodeAt(0) < 0x3000 ? 0.5 : 1;
+    if (acc > cap) break;
+    const tail = total - acc;
+    if (tail < minTail) break;
+    if (isBreakAfter(chars[i - 1]) || isBreakBefore(chars[i])) best = i;
+  }
+  if (best < 0) {
+    // 切れ目が無ければ容量の手前で、末尾が minTail 以上残る位置で切る
+    acc = 0;
+    for (let i = 1; i < chars.length; i++) {
+      acc += chars[i - 1].charCodeAt(0) < 0x3000 ? 0.5 : 1;
+      if (acc > cap - 1) break;
+      if (total - acc >= minTail) best = i;
+    }
+  }
+  if (best <= 0) return t;
+  return chars.slice(0, best).join("") + "\n" + chars.slice(best).join("");
+}
+// テキストの実高さ（in）を推定する。宣言した箱の高さより小さければ、その値で中央寄せに使う。
+function estTextHeight(text, wIn, fontPt) {
+  const cap = lineCapacity(Math.max(0.3, wIn - 0.1), fontPt);
+  const paras = Array.isArray(text)
+    ? text.map((r) => (r && typeof r === "object" ? String(r.text || "") : String(r || "")))
+    : String(text || "").split("\n");
+  let lines = 0;
+  for (const p of paras) lines += Math.max(1, Math.ceil(fwLen(p) / cap));
+  return lines * (fontPt / 72) * 1.35 + 0.08;
+}
+
 function addTitle(slide, title, opts = {}) {
-  slide.addText(title, {
+  // slide-rules §2.1/§2.13: 2行タイトルは意味の切れ目で明示改行し、文字を縮小して1行に詰めない
+  const cap = lineCapacity(W - M * 2, 22, 1.0);
+  const text = smartBreak(title, cap - 1);
+  const twoLines = text.includes("\n");
+  slide.addText(text, {
     x: M,
     y: 1.00,
     w: W - M * 2,
-    h: 0.55,
+    h: twoLines ? 0.95 : 0.55,
     fontFace: FONT_SERIF,
     fontSize: 22,
     bold: false,
     color: INK,
     margin: 0,
     breakLine: false,
-    fit: "shrink",
+    fit: "none",
     valign: "top",
   });
   // Client rule: no title-underline by default. Opt in with { titleRule: true }.
@@ -197,6 +254,11 @@ function opGeometry(method, args) {
     h = Array.isArray(opts.rowH) ? opts.rowH.reduce((a, b) => a + b, 0) : args[0].length * 0.35;
   }
   if (h === null) h = 0;
+  // 2026-09-05 §5.13: 宣言した箱の高さでなく、テキストの実高さ推定で下端を測る（下半分が空く原因の除去）
+  if (method === "addText" && typeof opts.w === "number" && opts.fontSize) {
+    const est = estTextHeight(args[0], opts.w, opts.fontSize);
+    if (est < h) h = est;
+  }
   return { opts, top: opts.y, bottom: opts.y + h };
 }
 
@@ -284,23 +346,28 @@ function addCover(item, pageNum) {
     line: { color: CYAN, transparency: 25, width: 0.7 },
   });
   addKicker(slide, item.kicker);
-  slide.addText(item.title, {
+  // 2026-09-05: 表紙タイトル・サブタイトルも意味の切れ目で改行（泣き別れ防止）。サブタイトル幅は本文幅に拡大
+  const cTitle = smartBreak(item.title, lineCapacity(7.6, 38, 1.0) - 1);
+  const cLines = cTitle.split("\n").length;
+  const cTitleH = Math.max(1.15, cLines * 0.62);
+  slide.addText(cTitle, {
     x: M,
     y: 2.75,
     w: 7.6,
-    h: 1.15,
+    h: cTitleH,
     fontFace: FONT,
     fontSize: 38,
     bold: true,
     color: INK,
     margin: 0,
-    fit: "shrink",
+    fit: "none",
   });
-  slide.addText(item.subtitle || "", {
+  const cSub = smartBreak(item.subtitle || "", lineCapacity(7.6, 14, 1.0) - 1);
+  slide.addText(cSub, {
     x: M,
-    y: 4.05,
-    w: 4.8,
-    h: 0.35,
+    y: 2.75 + cTitleH + 0.15,
+    w: 7.6,
+    h: 0.3 * cSub.split("\n").length + 0.1,
     fontFace: FONT,
     fontSize: 14,
     color: INK,
@@ -741,12 +808,11 @@ function addCurrentTargetState(item, pageNum) {
     const bl = toFormattedBullets(p.bullets);
     if (bl) addBodyText(slide, bl, x + 0.3, y + 1.4, panelW - 0.6, panelH - 1.5, { fontSize: 12 });
   });
-  // canonical circle-arrow: navy circle + white chevron marking "current leads to target"
-  const ax = M + panelW + (gap - 0.56) / 2;
-  const acy = y + panelH / 2;
-  slide.addShape(pptx.ShapeType.ellipse, { x: ax, y: acy - 0.28, w: 0.56, h: 0.56, fill: { color: NAVY }, line: { color: NAVY } });
-  // Geometric shape instead of a text glyph so the marker is exactly centered.
-  slide.addShape(pptx.ShapeType.triangle, { x: ax + 0.19, y: acy - 0.09, w: 0.19, h: 0.18, rotate: 90, fill: { color: WHITE }, line: { color: WHITE } });
+  // 2026-09-05 検証FB: 塗り円＋三角の「▶」は意味を持たない飾りに見える（slide-rules §7.13/§5.13）。
+  // 現状→あるべき姿の遷移は細いシェブロン1本で示す（パーツ集の対向シェブロンと同じ文法）。
+  const ax = M + panelW + gap / 2;
+  const acy = y + 0.9;
+  slide.addText("›", { x: ax - 0.2, y: acy - 0.3, w: 0.4, h: 0.6, fontFace: FONT, fontSize: 30, color: MUTED, align: "center", valign: "middle", margin: 0 });
 }
 
 function addDecisionFork(item, pageNum) {

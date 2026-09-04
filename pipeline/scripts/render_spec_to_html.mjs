@@ -102,13 +102,27 @@ function footer(slide, n) {
   return `<footer class="footer"><span class="source">${esc(source || "Source: Synthetic example")}</span><span>${n}</span></footer>`;
 }
 
+// 2026-09-05 slide-rules §2.13: タイトルは意味の切れ目で改行し泣き別れを作らない（PPTX 書き出しと同じ規則）
+function fwLen(str) { let n = 0; for (const ch of String(str || "")) n += ch.charCodeAt(0) < 0x3000 ? 0.5 : 1; return n; }
+function smartBreak(text, cap, minTail = 4) {
+  const t = String(text || "");
+  if (!t || t.includes("\n") || fwLen(t) <= cap) return t;
+  const chars = [...t]; const total = fwLen(t);
+  const after = (ch) => /[、。：:）)」』\s／/・]/.test(ch); const before = (ch) => /[（(「『]/.test(ch);
+  let best = -1, acc = 0;
+  for (let i = 1; i < chars.length; i++) { acc += chars[i-1].charCodeAt(0) < 0x3000 ? 0.5 : 1; if (acc > cap) break; if (total - acc < minTail) break; if (after(chars[i-1]) || before(chars[i])) best = i; }
+  if (best < 0) { acc = 0; for (let i = 1; i < chars.length; i++) { acc += chars[i-1].charCodeAt(0) < 0x3000 ? 0.5 : 1; if (acc > cap - 1) break; if (total - acc >= minTail) best = i; } }
+  return best > 0 ? chars.slice(0, best).join("") + "\n" + chars.slice(best).join("") : t;
+}
+function titleHtml(text, cap) { return esc(smartBreak(text, cap)).replaceAll("\n", "<br>"); }
+
 function shell(slide, n, body, opts = {}) {
   // Client rule: no title-underline by default. Opt in with { titleRule: true }.
   const slideClass = opts.titleRule === true ? "slide" : "slide slide--no-title-rule";
   return `<section class="${slideClass}">
   <div class="slide-inner">
     <div class="kicker">${esc(slide.kicker || slide.template.replaceAll("_", " "))}</div>
-    <h2 class="title">${esc(slide.title)}</h2>
+    <h2 class="title">${titleHtml(slide.title, 38)}</h2>
     <div class="rule"></div>
     <div class="content">${slide.subtitle && !opts.ownSubtitle ? `<div class="metric-sub">${esc(slide.subtitle)}</div>` : ""}${body}</div>
     ${footer(slide, n)}
@@ -123,7 +137,7 @@ function renderCover(slide, n) {
     <div></div>
     <div>
       <div class="kicker">${esc(slide.kicker)}</div>
-      <h1 class="cover-title">${esc(slide.title)}</h1>
+      <h1 class="cover-title">${titleHtml(slide.title, 18)}</h1>
       <div class="cover-meta">${esc(slide.subtitle || "").replaceAll("|", "<br>")}</div>
     </div>
     ${footer(slide, n)}

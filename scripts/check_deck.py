@@ -85,7 +85,8 @@ def check_terms(pages):
         if hits_a and hits_b:
             warn(f"表記ゆれ疑い: 「{la}」p{hits_a} と「{lb}」p{hits_b} が混在（§7.6 1資料1用語。別概念なら可・目視確認）")
 
-def check_title(idx, title):
+def check_title(idx, title, explicit_break=False):
+    # explicit_break: 意味の切れ目で明示改行済み（2026-09-05 §2.13）なら2行想定の WARN は出さない
     t = title.strip()
     if not t:
         warn(f"p{idx}: タイトルが空（表紙/扉なら可）")
@@ -98,7 +99,7 @@ def check_title(idx, title):
     tlen = sum(0.5 if ord(ch) < 0x3000 else 1 for ch in t)
     if tlen > TITLE_MAX * 2:
         fail(f"p{idx}: タイトル 全角換算{tlen:.0f}字（>{TITLE_MAX*2}・2行にも収まらない。主張を絞る）: 「{t}」")
-    elif tlen > TITLE_MAX:
+    elif tlen > TITLE_MAX and not explicit_break:
         warn(f"p{idx}: タイトル 全角換算{tlen:.0f}字（2行になる想定。意味の切れ目で改行・泣き別れなし・文字縮小で1行に詰めない）: 「{t}」")
     if re.match(r"^(Step|STEP|ステップ)\s*\d", t):
         fail(f"p{idx}: タイトルに Step 連結（タグチップで表現）: 「{t}」")
@@ -166,6 +167,60 @@ def check_count_match(idx, title, text):
 
 
 # ---------------------------------------------------------------- PPTX
+# ---- 2026-09-05 スキル有無検証から追加（slide-rules §2.13 泣き別れ／§5.13 版面充填率）
+def _fwlen(t):
+    return sum(0.5 if ord(ch) < 0x3000 else 1 for ch in t)
+
+def check_orphan(idx, shape, label="タイトル"):
+    """箱幅とフォントサイズから1行容量を推定し、最終行が1〜3字だけになる折返し（泣き別れ）を WARN"""
+    try:
+        if not (shape.has_text_frame and shape.width):
+            return
+        tf = shape.text_frame
+        raw = tf.text
+        if not raw.strip():
+            return
+        szs = [r.font.size.pt for p in tf.paragraphs for r in p.runs if r.font.size]
+        if not szs:
+            return
+        pt = max(szs)
+        w_in = shape.width / 914400.0
+        cap = max(4, int(w_in / (pt / 72.0)))
+        for line in raw.split("\n"):
+            L = _fwlen(line.strip())
+            if L <= cap:
+                continue
+            last = L - cap * ((int(-(-L // cap))) - 1)
+            if 0 < last <= 3:
+                warn(f"p{idx}: {label}が泣き別れの疑い（推定{int(-(-L // cap))}行目が約{last:.0f}字だけ。意味の切れ目で明示改行 — slide-rules §2.13）: 「{line.strip()[:40]}」")
+    except Exception:
+        return
+
+def check_fill_ratio(idx, slide, title_shape):
+    """本文（タイトル下〜出典行上）の縦幅に対する本文要素の占有率。55%未満は WARN（§5.13）"""
+    try:
+        top_lim = 1.6 * 914400
+        bot_lim = 6.8 * 914400
+        tops, bots = [], []
+        for sh in slide.shapes:
+            if sh is title_shape or sh.top is None or sh.height is None:
+                continue
+            t, b = sh.top, sh.top + sh.height
+            if b <= top_lim or t >= bot_lim:
+                continue  # キッカー/タイトル/フッター
+            # 幅いっぱいの罫線（フッター罫・タイトル罫）は除外
+            if sh.height < 914400 * 0.02 and sh.width and sh.width > 914400 * 11:
+                continue
+            tops.append(max(t, top_lim)); bots.append(min(b, bot_lim))
+        if not tops:
+            return
+        cov = (max(bots) - min(tops)) / (bot_lim - top_lim)
+        if cov < 0.55:
+            warn(f"p{idx}: 版面充填率 {cov*100:.0f}%（本文が版面の半分未満。情報を足すか型を変える。飾りで埋めない — slide-rules §5.13）")
+    except Exception:
+        return
+
+
 def check_pptx(path):
     try:
         from pptx import Presentation
@@ -242,9 +297,26 @@ def check_pptx(path):
                     cands.append((sz, sh.text_frame.text))
             if cands:
                 title = max(cands)[1]
+        # 2026-09-05: 泣き別れ推定（タイトル＋表紙の大きな文字）と版面充填率
+        title_shape = None
+        for sh in s.shapes:
+            if sh.has_text_frame and sh.text_frame.text == title:
+                title_shape = sh
+                break
+        if title_shape is not None:
+            check_orphan(i, title_shape, "タイトル")
+        if i == 1:
+            for sh in s.shapes:
+                if sh is not title_shape and sh.has_text_frame:
+                    szs = [r.font.size.pt for p in sh.text_frame.paragraphs for r in p.runs if r.font.size]
+                    if szs and max(szs) >= 13 and len(sh.text_frame.text) < 80:
+                        check_orphan(i, sh, "表紙の文字")
+        else:
+            check_fill_ratio(i, s, title_shape)
+        explicit_break = "\n" in title.strip() and all(_fwlen(l.strip()) <= TITLE_MAX for l in title.split("\n"))
         title = title.replace("\n", " ")
         titles.append(title)
-        check_title(i, title)
+        check_title(i, title, explicit_break)
         check_count_match(i, title, dict(term_pages).get(i, ""))
         # サブタイトル疑い: タイトル直下 (y 1.2〜1.75in) の細字テキスト1行
         for sh in s.shapes:
