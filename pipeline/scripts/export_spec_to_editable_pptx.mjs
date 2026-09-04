@@ -532,6 +532,8 @@ function addTableLike(slide, headers, rows, widths, y, opts = {}) {
     x: M,
     y,
     w: widths.reduce((a, b) => a + b, 0),
+    // 2026-09-05: h を明示しないと graphicFrame の cy が 1in になり、check_deck の版面充填率が実態より低く出る
+    h: headerH + bodyH * rows.length,
     colW: widths,
     rowH: [headerH, ...rows.map(() => bodyH)],
     fontFace: FONT,
