@@ -32,7 +32,7 @@ def warn(msg):
 # テンプレ集そのものを検査するときだけ True（--template）。
 # 通常のデッキでは「Text N」「◯◯」等のプレースホルダーが残っていたら FAIL にする。
 TEMPLATE_MODE = False
-STRICT_LEN = True  # PPTX: 1行40字。HTMLは2行まで許容(>60でFAIL)
+STRICT_LEN = True  # 互換のため残置。PPTX/HTMLとも2行許容（>80字のみFAIL）
 
 # 表記ゆれ代表ペア（slide-rules §7.6: 1資料1用語）。両方の表記が同一資料に現れたら WARN。
 # (ラベルA, パターンA, ラベルB, パターンB)
@@ -91,12 +91,12 @@ def check_title(idx, title):
         return
     if re.search(r"(です|ます|でした|ました)[。．.]?$", t):
         fail(f"p{idx}: タイトルがですます調 → 体言止めに: 「{t}」")
-    if STRICT_LEN and len(t) > TITLE_MAX:
-        fail(f"p{idx}: タイトル {len(t)} 字（>{TITLE_MAX}・PPTXは1行）: 「{t}」")
-    elif len(t) > 60:
-        fail(f"p{idx}: タイトル {len(t)} 字（>60）: 「{t}」")
+    # タイトルは PPTX/HTML とも2行まで許容。1行目安(TITLE_MAX=40字)超は WARN、2行にも収まらない長さ(>80字)だけ FAIL。
+    # 文字を縮小して1行に詰めるのは不可（slide-rules §2.1）。
+    if len(t) > TITLE_MAX * 2:
+        fail(f"p{idx}: タイトル {len(t)} 字（>{TITLE_MAX*2}・2行にも収まらない。主張を絞る）: 「{t}」")
     elif len(t) > TITLE_MAX:
-        warn(f"p{idx}: タイトル {len(t)} 字（2行になる想定。泣き別れしない改行位置か目視確認）: 「{t}」")
+        warn(f"p{idx}: タイトル {len(t)} 字（2行になる想定。意味の切れ目で改行・泣き別れなし・文字縮小で1行に詰めない）: 「{t}」")
     if re.match(r"^(Step|STEP|ステップ)\s*\d", t):
         fail(f"p{idx}: タイトルに Step 連結（タグチップで表現）: 「{t}」")
     if re.search(r"^(この|その|ここまで)", t):
