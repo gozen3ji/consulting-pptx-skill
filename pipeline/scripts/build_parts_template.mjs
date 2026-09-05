@@ -3,12 +3,13 @@
 //   node scripts/build_parts_template.mjs --only     … プラグイン型だけの slide-spec/parts_template.json も書く（個別QA用）
 import fs from "node:fs/promises";
 import path from "node:path";
-const root = new URL("..", import.meta.url).pathname;
+import { fileURLToPath, pathToFileURL } from "node:url";
+const root = fileURLToPath(new URL("..", import.meta.url));
 const dir = path.join(root, "scripts/archetypes");
 const files = (await fs.readdir(dir)).filter((f) => f.endsWith(".mjs") && !f.startsWith("_")).sort();
 const mods = [];
 for (const f of files) {
-  const m = await import(path.join(dir, f));
+  const m = await import(pathToFileURL(path.join(dir, f)).href);
   if (m.id && m.example) mods.push(m);
 }
 mods.sort((a, b) => (a.part || 99) - (b.part || 99));
