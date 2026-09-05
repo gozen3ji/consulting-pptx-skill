@@ -4,8 +4,9 @@
 // Usage: node scripts/validate_spec.mjs <spec.json>   (exit 1 on any error)
 import fs from "node:fs/promises";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
-const root = new URL("..", import.meta.url).pathname;
+const root = fileURLToPath(new URL("..", import.meta.url));
 const specArg = process.argv[2];
 if (!specArg) {
   console.error("usage: node scripts/validate_spec.mjs <spec.json>");

@@ -1,5 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import { createRequire } from "node:module";
 
 const defaultNodeModules =
@@ -18,7 +19,7 @@ const pptxgen = load("pptxgenjs");
 const inputArg = process.argv[2] || "slide-spec/synthetic_b2b_growth.json";
 const outputArg = process.argv[3] || "generated/synthetic_b2b_growth_editable.pptx";
 
-const root = new URL("..", import.meta.url).pathname;
+const root = fileURLToPath(new URL("..", import.meta.url));
 const inputPath = path.resolve(root, inputArg);
 const outputPath = path.resolve(root, outputArg);
 const deck = JSON.parse(await fs.readFile(inputPath, "utf8"));
@@ -1590,7 +1591,7 @@ const ARCHETYPES = await (async () => {
   let files = [];
   try { files = (await fs.readdir(dir)).filter((f) => f.endsWith(".mjs") && !f.startsWith("_")).sort(); } catch { return map; }
   for (const f of files) {
-    const mod = await import(path.join(dir, f));
+    const mod = await import(pathToFileURL(path.join(dir, f)).href);
     if (mod.id && typeof mod.pptx === "function") map.set(mod.id, mod);
   }
   return map;

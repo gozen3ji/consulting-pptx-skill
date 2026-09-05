@@ -1,5 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { createRequire } from "node:module";
 
 const defaultNodeModules =
@@ -18,7 +19,7 @@ const { chromium } = load("playwright");
 const input = process.argv[2] || "html-css/styleguide.html";
 const outputDir = process.argv[3] || "examples/screenshots";
 
-const root = new URL("..", import.meta.url).pathname;
+const root = fileURLToPath(new URL("..", import.meta.url));
 const htmlPath = path.resolve(root, input);
 const screenshotsDir = path.resolve(root, outputDir);
 

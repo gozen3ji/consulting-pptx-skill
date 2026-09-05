@@ -1,4 +1,5 @@
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { createRequire } from "node:module";
 
 const moduleDir = process.env.PLAYWRIGHT_MODULE_DIR || process.env.NODE_PATH || "";
@@ -19,7 +20,7 @@ if (!input || !output) {
   process.exit(1);
 }
 
-const root = new URL("..", import.meta.url).pathname;
+const root = fileURLToPath(new URL("..", import.meta.url));
 const htmlPath = path.resolve(root, input);
 const pdfPath = path.resolve(root, output);
 
